@@ -1,0 +1,16 @@
+---
+roles: {% if ee_roles|length %}{% else %}[]{% endif %}
+
+{% for item in ee_roles %}
+- name: {{ item.name }}
+  {% if item.version is defined %}version: {{ item.version }}{% endif %}
+
+{% endfor %}
+
+collections: {% if ee_collections|length %}{% else %}[]{% endif %}
+
+{% for item in ee_collections %}
+- name: {{ item.name }}
+  {% if item.version is defined %}version: {{ item.version }}{% endif %}
+
+{% endfor %}

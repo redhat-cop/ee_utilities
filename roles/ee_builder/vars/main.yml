@@ -1,0 +1,9 @@
+---
+# vars file for ee_builder
+__ee_req_jinja_templates_item:
+  - src: bindep.j2
+    dest: bindep
+  - src: python_req.j2
+    dest: python_req
+  - src: requiremets.yml.j2
+    dest: requiremets.yml

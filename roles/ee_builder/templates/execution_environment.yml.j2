@@ -1,0 +1,36 @@
+---
+version: {{ ee_version }}
+
+build_arg_defaults:
+{% if galaxy_cli_opts is defined %}
+  ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: "{{ galaxy_cli_opts }}"
+{% endif %}
+{% if ee_base_image is defined %}
+  EE_BASE_IMAGE: {{ ee_base_image }}
+{% endif %}
+{% if builder_image is defined %}
+  EE_BUILDER_IMAGE: {{ builder_image }}
+{% endif %}
+
+{% if ansible_config is defined %}
+ansible_config: '{{ ansible_config }}'
+{% endif %}
+
+dependencies:
+  system: {{ bindep_file }}
+  python: {{ python_requirements_file }}
+  galaxy: {{ galaxy_requirements_file }}
+
+{% if ee_prepend|length and ee_append|length %}
+additional_build_steps:
+{% if ee_prepend|length %}  prepend:{% else %}{% endif %}
+
+{% for item in ee_prepend %}
+    - {{ item }}
+{% endfor %}
+{% if ee_append|length %}  append:{% else %}{% endif %}
+
+{% for item in ee_append %}
+    - {{ item }}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,31 @@
+---
+- name: Playbook to configure ansible controller organizations
+  hosts: localhost
+  gather_facts: false
+  collections:
+    - sean_m_sullivan.tower_utilities
+    - containers.podman
+  vars:
+    # builder_dir: /tmp
+    ee_registry_dest: quay.io/ssulliva/ee_tools
+    # ee_base_image: quay.io/podman/stable
+    ee_name: ee_tools 
+    ee_bindep:
+      - docker
+    ee_python:
+      - podman
+      - docker
+      - ansible-lint
+      - ansible-builder
+    ee_collections:
+      - name: awx.awx
+      - name: sean_m_sullivan.tower_utilities
+        version: 0.3.2-develh
+      - name: containers.podman
+      - name: community.docker
+    ee_prepend:
+      - RUN dnf install -y ansible
+    ee_append:
+      - VOLUME /var/lib/docker
+  roles:
+    - redhat_cop.tower_utilities.ee_builder

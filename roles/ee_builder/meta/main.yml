@@ -1,0 +1,12 @@
+galaxy_info:
+  author: Sean Sullivan
+  description: Excecution enviroment builder
+  company: Red Hat
+
+  license: license (MIT)
+
+  min_ansible_version: 2.11
+
+  galaxy_tags: []
+
+dependencies: []

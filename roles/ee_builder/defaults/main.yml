@@ -1,0 +1,33 @@
+---
+# build_arg_defaults
+builder_dir: "{{playbook_dir}}"
+ee_container_runtime: podman
+ee_version: 1
+galaxy_cli_opts: '-v'
+# ee_base_image: quay.io/ansible/ansible-runner:devel
+# builder_image:
+
+# Req File defaults
+bindep_file: bindep
+python_requirements_file: python_req
+galaxy_requirements_file: requiremets.yml
+
+# Req defaults
+ee_roles: []
+ee_collections: []
+ee_bindep: []
+ee_python: []
+
+# Build Step defaults
+ee_prepend: []
+ee_append: []
+
+# Controls
+ee_jinja_templates_create: True
+ee_image_push: True
+
+# Registry
+# ee_name
+# ee_registry_username
+# ee_registry_password
+# ee_registry_dest
