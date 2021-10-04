@@ -1,0 +1,12 @@
+Build steps
+ansible-automation-platform-20-early-access/ee-minimal-rhel8
+https://catalog.redhat.com/software/containers/ansible-automation-platform-20-early-access/ee-minimal-rhel8/60e4bd0fdb72db7d0fadcf31?container-tabs=dockerfile
+comes from
+ansible-automation-platform-20-early-access-ansible-python-toolkit-rhel8
+https://catalog.redhat.com/software/containers/ansible-automation-platform-20-early-access/ansible-python-toolkit-rhel8/60dbd6ea4f8f52ae120284a1
+comes from
+ansible-automation-platform-20-early-access-ansible-python-base-rhel8
+https://catalog.redhat.com/software/containers/ansible-automation-platform-20-early-access/ansible-python-base-rhel8/60dbd39e4eeb9bde82ff57ff
+comes from
+registry.redhat.io/ubi8/ubi-minimal
+https://catalog.redhat.com/software/containers/ubi8/ubi-minimal/5c359a62bed8bd75a2c3fba8

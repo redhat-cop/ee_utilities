@@ -12,12 +12,6 @@ bindep_file: bindep
 python_requirements_file: python_req
 galaxy_requirements_file: requiremets.yml
 
-# Req defaults
-ee_roles: []
-ee_collections: []
-ee_bindep: []
-ee_python: []
-
 # Build Step defaults
 ee_prepend: []
 ee_append: []

@@ -1,4 +1,5 @@
 podman
-docker
+ansible-core
+ansible-runner
 ansible-lint
 ansible-builder

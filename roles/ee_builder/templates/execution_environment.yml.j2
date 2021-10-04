@@ -17,18 +17,24 @@ ansible_config: '{{ ansible_config }}'
 {% endif %}
 
 dependencies:
+{% if ee_bindep is defined %}
   system: {{ bindep_file }}
+{% endif %}
+{% if ee_python is defined %}
   python: {{ python_requirements_file }}
+{% endif %}
+{% if ee_collections is defined %}
   galaxy: {{ galaxy_requirements_file }}
+{% endif %}
 
-{% if ee_prepend|length and ee_append|length %}
+{% if ee_prepend|length or ee_append|length %}
 additional_build_steps:
-{% if ee_prepend|length %}  prepend:{% else %}{% endif %}
+{% if ee_prepend|length %}  prepend: {% else %}{% endif %}
 
 {% for item in ee_prepend %}
     - {{ item }}
 {% endfor %}
-{% if ee_append|length %}  append:{% else %}{% endif %}
+{% if ee_append|length %}  append: {% else %}{% endif %}
 
 {% for item in ee_append %}
     - {{ item }}

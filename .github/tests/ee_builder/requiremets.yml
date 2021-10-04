@@ -1,12 +1,2 @@
 ---
-roles: []
 
-collections: 
-- name: awx.awx
-  
-- name: sean_m_sullivan.tower_utilities
-  version: 0.3.2-develh
-- name: containers.podman
-  
-- name: community.docker
-  
