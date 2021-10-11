@@ -1,0 +1,21 @@
+{
+    "version": "1.0.0",
+    "plays": [],
+    "stdout": [
+        "\u001b[1;35m[WARNING]: No inventory was parsed, only implicit localhost is available\u001b[0m",
+        "\u001b[1;35m[WARNING]: provided hosts list is empty, only localhost is available. Note that\u001b[0m",
+        "\u001b[1;35mthe implicit localhost does not match 'all'\u001b[0m",
+        "\u001b[0;31mERROR! the role 'redhat_cop.ee_utilities.ee_builder' was not found in sean_m_sullivan.tower_utilities:containers.podman:ansible.legacy:/home/excalibrax/Documents/cop_work/ee_utilities/.github/tests/ee_builder/roles:/home/runner/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles:/home/excalibrax/Documents/cop_work/ee_utilities/.github/tests/ee_builder\u001b[0m",
+        "\u001b[0;31m\u001b[0m",
+        "\u001b[0;31mThe error appears to be in '/home/excalibrax/Documents/cop_work/ee_utilities/.github/tests/ee_builder/ee_builder.yml': line 59, column 7, but may\u001b[0m",
+        "\u001b[0;31mbe elsewhere in the file depending on the exact syntax problem.\u001b[0m",
+        "\u001b[0;31m\u001b[0m",
+        "\u001b[0;31mThe offending line appears to be:\u001b[0m",
+        "\u001b[0;31m\u001b[0m",
+        "\u001b[0;31m  roles:\u001b[0m",
+        "\u001b[0;31m    - redhat_cop.ee_utilities.ee_builder\u001b[0m",
+        "\u001b[0;31m      ^ here\u001b[0m"
+    ],
+    "status": "failed",
+    "status_color": 9
+}

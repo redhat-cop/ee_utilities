@@ -1,2 +1,7 @@
 ---
 
+collections: 
+- name: sean_m_sullivan.ee_utilities
+  
+- name: containers.podman
+  

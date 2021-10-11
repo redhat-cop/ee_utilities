@@ -3,12 +3,13 @@ version: 1
 
 build_arg_defaults:
   ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: "-v"
-  EE_BASE_IMAGE: quay.io/podman/stable
+  EE_BASE_IMAGE: quay.io/ssulliva/ee_tools
 
 
 dependencies:
   system: bindep
   python: python_req
+  galaxy: requiremets.yml
 
 additional_build_steps:
 
@@ -16,21 +17,5 @@ additional_build_steps:
     - RUN pip3 install ansible-core
     - VOLUME /var/lib/docker
     - VOLUME /runner
-    - RUN for dir in \
-    - /home/runner \
-    - /home/runner/.ansible \
-    - /home/runner/.ansible/tmp \
-    - /runner \
-    - /home/runner \
-    - /runner/env \
-    - /runner/inventory \
-    - /runner/project \
-    - /runner/artifacts ; \
-    - do mkdir -m 0775 -p $dir ; chmod -R g+rwx $dir ; chgrp -R root $dir ; done && \
-    - for file in \
-    - /home/runner/.ansible/galaxy_token \
-    - /etc/passwd \
-    - /etc/group ; \
-    - do touch $file ; chmod g+rw $file ; chgrp root $file ; done
-    - ADD https://raw.githubusercontent.com/ansible/ansible-runner/devel/utils/entrypoint.sh /bin/entrypoint
-    - RUN chmod +x /bin/entrypoint
+    - RUN useradd podman; echo podman:10000:5000 > /etc/subuid; echo podman:10000:5000 > /etc/subgid;
+    - RUN chown podman:podman -R /home/podman

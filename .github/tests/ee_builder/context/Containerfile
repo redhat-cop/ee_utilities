@@ -1,4 +1,4 @@
-ARG EE_BASE_IMAGE=quay.io/podman/stable
+ARG EE_BASE_IMAGE=quay.io/ssulliva/ee_tools
 ARG EE_BUILDER_IMAGE=quay.io/ansible/ansible-builder:latest
 
 FROM $EE_BASE_IMAGE as galaxy
@@ -8,8 +8,13 @@ USER root
 ADD _build /build
 WORKDIR /build
 
+RUN ansible-galaxy role install -r requirements.yml --roles-path /usr/share/ansible/roles
+RUN ansible-galaxy collection install $ANSIBLE_GALAXY_CLI_COLLECTION_OPTS -r requirements.yml --collections-path /usr/share/ansible/collections
 
 FROM $EE_BUILDER_IMAGE as builder
+
+COPY --from=galaxy /usr/share/ansible /usr/share/ansible
+
 ADD _build/requirements.txt requirements.txt
 ADD _build/bindep.txt bindep.txt
 RUN ansible-builder introspect --sanitize --user-pip=requirements.txt --user-bindep=bindep.txt --write-bindep=/tmp/src/bindep.txt --write-pip=/tmp/src/requirements.txt
@@ -17,26 +22,13 @@ RUN assemble
 
 FROM $EE_BASE_IMAGE
 USER root
+
+COPY --from=galaxy /usr/share/ansible /usr/share/ansible
+
 COPY --from=builder /output/ /output/
 RUN /output/install-from-bindep && rm -rf /output/wheels
 RUN pip3 install ansible-core
 VOLUME /var/lib/docker
 VOLUME /runner
-RUN for dir in \
-/home/runner \
-/home/runner/.ansible \
-/home/runner/.ansible/tmp \
-/runner \
-/home/runner \
-/runner/env \
-/runner/inventory \
-/runner/project \
-/runner/artifacts ; \
-do mkdir -m 0775 -p $dir ; chmod -R g+rwx $dir ; chgrp -R root $dir ; done && \
-for file in \
-/home/runner/.ansible/galaxy_token \
-/etc/passwd \
-/etc/group ; \
-do touch $file ; chmod g+rw $file ; chgrp root $file ; done
-ADD https://raw.githubusercontent.com/ansible/ansible-runner/devel/utils/entrypoint.sh /bin/entrypoint
-RUN chmod +x /bin/entrypoint
+RUN useradd podman; echo podman:10000:5000 > /etc/subuid; echo podman:10000:5000 > /etc/subgid;
+RUN chown podman:podman -R /home/podman
