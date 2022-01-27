@@ -1,0 +1,7 @@
+---
+# defaults file for virtualenv_migrate
+default_venv_paths:
+  - "/var/lib/awx/venv/ansible/"
+default_ee_url: "registry.redhat.io/ansible-automation-platform-21/ee-supported-rhel8:latest"
+show_diff_with_default: False
+
