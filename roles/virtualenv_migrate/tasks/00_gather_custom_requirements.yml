@@ -1,40 +1,40 @@
-- name: Get the list of custom virtualenvs
+- name: gather | Get the list of custom virtualenvs
   ansible.builtin.command: awx-manage list_custom_venvs
-  register: my_custom_venvs
+  register: __venv_migrate_custom_venvs
 
-- name: Record all virtualenvs from AAP1.2 tower node
+- name: gather | Record all virtualenvs from AAP1.2 tower node
   set_fact:
-    virtualenvs: "{{ my_custom_venvs.stdout | regex_findall('\\n?(/.*/)\\n\\n?') }}"
-  failed_when: my_custom_venvs.rc != 0
+    __venv_migrate_virtualenvs: "{{ __venv_migrate_custom_venvs.stdout | regex_findall('\\n?(/.*/)\\n\\n?') }}"
+  failed_when: __venv_migrate_custom_venvs.rc != 0
 
-- name: Exit the play if there are no custom virtualenvironments on AAP1.2 tower node or the awx-manage command errors.
+- name: gather | Exit the play if there are no custom virtualenvironments on AAP1.2 tower node or the awx-manage command errors.
   meta: end_play
-  when: (virtualenvs | length == 1 and show_diff_with_default == False) or (my_custom_venvs.rc != 0)
+  when: (__venv_migrate_virtualenvs | length == 1 and show_diff_with_default == False) or (__venv_migrate_custom_venvs.rc != 0)
 
 - name: Gather pip freeze output from all venvs except default venv
   ansible.builtin.command: "{{ item }}/bin/pip freeze"
-  loop: "{{ virtualenvs | difference(default_venv_paths) }}"
-  when: show_diff_with_default != True and virtualenvs | length > 1
-  register: freeze_results
+  loop: "{{ __venv_migrate_virtualenvs | difference(default_venv_paths) }}"
+  when: show_diff_with_default != True and __venv_migrate_virtualenvs | length > 1
+  register: __venv_migrate_freeze_results
 
 - name: Gather pip freeze output from all venvs including the default venv
   ansible.builtin.command: "{{ item }}/bin/pip freeze"
-  loop: "{{ virtualenvs }}"
-  when: show_diff_with_default != False
-  register: freeze_results_default
+  loop: "{{ __venv_migrate_virtualenvs }}"
+  when: show_diff_with_default | bool
+  register: __venv_migrate_freeze_results_default
 
 - name: Gather results from pip_freeze based on conditions
   set_fact:
-    freeze_results: "{{ freeze_results_default }}"
-  when: freeze_results_default.skipped == False
+    __venv_migrate_freeze_results: "{{ __venv_migrate_freeze_results_default }}"
+  when: not __venv_migrate_freeze_results_default.skipped | bool
 
-- name: Set_fact and pull all requirements into a variable
+- name: gather | Set_fact and pull all requirements into a variable
   set_fact:
-    combined_requirements_with_versions: "{{ combined_requirements_with_versions | default([]) }} + {{ item.stdout_lines }}"
-  loop: "{{ freeze_results.results }}"
+    __venv_migrate_combined_requirements_with_versions: "{{ __venv_migrate_combined_requirements_with_versions | default([]) }} + {{ item.stdout_lines }}"
+  loop: "{{ __venv_migrate_freeze_results.results }}"
 
-- name: Combining all custom venv requirements in a variable without the versions
+- name: gather | Combining all custom venv requirements in a variable without the versions
   set_fact:
-    combined_requirements: "{{ combined_requirements_with_versions | map('regex_replace', '(\\w+)==[\\d+\\.]+', '\\1') | list }}"
+    __venv_migrate_combined_requirements: "{{ __venv_migrate_combined_requirements_with_versions | map('regex_replace', '(\\w+)==[\\d+\\.]+', '\\1') | list }}"
 
 
