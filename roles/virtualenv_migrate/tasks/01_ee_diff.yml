@@ -1,11 +1,11 @@
 - block:
   - name: diff | Download the default EE on localhost
     containers.podman.podman_image:
-      name: "{{ default_ee_url }}"
-      username: "{{ registry_username }}"
-      password: "{{ registry_password }}"
+      name: "{{ venv_migrate_default_ee_url }}"
+      username: "{{ venv_migrate_registry_username }}"
+      password: "{{ venv_migrate_registry_password }}"
   - name: diff | Get pip list from Default EE
-    ansible.builtin.command: "podman run --rm -it {{ default_ee_url }} bash -c \"/bin/pip3 freeze\""
+    ansible.builtin.command: "podman run --rm -it {{ venv_migrate_default_ee_url }} bash -c \"/bin/pip3 freeze\""
     register: __venv_migrate_ee_pip_list_output
   - name: diff | Retain the EE pip list without package versions
     set_fact:

@@ -9,18 +9,18 @@
 
 - name: gather | Exit the play if there are no custom virtualenvironments on AAP1.2 tower node or the awx-manage command errors.
   meta: end_play
-  when: (__venv_migrate_virtualenvs | length == 1 and show_diff_with_default == False) or (__venv_migrate_custom_venvs.rc != 0)
+  when: (__venv_migrate_virtualenvs | length == 1 and venv_migrate_show_diff_with_default == False) or (__venv_migrate_custom_venvs.rc != 0)
 
 - name: Gather pip freeze output from all venvs except default venv
   ansible.builtin.command: "{{ item }}/bin/pip freeze"
-  loop: "{{ __venv_migrate_virtualenvs | difference(default_venv_paths) }}"
-  when: show_diff_with_default != True and __venv_migrate_virtualenvs | length > 1
+  loop: "{{ __venv_migrate_virtualenvs | difference(venv_migrate_default_venv_paths) }}"
+  when: venv_migrate_show_diff_with_default != True and __venv_migrate_virtualenvs | length > 1
   register: __venv_migrate_freeze_results
 
 - name: Gather pip freeze output from all venvs including the default venv
   ansible.builtin.command: "{{ item }}/bin/pip freeze"
   loop: "{{ __venv_migrate_virtualenvs }}"
-  when: show_diff_with_default | bool
+  when: venv_migrate_show_diff_with_default | bool
   register: __venv_migrate_freeze_results_default
 
 - name: Gather results from pip_freeze based on conditions

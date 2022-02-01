@@ -25,7 +25,7 @@ Role variables
 --------------
 |Variable Name|Default Value|Required|Description|Example|
 |:---:|:---:|:---:|:---:|:---:|
-|`default_ee_url`|`registry.redhat.io/ansible-automation-platform-21/ee-supported-rhel8:latest`|no|"Registry link of the EE you want to compare requirements with"|`localhost/ee:latest`
+|`venv_migrate_default_ee_url`|`registry.redhat.io/ansible-automation-platform-21/ee-supported-rhel8:latest`|no|"Registry link of the EE you want to compare requirements with"|`localhost/ee:latest`
 |`registry_username`|None|yes(for default EE value)|username to sign in to the registry|`admin`|
 |`registry_password`|None|yes(for default EE value)|password to sign in to the registry|`pass`|
 
