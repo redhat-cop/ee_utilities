@@ -40,7 +40,7 @@ Example Playbook
   become: true
   tasks:
     - name: Include venv role
-      include_role: 
+      include_role:
         name: redhat_cop.ee_utilities.virtualenv_migrate
 ```
 License

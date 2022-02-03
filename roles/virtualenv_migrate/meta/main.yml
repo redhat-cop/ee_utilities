@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Anshul Behl
-  description: Use this role to create a list of python requirements from custom virtualenvs present in your AAP 1.2 cluster, after comparing those with requirements in Default Execution Environment. This role is based on the awx-manage utility and needs an AAP1.2 tower node to gather requirements from and localhost to pull EE and compare those requirements. 
+  description: Use this role to create a list of python requirements from custom virtualenvs present in your AAP 1.2 cluster, after comparing those with requirements in Default Execution Environment. This role is based on the awx-manage utility and needs an AAP1.2 tower node to gather requirements from and localhost to pull EE and compare those requirements.
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
