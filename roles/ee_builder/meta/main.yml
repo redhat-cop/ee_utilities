@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: Sean Sullivan
   description: Excecution enviroment builder
@@ -6,6 +7,14 @@ galaxy_info:
   license: license (MIT)
 
   min_ansible_version: 2.11
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+    - name: EL
+      versions:
+        - 8
+        - 9
 
   galaxy_tags: []
 

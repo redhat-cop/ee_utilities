@@ -8,13 +8,9 @@
   vars:
     # builder_dir: /tmp
     ee_registry_dest: quay.io/ssulliva/ee_tools
-#    ee_base_image: quay.io/podman/stable
-    ee_name: ee_tools 
+    ee_name: ee_tools
     ee_bindep:
       - crun
-#      - python3
-#      - python3-pip
-#      - python3-pip-wheel
     ee_python:
       - podman
       - ansible-core
@@ -26,40 +22,16 @@
       - name: sean_m_sullivan.tower_utilities
         version: 0.3.2-develh
       - name: containers.podman
-#      - name: community.docker
     ee_append:
-      - RUN useradd build; dnf -y module enable container-tools:rhel8; dnf -y update; dnf -y reinstall shadow-utils; dnf -y install podman fuse-overlayfs /etc/containers/storage.conf; rm -rf /var/cache /var/log/dnf* /var/log/yum.*
+      - RUN useradd build; dnf -y module enable container-tools:rhel8; dnf -y update; dnf -y reinstall shadow-utils; dnf -y install podman fuse-overlayfs /etc/containers/storage.conf; rm -rf /var/cache /var/log/dnf* /var/log/yum.*  # noqa line-length
       - RUN useradd podman; echo podman:10000:5000 > /etc/subuid; echo podman:10000:5000 > /etc/subgid;
       - RUN chown podman:podman -R /home/podman
       - ADD https://raw.githubusercontent.com/containers/libpod/master/contrib/podmanimage/stable/containers.conf /etc/containers/containers.conf
-      - ADD https://raw.githubusercontent.com/containers/libpod/master/contrib/podmanimage/stable/podman-containers.conf /home/podman/.config/containers/containers.conf
+      - ADD https://raw.githubusercontent.com/containers/libpod/master/contrib/podmanimage/stable/podman-containers.conf /home/podman/.config/containers/containers.conf  # noqa line-length
       - RUN chown podman:podman -R /home/podman
       - RUN sed -i -e 's|^#mount_program|mount_program|g' -e '/additionalimage.*/a "/var/lib/shared",' /etc/containers/storage.conf
-      - RUN mkdir -p /var/lib/shared/overlay-images /var/lib/shared/overlay-layers; touch /var/lib/shared/overlay-images/images.lock; touch /var/lib/shared/overlay-layers/layers.lock
+      - RUN mkdir -p /var/lib/shared/overlay-images /var/lib/shared/overlay-layers; touch /var/lib/shared/overlay-images/images.lock; touch /var/lib/shared/overlay-layers/layers.lock  # noqa line-length
       - RUN sed -i -e '/^cgroup_manager.*/d' -e '/\#\ cgroup_manager\ =/a cgroup_manager = "cgroupfs"' /usr/share/containers/containers.conf
       - ENV _BUILDAH_STARTED_IN_USERNS="" BUILDAH_ISOLATION=chroot
-#      - RUN pip3 install ansible-core
-#      - VOLUME /var/lib/docker
-#      - VOLUME /runner
-#      - RUN for dir in \
-#      -       /home/runner \
-#      -       /home/runner/.ansible \
-#      -       /home/runner/.ansible/tmp \
-#      -       /runner \
-#      -       /home/runner \
-#      -       /runner/env \
-#      -       /runner/inventory \
-#      -       /runner/project \
-#      -       /runner/artifacts ; \
-#      -     do mkdir -m 0775 -p $dir ; chmod -R g+rwx $dir ; chgrp -R root $dir ; done && \
-#      -     for file in \
-#      -       /home/runner/.ansible/galaxy_token \
-#      -       /etc/passwd \
-#      -       /etc/group ; \
-#      -     do touch $file ; chmod g+rw $file ; chgrp root $file ; done
-#      - ADD https://raw.githubusercontent.com/ansible/ansible-runner/devel/utils/entrypoint.sh /bin/entrypoint
-#      - RUN chmod +x /bin/entrypoint
-#      - ENTRYPOINT ["entrypoint"]
-#      - CMD ["ansible-runner", "run", "/runner"]
   roles:
     - redhat_cop.ee_utilities.ee_builder
