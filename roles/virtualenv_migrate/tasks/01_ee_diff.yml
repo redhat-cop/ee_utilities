@@ -1,3 +1,4 @@
+---
 - block:
   - name: diff | Download the default EE on localhost
     containers.podman.podman_image:
