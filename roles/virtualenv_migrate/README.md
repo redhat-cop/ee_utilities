@@ -28,6 +28,7 @@ Role variables
 |`venv_migrate_default_ee_url`|`registry.redhat.io/ansible-automation-platform-21/ee-supported-rhel8:latest`|no|"Registry link of the EE you want to compare requirements with"|`localhost/ee:latest`
 |`registry_username`|None|yes(for default EE value)|username to sign in to the registry|`admin`|
 |`registry_password`|None|yes(for default EE value)|password to sign in to the registry|`pass`|
+|`ee_python_list`|None|No|This is an output variable, if you want to pass the requirements for ee_building|debug:msg="{{ ee_python_list }}"
 
 Example Playbook
 ----------------
