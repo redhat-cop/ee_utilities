@@ -32,11 +32,12 @@
     __venv_migrate_freeze_results: "{{ __venv_migrate_freeze_results_default }}"
   when: not __venv_migrate_freeze_results_default.skipped | bool
 
-- name: gather | Set_fact and pull all requirements into a variable
-  set_fact:
-    __venv_migrate_combined_requirements_with_versions: "{{ __venv_migrate_combined_requirements_with_versions | default([]) }} + {{ item.stdout_lines }}"
-  loop: "{{ __venv_migrate_freeze_results.results }}"
-
 - name: gather | Combining all custom venv requirements in a variable without the versions
   set_fact:
-    __venv_migrate_combined_requirements: "{{ __venv_migrate_combined_requirements_with_versions | map('regex_replace', '(\\w+)==[\\d+\\.]+', '\\1') | list }}"
+    __venv_migrate_combined_requirements: "{{ __venv_migrate_freeze_results.results | map('regex_replace', '(\\w+)==[\\d+\\.]+', '\\1') }}"
+
+- name: gather | Convert string to yaml dict
+  set_fact:
+    __venv_migrate_combined_requirements_ser: "{{ __venv_migrate_combined_requirements_ser|d([]) + [item|from_yaml] }}"
+  loop: "{{ __venv_migrate_combined_requirements }}"
+  no_log: true
