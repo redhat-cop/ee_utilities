@@ -7,11 +7,9 @@ rules:
   colons: disable
   indentation:
     level: warning
-    indent-sequences: consistent
+    indent-sequences: true  # to be consistent with ansible-lint
   truthy:
     allowed-values:
-    - 'True'
-    - 'False'
-    - 'true'
-    - 'false'
+      - 'true'
+      - 'false'
 ...

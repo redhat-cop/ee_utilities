@@ -79,7 +79,7 @@ $ ansible-playbook playbook.yml
   vars:
     # builder_dir: /tmp
     ee_registry_dest: quay.io/your_place_here/ee_tools
-    ee_name: ee_tools 
+    ee_name: ee_tools
     ee_bindep:
       - docker
     ee_python:

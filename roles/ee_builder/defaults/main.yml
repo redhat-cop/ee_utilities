@@ -1,6 +1,6 @@
 ---
 # build_arg_defaults
-builder_dir: "{{playbook_dir}}"
+builder_dir: "{{ playbook_dir }}"
 ee_container_runtime: podman
 ee_version: 1
 galaxy_cli_opts: '-v'
@@ -17,8 +17,8 @@ ee_prepend: []
 ee_append: []
 
 # Controls
-ee_jinja_templates_create: True
-ee_image_push: True
+ee_jinja_templates_create: true
+ee_image_push: true
 
 # Registry
 # ee_name
