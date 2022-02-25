@@ -1,6 +1,9 @@
 ---
 version: {{ ee_version }}
 
+{% if ( (galaxy_cli_opts is defined) or
+        (ee_base_image is defined) or
+        (builder_image is defined) ) %}
 build_arg_defaults:
 {% if galaxy_cli_opts is defined %}
   ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: "{{ galaxy_cli_opts }}"
@@ -11,11 +14,15 @@ build_arg_defaults:
 {% if builder_image is defined %}
   EE_BUILDER_IMAGE: {{ builder_image }}
 {% endif %}
+{% endif %}
 
 {% if ansible_config is defined %}
 ansible_config: '{{ ansible_config }}'
 {% endif %}
 
+{% if ( (ee_bindep is defined) or
+        (ee_python is defined) or
+        (ee_collections is defined) ) %}
 dependencies:
 {% if ee_bindep is defined %}
   system: {{ bindep_file }}
@@ -25,6 +32,7 @@ dependencies:
 {% endif %}
 {% if ee_collections is defined %}
   galaxy: {{ galaxy_requirements_file }}
+{% endif %}
 {% endif %}
 
 {% if ee_prepend|length or ee_append|length %}
