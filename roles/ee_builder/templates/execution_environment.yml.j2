@@ -37,11 +37,8 @@ dependencies:
 
 {% if ee_prepend|length or ee_append|length %}
 additional_build_steps:
-{% if ee_prepend|length %}  prepend: {% else %}{% endif %}
-
-{% for item in ee_prepend %}
-    - {{ item }}
-{% endfor %}
+{% if ee_prepend|length %}  prepend: |{% else %}{% endif %}
+{{ ee_prepend }}
 {% if ee_append|length %}  append: {% else %}{% endif %}
 
 {% for item in ee_append %}
