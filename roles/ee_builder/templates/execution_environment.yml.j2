@@ -25,13 +25,19 @@ ansible_config: '{{ ansible_config }}'
         (ee_collections is defined) ) %}
 dependencies:
 {% if ee_bindep is defined %}
+{%      if ee_bindep|length %}
   system: {{ bindep_file }}
+{%      endif %}
 {% endif %}
 {% if ee_python is defined %}
+{%      if ee_python|length %}
   python: {{ python_requirements_file }}
+{%      endif %}
 {% endif %}
 {% if ee_collections is defined %}
+{%      if ee_collections|length %}
   galaxy: {{ galaxy_requirements_file }}
+{%      endif %}
 {% endif %}
 {% endif %}
 
