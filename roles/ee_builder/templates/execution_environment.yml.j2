@@ -6,13 +6,19 @@ version: {{ ee_version }}
         (builder_image is defined) ) %}
 build_arg_defaults:
 {% if galaxy_cli_opts is defined %}
+{%    if galaxy_cli_opts|length %}
   ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: "{{ galaxy_cli_opts }}"
+{%    endif %}
 {% endif %}
 {% if ee_base_image is defined %}
+{%    if ee_base_image|length %}
   EE_BASE_IMAGE: {{ ee_base_image }}
+{%    endif %}
 {% endif %}
 {% if builder_image is defined %}
+{%    if builder_image|length %}
   EE_BUILDER_IMAGE: {{ builder_image }}
+{%    endif %}
 {% endif %}
 {% endif %}
 
