@@ -14,7 +14,7 @@ roles:
 collections: 
 {% for item in ee_collections %}
 - name: {{ item.name }}
-  {% if item.version is defined %}version: {{ item.version }}{% endif %}
+{% if item.version is defined %}version: {{ item.version }}{% endif %}
 {% endfor %}
 {%    endif %}
 {% endif %}
