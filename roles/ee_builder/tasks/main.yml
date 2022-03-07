@@ -35,7 +35,4 @@
     push_args:
       dest: "{{ ee_registry_dest }}"
       sign_by: "{{ ee_sign_by | default(omit) }}"
-    retries: 3
-    delay: 10
-    register: image_push_event
   when: ee_image_push
