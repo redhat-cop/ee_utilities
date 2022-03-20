@@ -20,3 +20,6 @@ galaxy.yml
 
 # Ignore test directory
 test
+
+# Ignore precommit config
+.pre-commit-config.yaml

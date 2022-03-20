@@ -1,30 +1,54 @@
 ---
 version: {{ ee_version }}
 
+{% if ( (galaxy_cli_opts is defined) or
+        (ee_base_image is defined) or
+        (builder_image is defined) ) %}
 build_arg_defaults:
 {% if galaxy_cli_opts is defined %}
+{%    if galaxy_cli_opts|length %}
   ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: "{{ galaxy_cli_opts }}"
+{%    endif %}
 {% endif %}
 {% if ee_base_image is defined %}
+{%    if ee_base_image|length %}
   EE_BASE_IMAGE: {{ ee_base_image }}
+{%    endif %}
 {% endif %}
 {% if builder_image is defined %}
+{%    if builder_image|length %}
   EE_BUILDER_IMAGE: {{ builder_image }}
+{%    endif %}
+{% endif %}
 {% endif %}
 
 {% if ansible_config is defined %}
 ansible_config: '{{ ansible_config }}'
 {% endif %}
 
+{% if ( (ee_bindep is defined) or
+        (ee_python is defined) or
+        (ee_collections is defined) ) %}
+{% if ( (ee_bindep|length ) or
+        (ee_python|length ) or
+        (ee_collections|length ) ) %}
 dependencies:
 {% if ee_bindep is defined %}
+{%      if ee_bindep|length %}
   system: {{ bindep_file }}
+{%      endif %}
 {% endif %}
 {% if ee_python is defined %}
+{%      if ee_python|length %}
   python: {{ python_requirements_file }}
+{%      endif %}
 {% endif %}
 {% if ee_collections is defined %}
+{%      if ee_collections|length %}
   galaxy: {{ galaxy_requirements_file }}
+{%      endif %}
+{% endif %}
+{% endif %}
 {% endif %}
 
 {% if ee_prepend|length or ee_append|length %}
