@@ -1,20 +1,20 @@
 ---
 {% if ee_roles is defined %}
-{% if ee_roles|length %}roles: {% endif %}
-
+{%    if ee_roles|length %}
+roles: 
 {% for item in ee_roles %}
 - name: {{ item.name }}
   {% if item.version is defined %}version: {{ item.version }}{% endif %}
-
 {% endfor %}
+{%    endif %}
 {% endif %}
 
 {% if ee_collections is defined %}
-{% if ee_collections|length %}collections: {% endif %}
-
+{%    if ee_collections|length %}
+collections: 
 {% for item in ee_collections %}
 - name: {{ item.name }}
-  {% if item.version is defined %}version: {{ item.version }}{% endif %}
-
+{% if item.version is defined %}version: {{ item.version }}{% endif %}
 {% endfor %}
+{%    endif %}
 {% endif %}

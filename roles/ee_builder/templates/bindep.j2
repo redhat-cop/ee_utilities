@@ -1,3 +1,7 @@
+{% if ee_bindep is defined %}
+{%      if ee_bindep|length %}
 {% for item in ee_bindep %}
 {{ item }}
 {% endfor %}
+{%      endif %}
+{% endif %}

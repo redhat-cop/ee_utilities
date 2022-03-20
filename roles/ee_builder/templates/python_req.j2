@@ -1,3 +1,7 @@
+{% if ee_python is defined %}
+{%      if ee_python|length %}
 {% for item in ee_python %}
 {{ item }}
 {% endfor %}
+{%      endif %}
+{% endif %}
