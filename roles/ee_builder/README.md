@@ -31,22 +31,22 @@ Available variables are listed below, along with default values defined (see def
 
 ### Requirements Variable defaults
 |Variable Name|Default Value|Required|Description|
-|:---:|:---:|:---:|:---:|:---:|
-|`ee_bindep`|list|no|The variable list to provide bindep requirements if using variables||
-|`ee_python`|list|no|The variable list to provide python requirements if using variables||
-|`ee_collections`|list|no|The variable list to provide galaxy requirements if using variables, in ansible galaxy list form||
-|`ee_roles`|list|no|The variable list to provide galaxy requirements if using variables, in ansible galaxy list form||
+|:---:|:---:|:---:|:---:|
+|`ee_bindep`|list|no|The variable list to provide bindep requirements if using variables|
+|`ee_python`|list|no|The variable list to provide python requirements if using variables|
+|`ee_collections`|list|no|The variable list to provide galaxy requirements if using variables, in ansible galaxy list form|
+|`ee_roles`|list|no|The variable list to provide galaxy requirements if using variables, in ansible galaxy list form|
 
 ### Build Step defaults
 |Variable Name|Default Value|Required|Description|
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|
 |`ee_name`||no|Name of the ee image to create.|
 |`ee_prepend`|list|no|Ansible Builder Additional commands may be specified in the additional_build_steps section, for execution before the main build steps (prepend).|
 |`ee_append`|list|no|Ansible Builder Additional commands may be specified in the additional_build_steps section, for execution after the main build steps (append).|
 
 ### Registry Step defaults
 |Variable Name|Default Value|Required|Description|
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|
 |`ee_registry_username`||no|username to use when authenticating to remote registries.|
 |`ee_registry_password`||no|Password to use when authenticating to remote registries.|
 |`ee_registry_dest`||no|Path or URL where image will be pushed.|
