@@ -1,12 +1,12 @@
-# Redhat Communities of Practice Execution Enviorment Utilities Collection
+# Redhat Communities of Practice Execution Environment Utilities Collection
 
 ![Ansible Lint](https://github.com/redhat-cop/ee_utilities/workflows/Ansible%20Lint/badge.svg)
 ![Galaxy Release](https://github.com/redhat-cop/ee_utilities/workflows/galaxy-release/badge.svg)
 <!-- Further CI badges go here as above -->
 
-This ansible collection includes a number of roles which can be useful for managing Ansible Execution Enviroments. Using this collection, you'll be able to automate following tasks:
+This ansible collection includes a number of roles which can be useful for managing Ansible Execution Environments. Using this collection, you'll be able to automate following tasks:
 
-* prepare and maintain Ansible Execution Enviroments
+* prepare and maintain Ansible Execution Environments
 
 ## Included content
 
