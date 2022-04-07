@@ -1,6 +1,6 @@
 # redhat_cop.tower_utilities.ee_builder
 
-Ansible role to prep to use the setup an execution enviorment. This role invokes ansible builder and depends on either variables or files being provided to specify inclusions
+Ansible role to prep to use the setup an execution environment. This role invokes ansible builder and depends on either variables or files being provided to specify inclusions
 
 ## Requirements
 
@@ -16,7 +16,7 @@ Available variables are listed below, along with default values defined (see def
 |:---:|:---:|:---:|:---:|:---:|
 |`builder_dir`|"playbook_directory"|no|The directory to store all build and context files|'/tmp'|
 |`ee_container_runtime`|podman|no|container run time to use podman/docker.|podman|
-|`ee_version`|1|no|What Execution Enviroment version to use||
+|`ee_version`|1|no|What Execution Environment version to use||
 |`galaxy_cli_opts`|"-v"|no|Options to apply when using ansible galaxy cli.||
 |`ee_base_image`|""|no|Build arg specifies the parent image for the execution environment.||
 |`builder_image`|""|no|Build arg specifies the image used for compiling type tasks.||
@@ -26,27 +26,27 @@ Available variables are listed below, along with default values defined (see def
 |:---:|:---:|:---:|:---:|:---:|
 |`bindep_file`|python_req|no|The file to provide bindep requirements if using files|'/tmp'|
 |`python_requirements_file`|bindep|no|The file to provide python requirements if using files|podman|
-|`galaxy_requirements_file`|requiremets.yml|no|The file to provide galaxy requirements if using files||
+|`galaxy_requirements_file`|requirements.yml|no|The file to provide galaxy requirements if using files||
 |`ee_jinja_templates_create`|True|no|To skip using the files, using requirement defaults below, and to template out all requirements files||
 
 ### Requirements Variable defaults
 |Variable Name|Default Value|Required|Description|
-|:---:|:---:|:---:|:---:|:---:|
-|`ee_bindep`|list|no|The variable list to provide bindep requirements if using variables||
-|`ee_python`|list|no|The variable list to provide python requirements if using variables||
-|`ee_collections`|list|no|The variable list to provide galaxy requirements if using variables, in ansible galaxy list form||
-|`ee_roles`|list|no|The variable list to provide galaxy requirements if using variables, in ansible galaxy list form||
+|:---:|:---:|:---:|:---:|
+|`ee_bindep`|list|no|The variable list to provide bindep requirements if using variables|
+|`ee_python`|list|no|The variable list to provide python requirements if using variables|
+|`ee_collections`|list|no|The variable list to provide galaxy requirements if using variables, in ansible galaxy list form|
+|`ee_roles`|list|no|The variable list to provide galaxy requirements if using variables, in ansible galaxy list form|
 
 ### Build Step defaults
 |Variable Name|Default Value|Required|Description|
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|
 |`ee_name`||no|Name of the ee image to create.|
 |`ee_prepend`|list|no|Ansible Builder Additional commands may be specified in the additional_build_steps section, for execution before the main build steps (prepend).|
 |`ee_append`|list|no|Ansible Builder Additional commands may be specified in the additional_build_steps section, for execution after the main build steps (append).|
 
 ### Registry Step defaults
 |Variable Name|Default Value|Required|Description|
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|
 |`ee_registry_username`||no|username to use when authenticating to remote registries.|
 |`ee_registry_password`||no|Password to use when authenticating to remote registries.|
 |`ee_registry_dest`||no|Path or URL where image will be pushed.|
@@ -59,7 +59,7 @@ Available variables are listed below, along with default values defined (see def
 
 ## Example Playbook
 
-The following playbook can be invoked in the following manner. This role is meant to build and push an execution enviroment to an registry
+The following playbook can be invoked in the following manner. This role is meant to build and push an execution Environment to an registry
 
 ```sh
 $ ansible-playbook playbook.yml
