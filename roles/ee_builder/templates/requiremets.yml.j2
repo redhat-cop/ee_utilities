@@ -1,7 +1,7 @@
 ---
 {% if ee_roles is defined %}
 {%    if ee_roles|length %}
-roles: 
+roles:
 {% for item in ee_roles %}
 - name: {{ item.name }}
   {% if item.version is defined %}version: {{ item.version }}{% endif %}
@@ -11,7 +11,7 @@ roles:
 
 {% if ee_collections is defined %}
 {%    if ee_collections|length %}
-collections: 
+collections:
 {% for item in ee_collections %}
 - name: {{ item.name }}
 {% if item.version is defined %}version: {{ item.version }}{% endif %}
