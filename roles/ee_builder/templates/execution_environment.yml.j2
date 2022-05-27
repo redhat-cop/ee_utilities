@@ -26,12 +26,9 @@ build_arg_defaults:
 ansible_config: '{{ ansible_config }}'
 {% endif %}
 
-{% if ( (ee_bindep is defined) or
-        (ee_python is defined) or
-        (ee_collections is defined) ) %}
-{% if ( (ee_bindep|length ) or
-        (ee_python|length ) or
-        (ee_collections|length ) ) %}
+{% if (ee_bindep is defined and ee_bindep|length ) or
+        (ee_python is defined and ee_python|length ) or
+        (ee_collections is defined and ee_bindep|length) %}
 dependencies:
 {% if ee_bindep is defined %}
 {%      if ee_bindep|length %}
@@ -47,7 +44,6 @@ dependencies:
 {%      if ee_collections|length %}
   galaxy: {{ galaxy_requirements_file }}
 {%      endif %}
-{% endif %}
 {% endif %}
 {% endif %}
 
