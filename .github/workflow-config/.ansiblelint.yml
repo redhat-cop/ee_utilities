@@ -19,6 +19,6 @@ skip_list:
   # [E208]: "File permissions not mentioned. Issue created to fix"
   # (Disabled in Oct 2020)
   - '208'
-  # Issues with getting Ansible lint to pick up our yaml lint config, disabling as we do it seperately.s
+  # Issues with getting Ansible lint to pick up our yaml lint config, disabling as we do it separately.
   - yaml
 ...

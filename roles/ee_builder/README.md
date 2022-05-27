@@ -1,4 +1,4 @@
-# redhat_cop.tower_utilities.ee_builder
+# redhat_cop.ee_utilities.ee_builder
 
 Ansible role to prep to use the setup an execution environment. This role invokes ansible builder and depends on either variables or files being provided to specify inclusions
 
@@ -74,7 +74,7 @@ $ ansible-playbook playbook.yml
   hosts: localhost
   gather_facts: false
   collections:
-    - redhat_cop.tower_utilities
+    - redhat_cop.ee_utilities
     - containers.podman
   vars:
     # builder_dir: /tmp
@@ -94,7 +94,7 @@ $ ansible-playbook playbook.yml
     ee_append:
       - VOLUME /var/lib/docker
   roles:
-    - redhat_cop.tower_utilities.ee_builder
+    - redhat_cop.ee_utilities.ee_builder
 ```
 
 ## License

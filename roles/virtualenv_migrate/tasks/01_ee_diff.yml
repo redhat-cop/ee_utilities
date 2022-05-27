@@ -20,3 +20,4 @@
     debug:
       msg: "{{ venv_migrate_ee_python_list }}"
   delegate_to: localhost
+...

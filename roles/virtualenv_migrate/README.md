@@ -1,4 +1,4 @@
-redhat\_cop.tower\_utilities.virtualenv\_migrate
+redhat\_cop.ee\_utilities.virtualenv\_migrate
 ================================================
 
 Use this role to create a list of python requirements from custom virtualenvs present in your AAP 1.2 cluster, after comparing those with requirements in Default Execution Environment.
