@@ -67,9 +67,6 @@ $ ansible-playbook playbook.yml
 
 ```yaml
 ---
-# Playbook to install Ansible Tower as a single node
-
----
 - name: Playbook to configure ansible controller organizations
   hosts: localhost
   gather_facts: false
