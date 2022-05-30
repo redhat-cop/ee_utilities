@@ -7,3 +7,4 @@ __ee_req_jinja_templates_item:
     dest: python_req
   - src: requiremets.yml.j2
     dest: requiremets.yml
+...

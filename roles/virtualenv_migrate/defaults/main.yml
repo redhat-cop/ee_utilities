@@ -6,3 +6,4 @@ venv_migrate_default_ee_url: "registry.redhat.io/ansible-automation-platform-21/
 venv_migrate_show_diff_with_default: false
 venv_migrate_registry_username: "{{ registry_username | default('') }}"
 venv_migrate_registry_password: "{{ registry_password | default('') }}"
+...
