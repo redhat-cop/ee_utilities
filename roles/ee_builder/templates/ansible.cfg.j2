@@ -1,0 +1,15 @@
+[galaxy]
+server_list = automation_hub_cert,automation_hub_pub,automation_hub_comm
+ignore_certs = yes
+
+[galaxy_server.automation_hub_cert]
+url={{ ee_ah_host }}api/galaxy/content/rh-certified/
+token={{ ee_ah_token }}
+
+[galaxy_server.automation_hub_pub]
+url={{ ee_ah_host }}api/galaxy/content/published/
+token={{ ee_ah_token }}
+
+[galaxy_server.automation_hub_comm]
+url={{ ee_ah_host }}api/galaxy/content/community/
+token={{ ee_ah_token }}

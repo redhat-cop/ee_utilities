@@ -1,10 +1,10 @@
 ---
 # vars file for ee_builder
-__ee_req_jinja_templates_item:
-  - src: bindep.j2
-    dest: bindep
-  - src: python_req.j2
-    dest: python_req
-  - src: requiremets.yml.j2
-    dest: requiremets.yml
+__ee_stream_images:
+  upstream:
+    base_image: quay.io/ansible/ansible-runner:latest
+    builder_image: quay.io/ansible/ansible-builder:latest
+  downstream:
+    base_image: registry.redhat.io/ansible-automation-platform-22/ee-minimal-rhel8:latest
+    builder_image: registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest
 ...

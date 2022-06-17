@@ -1,0 +1,12 @@
+---
+{% if __execution_environment_defintion.collections is defined %}
+{% if __execution_environment_defintion.collections|length %}
+collections:
+{% for item in __execution_environment_defintion.collections %}
+- name: {{ item.name }}
+{% if item.version is defined %}
+  version: {{ item.version }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}

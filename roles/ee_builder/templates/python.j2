@@ -1,0 +1,7 @@
+{% if __execution_environment_defintion.python is defined %}
+{%      if __execution_environment_defintion.python|length %}
+{% for item in __execution_environment_defintion.python %}
+{{ item }}
+{% endfor %}
+{%      endif %}
+{% endif %}

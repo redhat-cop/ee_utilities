@@ -1,6 +1,6 @@
-{% if ee_bindep is defined %}
-{%      if ee_bindep|length %}
-{% for item in ee_bindep %}
+{% if __execution_environment_defintion.bindep is defined %}
+{%      if __execution_environment_defintion.bindep|length %}
+{% for item in __execution_environment_defintion.bindep %}
 {{ item }}
 {% endfor %}
 {%      endif %}
