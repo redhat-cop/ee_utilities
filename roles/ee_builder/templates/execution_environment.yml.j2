@@ -28,7 +28,7 @@ ansible_config: '{{ ansible_config }}'
 
 {% if (ee_bindep is defined and ee_bindep|length ) or
         (ee_python is defined and ee_python|length ) or
-        (ee_collections is defined and ee_bindep|length) %}
+        (ee_collections is defined and ee_collections|length) %}
 dependencies:
 {% if ee_bindep is defined %}
 {%      if ee_bindep|length %}
