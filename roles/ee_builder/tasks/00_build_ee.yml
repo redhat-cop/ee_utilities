@@ -40,9 +40,9 @@
     mode: '0644'
   when: __execution_environment_defintion.python is defined
 
-- name: Ensure requiremets file is rendered
+- name: Ensure requirements file is rendered
   ansible.builtin.template:
-    src: requiremets.yaml.j2
+    src: requirements.yml.j2
     dest: "{{ builder_dir }}/{{ galaxy_requirements_file }}"
     mode: '0644'
   when: (__execution_environment_defintion.collections is defined) or (__execution_environment_defintion.roles is defined)

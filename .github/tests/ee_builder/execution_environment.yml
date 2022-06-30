@@ -9,7 +9,7 @@ build_arg_defaults:
 dependencies:
   system: bindep
   python: python_req
-  galaxy: requiremets.yml
+  galaxy: requirements.yml
 
 additional_build_steps:
 
