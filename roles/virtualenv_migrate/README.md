@@ -1,5 +1,4 @@
-redhat\_cop.ee\_utilities.virtualenv\_migrate
-================================================
+# redhat_cop.ee_utilities.virtualenv_migrate
 
 Use this role to create a list of python requirements from custom virtualenvs present in your AAP 1.2 cluster, after comparing those with requirements in Default Execution Environment.
 This role is based on the `awx-manage` utility and needs an AAP1.2 tower node to gather requirements from and localhost to pull EE and compare those requirements.
@@ -12,17 +11,18 @@ This role is supposed to work with the tower AAP(1.2) nodes only, which had the 
 This role should be run as root or become:true
 
 Sample inventory file looks like this
-```
+
+```ini
 [tower]
 TOWER_HOST ansible_ssh_private_key=<>
 ```
 
-Requirements
-------------
+## Requirements
+
 podman on localhost
 
-Role variables
---------------
+## Role variables
+
 |Variable Name|Default Value|Required|Description|Example|
 |:---:|:---:|:---:|:---:|:---:|
 |`venv_migrate_default_ee_url`|`registry.redhat.io/ansible-automation-platform-21/ee-supported-rhel8:latest`|no|"Registry link of the EE you want to compare requirements with"|`localhost/ee:latest`
@@ -30,8 +30,7 @@ Role variables
 |`registry_password`|None|yes(for default EE value)|password to sign in to the registry|`pass`|
 |`venv_migrate_ee_python_list`|None|No|This is an output variable, if you want to pass the requirements for ee_building|debug:msg="{{ venv_migrate_ee_python_list }}"
 
-Example Playbook
-----------------
+## Example Playbook
 
 ```yaml
 # playbook to gather requirements from custom virtualenvs
@@ -44,10 +43,11 @@ Example Playbook
       include_role:
         name: redhat_cop.ee_utilities.virtualenv_migrate
 ```
-License
--------
+
+## License
+
 MIT
 
-Author Information
-------------------
+## Author Information
+
 Anshul Behl (abehl@redhat.com)

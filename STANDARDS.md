@@ -1,5 +1,4 @@
-
-## Contributor's Guidelines
+# Contributor's Guidelines
 
 - All YAML files named with '.yml' extension
 - Use spaces around jinja variables. {{ var }} over {{var}}

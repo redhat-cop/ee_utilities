@@ -20,6 +20,7 @@ You can install the redhat_cop ee_utilities collection with the Ansible Galaxy C
 
 You can also include it in a `requirements.yml` file and install it with `ansible-galaxy collection install -r requirements.yml`, using the format:
 
+<!-- markdownlint-disable MD046 -->
 ```yaml
 ---
 collections:
@@ -27,14 +28,14 @@ collections:
     # If you need a specific version of the collection, you can specify like this:
     # version: ...
 ```
+
 ## Using this collection
 
-### See Also:
+### See Also
 
 * [Ansible Using collections](https://docs.ansible.com/ansible/latest/user_guide/collections_using.html) for more details.
 
 ## Release and Upgrade Notes
-
 
 ## Roadmap
 

@@ -1,24 +1,31 @@
 ---
 # build_arg_defaults
-builder_dir: "{{ playbook_dir }}"
 ee_container_runtime: podman
 ee_version: 1
 galaxy_cli_opts: '-v'
-# ee_base_image: quay.io/ansible/ansible-runner:devel
-# builder_image:
+
+ee_stream: downstream
+
+# Image defaults
+ee_base_image: "{{ __execution_environment_defintion.base_image | default( __ee_stream_images[ee_stream].base_image ) }}"
+ee_builder_image: "{{ __ee_stream_images[ee_stream].builder_image }}"
+base_registery_username: "{{ ee_registry_username | default(omit, true) }}"
+base_registery_password: "{{ ee_registry_password | default(omit, true) }}"
 
 # Req File defaults
-bindep_file: bindep
-python_requirements_file: python_req
-galaxy_requirements_file: requiremets.yml
+bindep_file: bindep.txt
+python_requirements_file: requirements.txt
+galaxy_requirements_file: requirements.yml
 
-# Build Step defaults
-ee_prepend: []
-ee_append: []
+# Default EE list
+ee_list: []
 
 # Controls
-ee_jinja_templates_create: true
 ee_image_push: true
+ee_update_base_images: true
+ee_create_ansible_config: true
+ee_builder_dir_clean: true
+ee_validate_certs: false
 
 # Registry
 # ee_name
