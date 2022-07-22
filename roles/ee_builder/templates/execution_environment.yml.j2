@@ -2,7 +2,7 @@
 version: {{ ee_version }}
 
 {% if ( (galaxy_cli_opts is defined) or
-        (__execution_environment_defintion.base_image is defined) or
+        (__execution_environment_definition.base_image is defined) or
         (ee_builder_image is defined) ) %}
 build_arg_defaults:
 {% if galaxy_cli_opts is defined %}
@@ -10,9 +10,9 @@ build_arg_defaults:
   ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: "{{ galaxy_cli_opts }}"
 {%    endif %}
 {% endif %}
-{% if __execution_environment_defintion.base_image is defined %}
-{%    if __execution_environment_defintion.base_image|length %}
-  EE_BASE_IMAGE: {{ __execution_environment_defintion.base_image }}
+{% if __execution_environment_definition.base_image is defined %}
+{%    if __execution_environment_definition.base_image|length %}
+  EE_BASE_IMAGE: {{ __execution_environment_definition.base_image }}
 {%    endif %}
 {% endif %}
 {% if ee_builder_image is defined %}
@@ -26,37 +26,37 @@ build_arg_defaults:
 ansible_config: '{{ ansible_config }}'
 {% endif %}
 
-{% if (__execution_environment_defintion.bindep is defined and __execution_environment_defintion.bindep|length ) or
-        (__execution_environment_defintion.python is defined and __execution_environment_defintion.python|length ) or
-        (__execution_environment_defintion.collections is defined and __execution_environment_defintion.collections|length) or
-        (__execution_environment_defintion.roles is defined and __execution_environment_defintion.roles|length) %}
+{% if (__execution_environment_definition.bindep is defined and __execution_environment_definition.bindep|length ) or
+        (__execution_environment_definition.python is defined and __execution_environment_definition.python|length ) or
+        (__execution_environment_definition.collections is defined and __execution_environment_definition.collections|length) or
+        (__execution_environment_definition.roles is defined and __execution_environment_definition.roles|length) %}
 dependencies:
-{% if (__execution_environment_defintion.bindep is defined and __execution_environment_defintion.bindep|length )%}
+{% if (__execution_environment_definition.bindep is defined and __execution_environment_definition.bindep|length )%}
   system: {{ bindep_file }}
 {% endif %}
-{% if (__execution_environment_defintion.python is defined and __execution_environment_defintion.python|length ) %}
+{% if (__execution_environment_definition.python is defined and __execution_environment_definition.python|length ) %}
   python: {{ python_requirements_file }}
 {% endif %}
-{% if (__execution_environment_defintion.collections is defined and __execution_environment_defintion.collections|length) or
-        (__execution_environment_defintion.roles is defined and __execution_environment_defintion.roles|length) %}
+{% if (__execution_environment_definition.collections is defined and __execution_environment_definition.collections|length) or
+        (__execution_environment_definition.roles is defined and __execution_environment_definition.roles|length) %}
   galaxy: {{ galaxy_requirements_file }}
 {% endif %}
 {% endif %}
 
-{% if (__execution_environment_defintion.prepend is defined and __execution_environment_defintion.prepend|length) or
-        (__execution_environment_defintion.append is defined and __execution_environment_defintion.append|length) %}
+{% if (__execution_environment_definition.prepend is defined and __execution_environment_definition.prepend|length) or
+        (__execution_environment_definition.append is defined and __execution_environment_definition.append|length) %}
 additional_build_steps:
-{% if __execution_environment_defintion.prepend is defined and __execution_environment_defintion.prepend|length %}  prepend: {% else %}{% endif %}
+{% if __execution_environment_definition.prepend is defined and __execution_environment_definition.prepend|length %}  prepend: {% else %}{% endif %}
 
-{% if __execution_environment_defintion.prepend is defined and __execution_environment_defintion.prepend|length %}
-{% for item in __execution_environment_defintion.prepend %}
+{% if __execution_environment_definition.prepend is defined and __execution_environment_definition.prepend|length %}
+{% for item in __execution_environment_definition.prepend %}
     - {{ item }}
 {% endfor %}
 {% endif %}
-{% if __execution_environment_defintion.append is defined and __execution_environment_defintion.append|length %}  append: {% else %}{% endif %}
+{% if __execution_environment_definition.append is defined and __execution_environment_definition.append|length %}  append: {% else %}{% endif %}
 
-{% if __execution_environment_defintion.append is defined and __execution_environment_defintion.append|length %}
-{% for item in __execution_environment_defintion.append %}
+{% if __execution_environment_definition.append is defined and __execution_environment_definition.append|length %}
+{% for item in __execution_environment_definition.append %}
     - {{ item }}
 {% endfor %}
 {% endif %}

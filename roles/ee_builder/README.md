@@ -11,24 +11,24 @@ podman or docker
 
 Available variables are listed below, along with default values defined (see defaults/main.yml)
 
-### Build Arugment Defaults
+### Build Argument Defaults
 
 |Variable Name|Default Value|Required|Description|Example|
 |:---:|:---:|:---:|:---:|:---:|
 |`builder_dir`|playbook_directory|no|The directory to store all build and context files|'/tmp'|
-|`ee_builder_dir_clean`|true|no|Wheather to delete the build dir when done.||
+|`ee_builder_dir_clean`|true|no|Whether to delete the build dir when done.||
 |`ee_container_runtime`|podman|no|container run time to use podman/docker.|podman|
 |`ee_version`|1|no|What Execution Environment version to use||
 |`galaxy_cli_opts`|-v|no|Options to apply when using ansible galaxy cli.||
 |`ee_galaxy_keyring`||no|Options verify collection signatures during installation.||
-|`ee_stream`|downstream|no|What stream to pull images from either upstream or downstream.||
+|`ee_stream`|upstream unless ee_base_registry_username is defined then downstream|no|What stream to pull images from either upstream or downstream.||
 |`ee_update_base_images`|false|no|Whether to pull down images, this forces an update to avoid stale images.||
 |`ee_builder_image`|registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest|no|Build arg specifies the image used for compiling type tasks.||
-|`base_registery_username`|ee_registry_username|no|Username to use when authenticating to base registries. If neither ee or base registery provided will be omited.||
-|`base_registery_password`|ee_registry_password|no|Password to use when authenticating to base registries. If neither ee or base registery provided will be omited.||
-|`ee_create_ansible_config`|true|no|Whether or not to create the ansible config file for use in building an Execution Enviornment.||
-|`ee_ah_host`||no|Host to use for ansible config file.||
-|`ee_ah_token`||no|Token to use for ansible config file.||
+|`ee_base_registry_username`|ee_registry_username|no|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
+|`ee_base_registry_password`|ee_registry_password|no|Password to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
+|`ee_create_ansible_config`|true|no|Whether or not to create the ansible config file for use in building an Execution Environment.||
+|`ah_host`||no|Host to use for ansible config file.||
+|`ah_token`||no|Token to use for ansible config file.||
 
 ### Execution environment list
 
@@ -37,7 +37,7 @@ It takes variables from the following sections the list variables section.
 
 |Variable Name|Default Value|Required|Description|
 |:---:|:---:|:---:|:---:|
-|`ee_list`|`list`|yes|Data structure describing your Execution Envionments Described below.|
+|`ee_list`|`list`|yes|Data structure describing your Execution Environments Described below.|
 
 #### List variables for Execution environment definition
 
