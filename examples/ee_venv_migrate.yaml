@@ -23,7 +23,7 @@
   hosts: localhost
   vars:
     ee_registry_dest: ahnosso.node
-    ee_ah_host: ahnosso.node
+    ah_host: ahnosso.node
     ee_ah_token: 4ab76668c4b2622ab1dfb7cbee7e6c9b8e62c0f5
     ee_list: "{{ hostvars[groups['tower'][0]]['ee_list'] }}"
   tasks:

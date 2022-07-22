@@ -17,8 +17,8 @@
 - name: Pull builder images
   containers.podman.podman_image:
     name: "{{ item }}"
-    username: "{{ base_registery_username | default(omit, true) }}"
-    password: "{{ base_registery_password | default(omit, true) }}"
+    username: "{{ ee_base_registry_username | default(omit, true) }}"
+    password: "{{ ee_base_registry_password | default(omit, true) }}"
     validate_certs: "{{ ee_validate_certs | default(omit) }}"
     force: true
   loop:
@@ -31,21 +31,21 @@
     src: bindep.j2
     dest: "{{ builder_dir }}/{{ bindep_file }}"
     mode: '0644'
-  when: __execution_environment_defintion.bindep is defined
+  when: __execution_environment_definition.bindep is defined
 
 - name: Ensure python file is rendered
   ansible.builtin.template:
     src: python.j2
     dest: "{{ builder_dir }}/{{ python_requirements_file }}"
     mode: '0644'
-  when: __execution_environment_defintion.python is defined
+  when: __execution_environment_definition.python is defined
 
 - name: Ensure requirements file is rendered
   ansible.builtin.template:
     src: requirements.yml.j2
     dest: "{{ builder_dir }}/{{ galaxy_requirements_file }}"
     mode: '0644'
-  when: (__execution_environment_defintion.collections is defined) or (__execution_environment_defintion.roles is defined)
+  when: (__execution_environment_definition.collections is defined) or (__execution_environment_definition.roles is defined)
 
 - name: Ensure ansible.cfg is rendered
   ansible.builtin.template:
@@ -54,21 +54,21 @@
     mode: '0644'
   when: ee_create_ansible_config
 
-- name: Create EE defefinition file
+- name: Create EE definition file
   ansible.builtin.template:
     src: execution_environment.yml.j2
     dest: "{{ builder_dir }}/execution_environment.yml"
     mode: '0644'
 
 - name: Run the Ansible Builder Program
-  ansible.builtin.command: "ansible-builder build -f {{ builder_dir }}/execution_environment.yml -t {{ __execution_environment_defintion.name }} --container-runtime={{ ee_container_runtime }} --prune-images {% if ee_galaxy_keyring is defined %} --galaxy-keyring={{ ee_galaxy_keyring }}{% endif %}"
+  ansible.builtin.command: "ansible-builder build -f {{ builder_dir }}/execution_environment.yml -t {{ __execution_environment_definition.ee_name }} --container-runtime={{ ee_container_runtime }} --prune-images {% if ee_galaxy_keyring is defined %} --galaxy-keyring={{ ee_galaxy_keyring }}{% endif %}"
   args:
     chdir: "{{ builder_dir }}/"
   changed_when: true   # these will always run and will always report “changed” otherwise
 
 - name: Push image to registry
   containers.podman.podman_image:
-    name: "{{ __execution_environment_defintion.name }}"
+    name: "{{ __execution_environment_definition.ee_name }}"
     pull: false
     push: true
     username: "{{ ee_registry_username | default(omit, true) }}"

@@ -1,8 +1,8 @@
 ---
-{% if __execution_environment_defintion.collections is defined %}
-{% if __execution_environment_defintion.collections|length %}
+{% if __execution_environment_definition.collections is defined %}
+{% if __execution_environment_definition.collections|length %}
 collections:
-{% for item in __execution_environment_defintion.collections %}
+{% for item in __execution_environment_definition.collections %}
 - name: {{ item.name }}
 {% if item.version is defined %}
   version: {{ item.version }}
