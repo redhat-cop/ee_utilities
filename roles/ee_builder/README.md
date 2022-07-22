@@ -21,7 +21,7 @@ Available variables are listed below, along with default values defined (see def
 |`ee_version`|1|no|What Execution Environment version to use||
 |`galaxy_cli_opts`|-v|no|Options to apply when using ansible galaxy cli.||
 |`ee_galaxy_keyring`||no|Options verify collection signatures during installation.||
-|`ee_stream`|downstream|no|What stream to pull images from either upstream or downstream.||
+|`ee_stream`|upstream unless ee_base_registry_username is defined then downstream|no|What stream to pull images from either upstream or downstream.||
 |`ee_update_base_images`|false|no|Whether to pull down images, this forces an update to avoid stale images.||
 |`ee_builder_image`|registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest|no|Build arg specifies the image used for compiling type tasks.||
 |`ee_base_registry_username`|ee_registry_username|no|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
