@@ -4,13 +4,13 @@ ee_container_runtime: podman
 ee_version: 1
 galaxy_cli_opts: '-v'
 
-ee_stream: downstream
+ee_stream: "{% if ee_base_registry_username is defined %}downstream{% else %}upstream{% endif %}"
 
 # Image defaults
-ee_base_image: "{{ __execution_environment_defintion.base_image | default( __ee_stream_images[ee_stream].base_image ) }}"
+ee_base_image: "{{ __execution_environment_definition.base_image | default( __ee_stream_images[ee_stream].base_image ) }}"
 ee_builder_image: "{{ __ee_stream_images[ee_stream].builder_image }}"
-base_registery_username: "{{ ee_registry_username | default(omit, true) }}"
-base_registery_password: "{{ ee_registry_password | default(omit, true) }}"
+ee_registry_username: "{{ ee_base_registry_username | default(omit, true) }}"
+ee_registry_password: "{{ ee_base_registry_password | default(omit, true) }}"
 
 # Req File defaults
 bindep_file: bindep.txt

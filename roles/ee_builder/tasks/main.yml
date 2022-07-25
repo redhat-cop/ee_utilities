@@ -3,5 +3,5 @@
   include_tasks: 00_build_ee.yml
   loop: "{{ ee_list }}"
   loop_control:
-    loop_var: __execution_environment_defintion
+    loop_var: __execution_environment_definition
 ...
