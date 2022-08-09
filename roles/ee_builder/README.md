@@ -43,7 +43,7 @@ It takes variables from the following sections the list variables section.
 
 |Variable Name|Default Value|Required|Description|
 |:---:|:---:|:---:|:---:|
-|`name`||yes|Name of the ee image to create.|
+|`ee_name`||yes|Name of the ee image to create.|
 |`ee_base_image`|"registry.redhat.io/ansible-automation-platform-22/ee-minimal-rhel8:latest"|no|Build arg specifies the base image for the execution environment to use.|
 |`prepend`|list|no|Ansible Builder Additional commands may be specified in the additional_build_steps section, for execution before the main build steps (prepend).|
 |`append`|list|no|Ansible Builder Additional commands may be specified in the additional_build_steps section, for execution after the main build steps (append).|
@@ -85,7 +85,7 @@ ansible-playbook playbook.yml
     ee_registry_username: admin
     ee_registry_password: secret123
     ee_list:
-      - name: custom_ee
+      - ee_name: custom_ee
         # base_image
         bindep:
           - python38-requests [platform:centos-8 platform:rhel-8]
