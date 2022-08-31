@@ -10,9 +10,9 @@ build_arg_defaults:
   ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: "{{ galaxy_cli_opts }}"
 {%    endif %}
 {% endif %}
-{% if __execution_environment_definition.base_image is defined %}
-{%    if __execution_environment_definition.base_image|length %}
-  EE_BASE_IMAGE: {{ __execution_environment_definition.base_image }}
+{% if ee_base_image is defined %}
+{%    if ee_base_image|length %}
+  EE_BASE_IMAGE: {{ ee_base_image }}
 {%    endif %}
 {% endif %}
 {% if ee_builder_image is defined %}
