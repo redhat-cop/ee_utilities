@@ -61,7 +61,7 @@
     mode: '0644'
 
 - name: Run the Ansible Builder Program
-  ansible.builtin.command: "ansible-builder build -f {{ builder_dir }}/execution_environment.yml -t {{ __execution_environment_definition.ee_name }} --container-runtime={{ ee_container_runtime }} --prune-images {% if ee_galaxy_keyring is defined %} --galaxy-keyring={{ ee_galaxy_keyring }}{% endif %}"
+  ansible.builtin.command: "ansible-builder build -f {{ builder_dir }}/execution_environment.yml -t {{ __execution_environment_definition.ee_name }} --container-runtime={{ ee_container_runtime }} {% if ee_prune_images %} --prune-images {% endif %} {% if ee_galaxy_keyring is defined %} --galaxy-keyring={{ ee_galaxy_keyring }}{% endif %}"
   args:
     chdir: "{{ builder_dir }}/"
   changed_when: true   # these will always run and will always report “changed” otherwise
