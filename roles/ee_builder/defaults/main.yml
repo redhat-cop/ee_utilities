@@ -26,6 +26,7 @@ ee_update_base_images: true
 ee_create_ansible_config: true
 ee_builder_dir_clean: true
 ee_validate_certs: false
+ee_prune_images: true
 
 # Registry
 # ee_name
