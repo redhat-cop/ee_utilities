@@ -1,6 +1,9 @@
 ---
 extends: default
 
+ignore: |
+  changelogs
+
 rules:
   # 80 chars should be enough, but don't fail if a line is longer
   line-length: disable
@@ -10,9 +13,11 @@ rules:
   document-end: {present: true}
   indentation:
     level: error
-    indent-sequences: true  # to be consistent with ansible-lint
+    # Require indentation https://redhat-cop.github.io/automation-good-practices/#_yaml_and_jinja2_syntax
+    indent-sequences: true
   truthy:
     level: error
+    # Allow only YAML 1.2 booleans https://redhat-cop.github.io/automation-good-practices/#_yaml_and_jinja2_syntax
     allowed-values:
       - 'true'
       - 'false'
