@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: false
   collections:
-    - redhat_cop.ee_utilities
+    - infra.ee_utilities
   vars:
     ee_builder_dir_clean: true
     ah_host: ahnosso.node
@@ -32,5 +32,5 @@
         append:
           - RUN echo This is a post-install command!
   roles:
-    - redhat_cop.ee_utilities.ee_builder
+    - infra.ee_utilities.ee_builder
 ...

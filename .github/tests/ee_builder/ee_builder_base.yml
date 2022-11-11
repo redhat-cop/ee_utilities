@@ -34,5 +34,5 @@
       - RUN sed -i -e '/^cgroup_manager.*/d' -e '/\#\ cgroup_manager\ =/a cgroup_manager = "cgroupfs"' /usr/share/containers/containers.conf
       - ENV _BUILDAH_STARTED_IN_USERNS="" BUILDAH_ISOLATION=chroot
   roles:
-    - redhat_cop.ee_utilities.ee_builder
+    - infra.ee_utilities.ee_builder
 ...

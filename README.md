@@ -24,9 +24,9 @@ Click the `Content` button to see the list of content included in this collectio
 
 ## Installing this collection
 
-You can install the redhat_cop ee_utilities collection with the Ansible Galaxy CLI:
+You can install the infra.ee_utilities collection with the Ansible Galaxy CLI:
 
-    ansible-galaxy collection install redhat_cop.ee_utilities
+    ansible-galaxy collection install infra.ee_utilities
 
 You can also include it in a `requirements.yml` file and install it with `ansible-galaxy collection install -r requirements.yml`, using the format:
 
@@ -34,7 +34,7 @@ You can also include it in a `requirements.yml` file and install it with `ansibl
 ```yaml
 ---
 collections:
-  - name: redhat_cop.ee_utilities
+  - name: infra.ee_utilities
     # If you need a specific version of the collection, you can specify like this:
     # version: ...
 ```

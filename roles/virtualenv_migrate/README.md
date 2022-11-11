@@ -1,4 +1,4 @@
-# redhat_cop.ee_utilities.virtualenv_migrate
+# infra.ee_utilities.virtualenv_migrate
 
 Use this role to create a list of python requirements from custom virtualenvs present in your AAP 1.2 cluster, after comparing those with requirements in Default Execution Environment.
 This role is based on the `awx-manage` utility and needs an AAP1.2 tower node to gather requirements from and localhost to pull EE and compare those requirements.
@@ -41,7 +41,7 @@ podman on localhost
   tasks:
     - name: Include venv role
       include_role:
-        name: redhat_cop.ee_utilities.virtualenv_migrate
+        name: infra.ee_utilities.virtualenv_migrate
 ```
 
 ## License

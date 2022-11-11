@@ -27,5 +27,5 @@
       - VOLUME /var/lib/docker
       - VOLUME /runner
   roles:
-    - redhat_cop.ee_utilities.ee_builder
+    - infra.ee_utilities.ee_builder
 ...

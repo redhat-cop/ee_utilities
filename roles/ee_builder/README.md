@@ -1,4 +1,4 @@
-# redhat_cop.ee_utilities.ee_builder
+# infra.ee_utilities.ee_builder
 
 Ansible role to prep to use the setup an execution environment. This role invokes ansible builder and depends on either variables or files being provided to specify inclusions
 
@@ -81,7 +81,7 @@ ansible-playbook playbook.yml
   hosts: localhost
   gather_facts: false
   collections:
-    - redhat_cop.ee_utilities
+    - infra.ee_utilities
   vars:
     ee_registry_dest: ahnosso.node
     ee_registry_username: admin
@@ -106,7 +106,7 @@ ansible-playbook playbook.yml
         append:
           - RUN echo This is a post-install command!
   roles:
-    - redhat_cop.ee_utilities.ee_builder
+    - infra.ee_utilities.ee_builder
 ```
 
 ## License
