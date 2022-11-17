@@ -89,6 +89,7 @@ podman on localhost
         content: "{{ ee_list | to_nice_yaml( width=50, explicit_start=True, explicit_end=True) }}"
         dest: venv_migrate_ee_python.yaml
 ...
+```
 
 ## License
 
