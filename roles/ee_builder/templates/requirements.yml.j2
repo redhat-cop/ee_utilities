@@ -10,3 +10,14 @@ collections:
 {% endfor %}
 {% endif %}
 {% endif %}
+{% if __execution_environment_definition.roles is defined %}
+{% if __execution_environment_definition.roles|length %}
+roles:
+{% for item in __execution_environment_definition.roles %}
+- name: {{ item.name }}
+{% if item.version is defined %}
+  version: {{ item.version }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}

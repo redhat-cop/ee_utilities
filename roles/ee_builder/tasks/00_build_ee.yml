@@ -26,7 +26,7 @@
     - "{{ ee_builder_image }}"
   when: ee_update_base_images
 
-- name: ensure bindep file is rendered
+- name: Ensure bindep file is rendered
   ansible.builtin.template:
     src: bindep.j2
     dest: "{{ builder_dir }}/{{ bindep_file }}"
@@ -85,6 +85,6 @@
 - name: Empty build directory
   ansible.builtin.file:
     state: absent
-    path: "{{ build_dir.path | default( builder_dir ) }}"
+    path: "{{ build_dir.path | default(builder_dir) }}"
   when: ee_builder_dir_clean
 ...

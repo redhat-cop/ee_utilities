@@ -12,10 +12,10 @@
       - name: redhat_cop.ah_configuration
   tasks:
     - name: Include venv_migrate role
-      include_role:
+      ansible.builtin.include_role:
         name: redhat_cop.ee_utilities.virtualenv_migrate
 
-    - name: ee_list
+    - name: Display ee_list
       ansible.builtin.debug:
         var: ee_list
 
@@ -29,11 +29,11 @@
   tasks:
 
     - name: Create EE
-      include_role:
+      ansible.builtin.include_role:
         name: redhat_cop.ee_utilities.ee_builder
 
-    - name: Export python virtual enviroment list to file
-      copy:
-        content: "{{ ee_list | to_nice_yaml( width=50, explicit_start=True, explicit_end=True) }}"
+    - name: Export python virtual enviroment list to file  # noqa template-instead-of-copy
+      ansible.builtin.copy:
+        content: "{{ ee_list | to_nice_yaml(width=50, explicit_start=True, explicit_end=True) }}"
         dest: venv_migrate_ee_python.yaml
 ...

@@ -50,7 +50,8 @@ It takes variables from the following sections the list variables section.
 |`append`|list|no|Ansible Builder Additional commands may be specified in the additional_build_steps section, for execution after the main build steps (append).|
 |`bindep`|list|no|The variable list to provide bindep requirements if using variables|
 |`python`|list|no|The variable list to provide python requirements if using variables|
-|`collections`|list|no|The variable list to provide galaxy requirements if using variables, in ansible galaxy list form|
+|`collections`|list|no|The variable list to provide collection galaxy requirements if using variables, in ansible galaxy list form|
+|`roles`|list|no|The variable list to provide galaxy roles requirements if using variables, in ansible galaxy list form|
 
 ### Registry Step defaults
 
