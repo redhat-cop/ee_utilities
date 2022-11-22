@@ -76,6 +76,7 @@
     auth_file: "{{ ee_auth_file | default(omit, true) }}"
     executable: "{{ ee_executable | default(omit, true) }}"
     ca_cert_dir: "{{ ee_ca_cert_dir | default(omit) }}"
+    tag: "{{ __execution_environment_definition.tag | default(omit) }}"
     validate_certs: "{{ ee_validate_certs | default(omit) }}"
     push_args:
       dest: "{{ ee_registry_dest }}"

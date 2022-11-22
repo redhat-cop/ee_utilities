@@ -45,6 +45,7 @@ It takes variables from the following sections the list variables section.
 |Variable Name|Default Value|Required|Description|
 |:---:|:---:|:---:|:---:|
 |`ee_name`||yes|Name of the ee image to create.|
+|`tag`||no|Tag to use when pushing the image.|
 |`ee_base_image`|"registry.redhat.io/ansible-automation-platform-22/ee-minimal-rhel8:latest"|no|Build arg specifies the base image for the execution environment to use.|
 |`prepend`|list|no|Ansible Builder Additional commands may be specified in the additional_build_steps section, for execution before the main build steps (prepend).|
 |`append`|list|no|Ansible Builder Additional commands may be specified in the additional_build_steps section, for execution after the main build steps (append).|
