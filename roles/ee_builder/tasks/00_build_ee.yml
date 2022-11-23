@@ -22,8 +22,8 @@
     validate_certs: "{{ ee_validate_certs | default(omit) }}"
     force: true
   loop:
-    - "{{ ee_base_image }}"
-    - "{{ ee_builder_image }}"
+    - "{{ __execution_environment_definition.base_image | default(ee_base_image) }}"
+    - "{{ __execution_environment_definition.builder_image | default(ee_builder_image) }}"
   when: ee_update_base_images
 
 - name: Ensure bindep file is rendered
@@ -61,7 +61,16 @@
     mode: '0644'
 
 - name: Run the Ansible Builder Program
-  ansible.builtin.command: "ansible-builder build -f {{ builder_dir }}/execution_environment.yml -t {{ __execution_environment_definition.ee_name }} --container-runtime={{ ee_container_runtime }} {% if ee_prune_images %} --prune-images {% endif %} {% if ee_galaxy_keyring is defined %} --galaxy-keyring={{ ee_galaxy_keyring }}{% endif %}"
+  ansible.builtin.command: >
+    ansible-builder build -f
+      {{ builder_dir }}/execution_environment.yml
+      -t {{ __execution_environment_definition.ee_name }} --container-runtime={{ ee_container_runtime }}
+      {% if ee_prune_images %} --prune-images{% endif %}
+      {% if ee_galaxy_keyring is defined %} --galaxy-keyring={{ ee_galaxy_keyring }}{% endif %}
+      {% if ee_galaxy_ignore_signature_status_code is defined %}{% for status_code in ee_galaxy_ignore_signature_status_code %} --galaxy-ignore-signature-status-code={{ status_code }}{% endfor %}{% endif %}
+      {% if galaxy_required_valid_signature_count is defined %} --galaxy-required-valid-signature-count={{ galaxy_required_valid_signature_count }}{% endif %}
+      {% if ee_container_policy is defined %} --container-policy={{ ee_container_policy }}{% endif %}
+      --verbosity {{ ee_verbosity | default(0) }}
   args:
     chdir: "{{ builder_dir }}/"
   changed_when: true   # these will always run and will always report “changed” otherwise

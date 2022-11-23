@@ -11,25 +11,60 @@ podman or docker
 
 Available variables are listed below, along with default values defined (see defaults/main.yml)
 
+Order of preferences for images
+
+1. ee_list images
+
+    ```yaml
+        ee_list:
+          - ee_name: custom_ee
+            base_image: image_name
+            builder_image: image_name
+    ```
+
+2. 'ee_base_image' and 'ee_builder_image' top level variables.
+
+3. If none of the above are set, a default will be used.
+
+   Downstream images from the redhat registery will be used if you provide a 'ee_base_registry_username'
+   Otherwise it will default to the upstream images on quay.
+
+    ```yaml
+    __ee_stream_images:
+      upstream:
+        base_image: quay.io/ansible/ansible-runner:latest
+        builder_image: quay.io/ansible/ansible-builder:latest
+      downstream:
+        base_image: registry.redhat.io/ansible-automation-platform-22/ee-minimal-rhel8:latest
+        builder_image: registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest
+    ```
+
+Best practice is to use the default images, unless needing to pull from another repository.
+
 ### Build Argument Defaults
 
-|Variable Name|Default Value|Required|Description|Example|
-|:---:|:---:|:---:|:---:|:---:|
-|`builder_dir`|playbook_directory|no|The directory to store all build and context files|'/tmp'|
-|`ee_builder_dir_clean`|true|no|Whether to delete the build dir when done.||
-|`ee_container_runtime`|podman|no|container run time to use podman/docker.|podman|
-|`ee_version`|1|no|What Execution Environment version to use||
-|`galaxy_cli_opts`|-v|no|Options to apply when using ansible galaxy cli.||
-|`ee_galaxy_keyring`||no|Options verify collection signatures during installation.||
-|`ee_prune_images`|true|no|To enable or disable pruning the images after building.||
-|`ee_stream`|upstream unless ee_base_registry_username is defined then downstream|no|What stream to pull images from either upstream or downstream.||
-|`ee_update_base_images`|false|no|Whether to pull down images, this forces an update to avoid stale images.||
-|`ee_builder_image`|registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest|no|Build arg specifies the image used for compiling type tasks.||
-|`ee_base_registry_username`|ee_registry_username|no|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
-|`ee_base_registry_password`|ee_registry_password|no|Password to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
-|`ee_create_ansible_config`|true|no|Whether or not to create the ansible config file for use in building an Execution Environment.||
-|`ah_host`||no|Host to use for ansible config file.||
-|`ah_token`||no|Token to use for ansible config file.||
+|Variable Name|Default Value|Required|Type|Description|Example|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|`builder_dir`|playbook_directory|no|str|The directory to store all build and context files.|'/tmp'|
+|`ee_builder_dir_clean`|true|no|bool|Whether to delete the build dir when done.|true|
+|`ee_container_runtime`|podman|no|str|container run time to use podman/docker.|podman|
+|`ee_version`|1|no|int|What Execution Environment version to use.|2|
+|`galaxy_cli_opts`|-v|no|str|Options to apply when using ansible galaxy cli.||
+|`ee_galaxy_keyring`||no|str|Path to the keyring to verify collection signatures during installation.||
+|`ee_galaxy_ignore_signature_status_code`||no|list|List of status codes to ignore while verifying collections.|-500|
+|`galaxy_required_valid_signature_count`||no|int|Number of required valid collection signatures.|5|
+|`ee_container_policy`||no|str|The container image validation policy to use with podman. Can be one of 'ignore_all', 'system','signature_required'.|ignore_all|
+|`ee_verbosity`|0|no|int|Options Increase the output verbosity, can be from 0-3.||
+|`ee_prune_images`|true|no|bool|To enable or disable pruning the images after building.||
+|`ee_stream`|upstream unless ee_base_registry_username is defined then downstream|no|str|What stream to pull images from either upstream or downstream.||
+|`ee_update_base_images`|false|no|bool|Whether to pull down images, this forces an update to avoid stale images.||
+|`ee_base_image`|registry.redhat.io/ansible-automation-platform-22/ee-minimal-rhel8:latest|no|str|Build arg specifies parent image for the execution environment.||
+|`ee_builder_image`|registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest|no|str|Build arg specifies the image used for compiling type tasks.||
+|`ee_base_registry_username`|ee_registry_username|no|str|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
+|`ee_base_registry_password`|ee_registry_password|no|str|Password to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
+|`ee_create_ansible_config`|true|no|bool|Whether or not to create the ansible config file for use in building an Execution Environment.||
+|`ah_host`||no|str|Host to use for ansible config file.||
+|`ah_token`||no|str|Token to use for ansible config file.||
 
 ### Execution environment list
 
@@ -46,13 +81,26 @@ It takes variables from the following sections the list variables section.
 |:---:|:---:|:---:|:---:|
 |`ee_name`||yes|Name of the ee image to create.|
 |`tag`||no|Tag to use when pushing the image.|
-|`ee_base_image`|"registry.redhat.io/ansible-automation-platform-22/ee-minimal-rhel8:latest"|no|Build arg specifies the base image for the execution environment to use.|
+|`base_image`|"registry.redhat.io/ansible-automation-platform-22/ee-minimal-rhel8:latest"|no|Build arg specifies the base image for the execution environment to use.|
+|`builder_image`|registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest|no|str|Build arg specifies the image used for compiling type tasks.||
 |`prepend`|list|no|Ansible Builder Additional commands may be specified in the additional_build_steps section, for execution before the main build steps (prepend).|
 |`append`|list|no|Ansible Builder Additional commands may be specified in the additional_build_steps section, for execution after the main build steps (append).|
 |`bindep`|list|no|The variable list to provide bindep requirements if using variables|
 |`python`|list|no|The variable list to provide python requirements if using variables|
 |`collections`|list|no|The variable list to provide collection galaxy requirements if using variables, in ansible galaxy list form|
 |`roles`|list|no|The variable list to provide galaxy roles requirements if using variables, in ansible galaxy list form|
+
+#### Additional List variables for Execution environment definition for Controller configuration
+
+These variables are only use in creating the Execution Environment 'controller_execution_environments' definition that is useable wtih the infra.controller_configuration role to push definitions to the Automation controller.
+
+|Variable Name|Default Value|Required|Type|Description|
+|:---:|:---:|:---:|:---:|:---:|
+|`alt_name`|`ee_name`|no|str|Alternate name of the ee image to create.|
+|`description`|""|no|str|Description to use for the execution environment.|
+|`organization`|""|no|str|The organization the execution environment belongs to.|
+|`pull`|"missing"|no|choice("always", "missing", "never")|Determine image pull behavior|
+|`ee_reg_credential`|""|no|str|Name of the credential to use for the execution environment.|
 
 ### Registry Step defaults
 
