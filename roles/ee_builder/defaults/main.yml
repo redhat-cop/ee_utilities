@@ -33,4 +33,8 @@ ee_prune_images: true
 # ee_registry_username
 # ee_registry_password
 # ee_registry_dest
+
+# Hub host variables for ansible.cfgw
+ee_ah_host: "{{ ah_host }}"
+ee_ah_token: "{{ ah_token }}"
 ...
