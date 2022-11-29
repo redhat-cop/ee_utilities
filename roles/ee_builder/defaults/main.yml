@@ -7,7 +7,7 @@ galaxy_cli_opts: '-v'
 ee_stream: "{% if ee_base_registry_username is defined %}downstream{% else %}upstream{% endif %}"
 
 # Image defaults
-ee_base_image: "{{ __execution_environment_definition.base_image | default(__ee_stream_images[ee_stream].base_image) }}"
+ee_base_image: "{{ __ee_stream_images[ee_stream].base_image }}"
 ee_builder_image: "{{ __ee_stream_images[ee_stream].builder_image }}"
 ee_registry_username: "{{ ee_base_registry_username | default(omit, true) }}"
 ee_registry_password: "{{ ee_base_registry_password | default(omit, true) }}"

@@ -1,0 +1,43 @@
+---
+- name: Playbook to create custom EE
+  hosts: localhost
+  gather_facts: false
+  collections:
+    - redhat_cop.ee_utilities
+    - redhat_cop.controller_configuration
+  vars:
+    # For ansible.cfg generation
+    # For controller configuration definition
+    ee_reg_credential: Automation Hub Container Registry
+    ee_create_ansible_config: false
+    ee_list:
+      - ee_name: custom_ee
+        alt_name: Custom EE
+        ee_base_image: 1registry.redhat.io/ansible-automation-platform-22/ee-supported-rhel8:latest
+        ee_builder_image: 1registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest
+        tag: 1-11-21-2
+        # base_image
+        bindep:
+          - python38-requests [platform:centos-8 platform:rhel-8]
+          - python38-pyyaml [platform:centos-8 platform:rhel-8]
+        python:
+          - pytz  # for schedule_rrule lookup plugin
+          - python-dateutil>=2.7.0  # schedule_rrule
+          - awxkit  # For import and export modules
+        collections:
+          - name: awx.awx
+            version: 21.9.0
+          - name: redhat_cop.controller_configuration
+          - name: redhat_cop.ah_configuration
+        prepend:
+          - RUN whoami
+          - RUN cat /etc/os-release
+        append:
+          - RUN echo This is a post-install command!
+      - ee_name: custom_ee2
+        alt_name: Custom EE2
+        ee_base_image: 2registry.redhat.io/ansible-automation-platform-22/ee-supported-rhel8:latest
+        ee_builder_image: 2registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest
+  roles:
+    - redhat_cop.ee_utilities.ee_builder
+...
