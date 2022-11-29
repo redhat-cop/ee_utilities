@@ -63,8 +63,8 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_base_registry_username`|ee_registry_username|no|str|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_base_registry_password`|ee_registry_password|no|str|Password to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_create_ansible_config`|true|no|bool|Whether or not to create the ansible config file for use in building an Execution Environment.||
-|`ah_host`||no|str|Host to use for ansible config file.||
-|`ah_token`||no|str|Token to use for ansible config file.||
+|`ee_ah_host`|`ah_host`|no|str|Host to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_create_ansible_config` is `True`.||
+|`ee_ah_token`|`ah_token`|no|str|Token to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_create_ansible_config` is `True`.||
 
 ### Execution environment list
 
