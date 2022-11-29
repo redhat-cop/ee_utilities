@@ -1,5 +1,5 @@
 [galaxy]
-server_list = automation_hub_cert,automation_hub_pub,automation_hub_comm
+server_list = automation_hub_cert,automation_hub_pub,automation_hub_validated,automation_hub_comm
 ignore_certs = yes
 
 [galaxy_server.automation_hub_cert]
@@ -12,4 +12,8 @@ token={{ ee_ah_token }}
 
 [galaxy_server.automation_hub_comm]
 url={{ ee_ah_host }}/api/galaxy/content/community/
+token={{ ee_ah_token }}
+
+[galaxy_server.automation_hub_validated]
+url={{ ee_ah_host }}/api/galaxy/content/validated/
 token={{ ee_ah_token }}
