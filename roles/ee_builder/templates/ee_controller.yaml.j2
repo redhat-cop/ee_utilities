@@ -2,7 +2,8 @@
 controller_execution_environments:
 {% for exec_env in ee_list %}
 - name: {{ exec_env.alt_name | default(exec_env.ee_name)}}
-  image: {{ ee_registry_dest }}/{{ exec_env.ee_name }}:{{ exec_env.tag }}
+  image: {{ ee_registry_dest }}/{{ exec_env.ee_name }}{% if exec_env.tag is defined %}:{{ exec_env.tag }}{% endif %}
+
 {% if exec_env.description is defined %}
   description: {{ exec_env.description }}
 {% endif %}
