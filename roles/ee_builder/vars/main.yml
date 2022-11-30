@@ -5,6 +5,6 @@ __ee_stream_images:
     base_image: quay.io/ansible/ansible-runner:latest
     builder_image: quay.io/ansible/ansible-builder:latest
   downstream:
-    base_image: registry.redhat.io/ansible-automation-platform-22/ee-minimal-rhel8:latest
-    builder_image: registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest
+    base_image: registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest
+    builder_image: registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest
 ...

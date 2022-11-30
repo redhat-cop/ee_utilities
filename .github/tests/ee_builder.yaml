@@ -13,8 +13,8 @@
     ee_list:
       - ee_name: custom_ee
         alt_name: Custom EE
-        ee_base_image: 1registry.redhat.io/ansible-automation-platform-22/ee-supported-rhel8:latest
-        ee_builder_image: 1registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest
+        ee_base_image: 1registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest
+        ee_builder_image: 1registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest
         tag: 1-11-21-2
         # base_image
         bindep:
@@ -36,8 +36,8 @@
           - RUN echo This is a post-install command!
       - ee_name: custom_ee2
         alt_name: Custom EE2
-        ee_base_image: 2registry.redhat.io/ansible-automation-platform-22/ee-supported-rhel8:latest
-        ee_builder_image: 2registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest
+        ee_base_image: 2registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest
+        ee_builder_image: 2registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest
   roles:
     - redhat_cop.ee_utilities.ee_builder
 ...

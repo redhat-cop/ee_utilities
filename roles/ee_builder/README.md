@@ -35,8 +35,8 @@ Order of preferences for images
         base_image: quay.io/ansible/ansible-runner:latest
         builder_image: quay.io/ansible/ansible-builder:latest
       downstream:
-        base_image: registry.redhat.io/ansible-automation-platform-22/ee-minimal-rhel8:latest
-        builder_image: registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest
+        base_image: registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest
+        builder_image: registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest
     ```
 
 Best practice is to use the default images, unless needing to pull from another repository.
@@ -58,8 +58,8 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_prune_images`|true|no|bool|To enable or disable pruning the images after building.||
 |`ee_stream`|upstream unless ee_base_registry_username is defined then downstream|no|str|What stream to pull images from either upstream or downstream.||
 |`ee_update_base_images`|false|no|bool|Whether to pull down images, this forces an update to avoid stale images.||
-|`ee_base_image`|registry.redhat.io/ansible-automation-platform-22/ee-minimal-rhel8:latest|no|str|Build arg specifies parent image for the execution environment.||
-|`ee_builder_image`|registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest|no|str|Build arg specifies the image used for compiling type tasks.||
+|`ee_base_image`|registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest|no|str|Build arg specifies parent image for the execution environment.||
+|`ee_builder_image`|registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest|no|str|Build arg specifies the image used for compiling type tasks.||
 |`ee_base_registry_username`|ee_registry_username|no|str|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_base_registry_password`|ee_registry_password|no|str|Password to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_create_ansible_config`|true|no|bool|Whether or not to create the ansible config file for use in building an Execution Environment.||
@@ -81,8 +81,8 @@ It takes variables from the following sections the list variables section.
 |:---:|:---:|:---:|:---:|
 |`ee_name`||yes|Name of the ee image to create.|
 |`tag`||no|Tag to use when pushing the image.|
-|`base_image`|"registry.redhat.io/ansible-automation-platform-22/ee-minimal-rhel8:latest"|no|Build arg specifies the base image for the execution environment to use.|
-|`builder_image`|registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest|no|str|Build arg specifies the image used for compiling type tasks.||
+|`base_image`|"registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest"|no|Build arg specifies the base image for the execution environment to use.|
+|`builder_image`|registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest|no|str|Build arg specifies the image used for compiling type tasks.||
 |`prepend`|list|no|Ansible Builder Additional commands may be specified in the additional_build_steps section, for execution before the main build steps (prepend).|
 |`append`|list|no|Ansible Builder Additional commands may be specified in the additional_build_steps section, for execution after the main build steps (append).|
 |`bindep`|list|no|The variable list to provide bindep requirements if using variables|
