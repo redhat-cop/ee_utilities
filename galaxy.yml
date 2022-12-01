@@ -1,0 +1,32 @@
+---
+namespace: infra
+name: ee_utilities
+version: 0.0.1-devel
+description: A collection of utility roles for usage with Ansible Execution Enviroments
+readme: README.md
+authors:
+    - Sean Sullivan @sean-m-sullivan
+    - Anshul Behl @anshulbehl
+repository: https://github.com/redhat-cop/ee_utilities
+issues: https://github.com/redhat-cop/ee_utilities/issues
+build_ignore:
+    - galaxy.yml.j2
+    - release.yml
+    - .github
+    - .markdownlint.yml
+    - .ansible-lint
+    - .yamllint.yml
+    - .pre-commit-config.yaml
+    - .gitignore
+    - .gitattributes
+license:
+    - GPL-3.0-or-later
+tags:
+    - execution
+    - enviroments
+    - collection
+    - utilities
+    - utils
+    - ee_utilities
+    - ee_utils
+dependencies: {}

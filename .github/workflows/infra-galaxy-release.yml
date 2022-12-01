@@ -25,6 +25,9 @@ jobs:
       - name: Install ansible-base
         run: pip install ansible
 
+      - name: Run Sanity Tests
+        uses: ansible-network/github_actions/.github/workflows/sanity.yml@main
+
       - name: Publish to galaxy
         run: ansible-playbook .github/workflow-config/release.yml
           -e namespace='infra'
