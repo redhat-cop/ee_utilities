@@ -1,5 +1,5 @@
 ---
-name: galaxy-release
+name: Create Changelog
 on:  # yamllint disable-line rule:truthy
   release:
     types:
@@ -25,8 +25,8 @@ jobs:
       - name: Install ansible-base and changelog
         run: pip install ansible antsibull-changelog
 
-      - name: Publish to galaxy
-        run: ansible-playbook .github/workflow-config/release.yml
+      - name: Create Changelog
+        run: ansible-playbook .github/workflow-config/create_changelog.yml
           -e namespace=${{ github.repository_owner }}
           -e github_tag=${{ github.ref_name }}
           -e api_key=${{ secrets.ANSIBLE_GALAXY_APIKEY }}
