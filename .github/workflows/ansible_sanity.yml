@@ -1,0 +1,8 @@
+---
+name: ansible_sanity
+on: [push, pull_request]
+
+jobs:
+  sanity:
+    uses: ansible-network/github_actions/.github/workflows/sanity.yml@main
+...
