@@ -1,6 +1,0 @@
----
-minor_changes:
-  - added new options from ansible builder.
-  - added ability to use base and builder images at several levels and updated README to be more accurate.
-  - added ability to output controller_configuration execution_environment config for created images.
-...
