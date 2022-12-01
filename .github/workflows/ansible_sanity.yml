@@ -1,6 +1,11 @@
 ---
 name: ansible_sanity
-on: [push, pull_request]
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  push:
+  pull_request:
+
 
 jobs:
   sanity:

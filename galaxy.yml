@@ -1,11 +1,7 @@
 ---
 namespace: infra
 name: ee_utilities
-<<<<<<< HEAD
-version: 1.0.1-devel
-=======
-version: 0.0.1-devel
->>>>>>> ff39ab3e6e25dc026c5ffb7e70c4e62e2716936e
+version: 1.0.1
 description: A collection of utility roles for usage with Ansible Execution Enviroments
 readme: README.md
 authors:
@@ -34,7 +30,4 @@ tags:
     - ee_utilities
     - ee_utils
 dependencies: {}
-<<<<<<< HEAD
 ...
-=======
->>>>>>> ff39ab3e6e25dc026c5ffb7e70c4e62e2716936e

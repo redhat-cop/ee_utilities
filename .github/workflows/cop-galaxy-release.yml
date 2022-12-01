@@ -6,7 +6,10 @@ on:  # yamllint disable-line rule:truthy
       - published
 
 jobs:
+  sanity:
+    uses: ansible-network/github_actions/.github/workflows/sanity.yml@main
   release:
+    needs: sanity
     runs-on: ubuntu-latest
     env:
       ANSIBLE_FORCE_COLOR: 1
@@ -21,9 +24,6 @@ jobs:
 
       - name: Install ansible-base
         run: pip install ansible
-
-      - name: Run Sanity Tests
-        uses: ansible-network/github_actions/.github/workflows/sanity.yml@main
 
       - name: Publish to galaxy
         run: ansible-playbook .github/workflow-config/release.yml
