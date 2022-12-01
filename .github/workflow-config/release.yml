@@ -17,13 +17,6 @@
         src: "{{ repo_base_dir }}/galaxy.yml.j2"
         dest: "{{ repo_base_dir }}/galaxy.yml"
 
-    - name: Update changelog
-      command:
-        cmd: antsibull-changelog release --verbose --version {{ collection_version }}
-        chdir: "{{ repo_base_dir }}"
-      register: update_changelog
-      changed_when: "update_changelog.rc != 2"
-
     - name: build collection
       command:
         cmd: ansible-galaxy collection build
@@ -36,6 +29,11 @@
         cmd: "ansible-galaxy collection install {{ collection_namespace }}-{{ collection_name }}-{{ collection_version }}.tar.gz -p ~/.ansible/collections/"
         chdir: "{{ repo_base_dir }}"
       tags: install
+
+    - name: Pause for 30 seconds. #so it is on different cadence then the redhat_cop one.
+      ansible.builtin.pause:
+        seconds: 30
+      when: collection_namespace == "infra"
 
     - name: publish collection
       command:
