@@ -1,0 +1,13 @@
+ancestor: null
+releases:
+  2.0.2:
+    changes:
+      minor_changes:
+      - added ability to output controller_configuration execution_environment config
+        for created images.
+      - added ability to use base and builder images at several levels and updated
+        README to be more accurate.
+      - added new options from ansible builder.
+    fragments:
+    - changes.yml
+    release_date: '2022-12-01'
