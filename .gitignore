@@ -12,6 +12,7 @@
 # Ignore any included collections
 collections/*
 !collections/requirements.yml
+galaxy.yml
 *.tar.gz
 
 # Ignore Vim working files

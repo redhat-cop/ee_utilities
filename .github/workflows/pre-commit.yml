@@ -3,11 +3,7 @@
 # See .pre-commit-config.yml for what hooks are executed
 name: Yaml and Ansible Lint
 
-on:
-  schedule:
-    - cron: "0 5 * * *"
-  push:
-  pull_request:
+on: [push, pull_request]  # yamllint disable-line rule:truthy
 
 jobs:
   pre-commit:
