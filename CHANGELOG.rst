@@ -5,6 +5,14 @@ Redhat_Cop.Ee_Utilities Release Notes
 .. contents:: Topics
 
 
+v2.0.3
+======
+
+Bugfixes
+--------
+
+- Fixed issue where ansible.cfg file was not being consumed by the builder.
+
 v2.0.2
 ======
 

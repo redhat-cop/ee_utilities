@@ -11,3 +11,10 @@ releases:
     fragments:
     - changes.yml
     release_date: '2022-12-01'
+  2.0.3:
+    changes:
+      bugfixes:
+      - Fixed issue where ansible.cfg file was not being consumed by the builder.
+    fragments:
+    - config_file_fix.yml
+    release_date: '2022-12-05'
