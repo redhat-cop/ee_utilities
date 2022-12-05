@@ -1,4 +1,0 @@
----
-bugfixes:
-  - Fixed issue where ansible.cfg file was not being consumed by the builder.
-...
