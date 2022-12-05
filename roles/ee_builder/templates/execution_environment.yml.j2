@@ -20,8 +20,8 @@ build_arg_defaults:
 {% endif %}
 {% endif %}
 
-{% if ansible_config is defined %}
-ansible_config: '{{ ansible_config }}'
+{% if ansible_cfg_file is defined %}
+ansible_config: {{ ansible_cfg_file }}
 {% endif %}
 
 {% if (__execution_environment_definition.bindep is defined and __execution_environment_definition.bindep|length ) or

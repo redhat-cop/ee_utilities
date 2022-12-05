@@ -73,7 +73,7 @@
       --verbosity {{ ee_verbosity | default(0) }}
   args:
     chdir: "{{ builder_dir }}/"
-  changed_when: true   # these will always run and will always report “changed” otherwise
+  changed_when: true   # these will always run and will always report "changed" otherwise
 
 - name: Push image to registry
   containers.podman.podman_image:

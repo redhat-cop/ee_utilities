@@ -16,6 +16,7 @@ ee_registry_password: "{{ ee_base_registry_password | default(omit, true) }}"
 bindep_file: bindep.txt
 python_requirements_file: requirements.txt
 galaxy_requirements_file: requirements.yml
+ansible_cfg_file: ansible.cfg
 
 # Default EE list
 ee_list: []
