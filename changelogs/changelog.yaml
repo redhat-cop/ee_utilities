@@ -18,3 +18,5 @@ releases:
     fragments:
     - config_file_fix.yml
     release_date: '2022-12-05'
+  2.0.4:
+    release_date: '2022-12-06'
