@@ -1,6 +1,7 @@
 ---
 # tasks file for ee_builder
 - name: Build directory creation block.
+  when: builder_dir is not defined
   block:
     - name: Create temporary folder
       ansible.builtin.tempfile:
@@ -11,8 +12,6 @@
     - name: Set Build dir fact.
       ansible.builtin.set_fact:
         builder_dir: "{{ build_dir.path }}"
-
-  when: builder_dir is not defined
 
 - name: Pull builder images
   containers.podman.podman_image:

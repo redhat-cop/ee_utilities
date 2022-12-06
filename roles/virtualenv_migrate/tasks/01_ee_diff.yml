@@ -1,5 +1,6 @@
 ---
 - name: Diff with EE requirements
+  delegate_to: localhost
   block:
   - name: Diff | Download the default EE on localhost
     containers.podman.podman_image:
@@ -25,5 +26,4 @@
   - name: Diff | Show the packages that are extra from default EEs in custom venvs.
     ansible.builtin.debug:
       msg: "{{ venv_migrate_ee_python_list }}"
-  delegate_to: localhost
 ...
