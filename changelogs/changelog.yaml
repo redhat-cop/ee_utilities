@@ -19,4 +19,8 @@ releases:
     - config_file_fix.yml
     release_date: '2022-12-05'
   2.0.4:
+    changes:
+      minor_changes:
+        - Removed ee_create_ansible_config in favour of ee_pull_collections_from_hub in
+          ee_builder role.
     release_date: '2022-12-06'
