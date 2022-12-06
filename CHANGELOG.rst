@@ -8,6 +8,11 @@ Redhat_Cop.Ee_Utilities Release Notes
 v2.0.4
 ======
 
+Minor Changes
+-------------
+
+- Removed `ee_create_ansible_config` in favour of `ee_pull_collections_from_hub` in `ee_builder` role.
+
 v2.0.3
 ======
 
