@@ -24,7 +24,7 @@ ee_list: []
 # Controls
 ee_image_push: true
 ee_update_base_images: true
-ee_create_ansible_config: true
+ee_pull_collections_from_hub: "{{ ee_create_ansible_config | default('true') }}"  # Keep old variable as default, remove in 3 months March 2023
 ee_builder_dir_clean: true
 ee_validate_certs: false
 ee_prune_images: true

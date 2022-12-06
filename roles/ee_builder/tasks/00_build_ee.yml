@@ -52,7 +52,7 @@
     src: ansible.cfg.j2
     dest: "{{ builder_dir }}/ansible.cfg"
     mode: '0644'
-  when: ee_create_ansible_config
+  when: ee_pull_collections_from_hub
 
 - name: Create EE definition file
   ansible.builtin.template:

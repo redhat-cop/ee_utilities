@@ -20,7 +20,7 @@ build_arg_defaults:
 {% endif %}
 {% endif %}
 
-{% if ansible_cfg_file is defined %}
+{% if ee_pull_collections_from_hub %}
 ansible_config: {{ ansible_cfg_file }}
 {% endif %}
 
