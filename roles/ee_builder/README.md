@@ -17,7 +17,7 @@ Order of preferences for images
 
     ```yaml
         ee_list:
-          - ee_name: custom_ee
+          - name: custom_ee
             base_image: image_name
             builder_image: image_name
     ```
@@ -58,6 +58,7 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_prune_images`|true|no|bool|To enable or disable pruning the images after building.||
 |`ee_stream`|upstream unless ee_base_registry_username is defined then downstream|no|str|What stream to pull images from either upstream or downstream.||
 |`ee_update_base_images`|false|no|bool|Whether to pull down images, this forces an update to avoid stale images.||
+|`ee_create_controller_def`|false|no|bool|Whether to create controller definitions||
 |`ee_base_image`|registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest|no|str|Build arg specifies parent image for the execution environment.||
 |`ee_builder_image`|registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest|no|str|Build arg specifies the image used for compiling type tasks.||
 |`ee_base_registry_username`|ee_registry_username|no|str|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
@@ -79,7 +80,7 @@ It takes variables from the following sections the list variables section.
 
 |Variable Name|Default Value|Required|Description|
 |:---:|:---:|:---:|:---:|
-|`ee_name`||yes|Name of the ee image to create.|
+|`name`||yes|Name of the ee image to create.|
 |`tag`||no|Tag to use when pushing the image.|
 |`base_image`|"registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest"|no|Build arg specifies the base image for the execution environment to use.|
 |`builder_image`|registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest|no|str|Build arg specifies the image used for compiling type tasks.||
@@ -96,7 +97,7 @@ These variables are only use in creating the Execution Environment 'controller_e
 
 |Variable Name|Default Value|Required|Type|Description|
 |:---:|:---:|:---:|:---:|:---:|
-|`alt_name`|`ee_name`|no|str|Alternate name of the ee image to create.|
+|`alt_name`|`name`|no|str|Alternate name of the ee image to create.|
 |`description`|""|no|str|Description to use for the execution environment.|
 |`organization`|""|no|str|The organization the execution environment belongs to.|
 |`pull`|"missing"|no|choice("always", "missing", "never")|Determine image pull behavior|
@@ -136,7 +137,7 @@ ansible-playbook playbook.yml
     ee_registry_username: admin
     ee_registry_password: secret123
     ee_list:
-      - ee_name: custom_ee
+      - name: custom_ee
         # base_image
         bindep:
           - python38-requests [platform:centos-8 platform:rhel-8]

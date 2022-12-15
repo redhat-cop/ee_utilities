@@ -57,7 +57,7 @@
   ansible.builtin.command: >
     ansible-builder build -f
       {{ builder_dir | default(build_dir.path) }}/execution_environment.yml
-      -t {{ __execution_environment_definition.ee_name }}{% if __execution_environment_definition.tag is defined %}:{{ __execution_environment_definition.tag }}{% endif %} --container-runtime={{ ee_container_runtime }}
+      -t {{ __execution_environment_definition.name }}{% if __execution_environment_definition.tag is defined %}:{{ __execution_environment_definition.tag }}{% endif %} --container-runtime={{ ee_container_runtime }}
       {% if ee_prune_images %} --prune-images{% endif %}
       {% if ee_galaxy_keyring is defined %} --galaxy-keyring={{ ee_galaxy_keyring }}{% endif %}
       {% if ee_galaxy_ignore_signature_status_code is defined %}{% for status_code in ee_galaxy_ignore_signature_status_code %} --galaxy-ignore-signature-status-code={{ status_code }}{% endfor %}{% endif %}
@@ -70,7 +70,7 @@
 
 - name: Push image to registry
   containers.podman.podman_image:
-    name: "{{ __execution_environment_definition.ee_name }}"
+    name: "{{ __execution_environment_definition.name }}"
     pull: false
     push: true
     username: "{{ ee_registry_username | default(omit, true) }}"
@@ -85,16 +85,9 @@
       sign_by: "{{ ee_sign_by | default(omit) }}"
   when: ee_image_push
 
-- name: Clean builder dir
+- name: Empty build directory
+  ansible.builtin.file:
+    state: absent
+    path: "{{ build_dir.path | default(builder_dir) }}"
   when: ee_builder_dir_clean
-  block:
-    - name: Empty build directory
-      ansible.builtin.file:
-        state: absent
-        path: "{{ build_dir.path | default(builder_dir) }}"
-
-    - name: Remove ee_controller.yaml
-      ansible.builtin.file:
-        state: absent
-        path: /tmp/ee_controller.yaml
 ...

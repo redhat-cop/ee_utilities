@@ -28,9 +28,10 @@ ee_pull_collections_from_hub: "{{ ee_create_ansible_config | default('true') }}"
 ee_builder_dir_clean: true
 ee_validate_certs: false
 ee_prune_images: true
+ee_create_controller_def: false
 
 # Registry
-# ee_name
+# name
 # ee_registry_username
 # ee_registry_password
 # ee_registry_dest

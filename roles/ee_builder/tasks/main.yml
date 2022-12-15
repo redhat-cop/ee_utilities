@@ -5,24 +5,33 @@
   loop_control:
     loop_var: __execution_environment_definition
 
-- name: Create execution environment definition file
-  ansible.builtin.template:
-    src: ee_controller.yaml.j2
-    dest: "/tmp/ee_controller.yaml"
-    mode: '0644'
-  delegate_to: localhost
+- name: Push to controller
+  when: ee_create_controller_def
+  block:
+    - name: Create temporary folder
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: temp
+      register: controller_ee
 
-- name: Include templated variable
-  ansible.builtin.include_vars:
-    file: "/tmp/ee_controller.yaml"
-  delegate_to: localhost
+    - name: Create execution environment definition file
+      ansible.builtin.template:
+        src: ee_controller.yaml.j2
+        dest: "{{ controller_ee.path }}/ee_controller.yaml"
+        mode: '0644'
+      delegate_to: localhost
 
-- name: Display templated variables
-  ansible.builtin.debug:
-    var: controller_execution_environments
+    - name: Include templated variable
+      ansible.builtin.include_vars:
+        file: "{{ controller_ee.path }}/ee_controller.yaml"
+      delegate_to: localhost
 
-- name: Set stats for use in another workflow node
-  ansible.builtin.set_stats:
-    data:
-      controller_execution_environments: "{{ controller_execution_environments }}"
+    - name: Display templated variables
+      ansible.builtin.debug:
+        var: controller_execution_environments
+
+    - name: Set stats for use in another workflow node
+      ansible.builtin.set_stats:
+        data:
+          controller_execution_environments: "{{ controller_execution_environments }}"
 ...

@@ -11,7 +11,7 @@
     ee_reg_credential: Automation Hub Container Registry
     ee_create_ansible_config: false
     ee_list:
-      - ee_name: custom_ee
+      - name: custom_ee
         alt_name: Custom EE
         ee_base_image: 1registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest
         ee_builder_image: 1registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest
@@ -34,7 +34,7 @@
           - RUN cat /etc/os-release
         append:
           - RUN echo This is a post-install command!
-      - ee_name: custom_ee2
+      - name: custom_ee2
         alt_name: Custom EE2
         ee_base_image: 2registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest
         ee_builder_image: 2registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest
