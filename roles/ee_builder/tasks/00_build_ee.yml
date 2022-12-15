@@ -96,10 +96,4 @@
     state: absent
     path: "{{ build_dir.path | default(builder_dir) }}"
   when: ee_builder_dir_clean
-
-- name: Remove ee_controller.yaml
-  ansible.builtin.file:
-    state: absent
-    path: /tmp/ee_controller.yaml
-  when: ee_builder_dir_clean
 ...
