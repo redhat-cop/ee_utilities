@@ -12,7 +12,7 @@
     ee_registry_username: admin
     ee_registry_password: secret123
     ee_list:
-      - ee_name: custom_ee
+      - name: custom_ee
         # base_image
         bindep:
           - python38-requests [platform:centos-8 platform:rhel-8]

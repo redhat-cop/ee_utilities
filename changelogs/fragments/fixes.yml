@@ -1,0 +1,5 @@
+breaking_changes:
+  - renaming ee_name to name in the ee_list variable
+bugfixes:
+  - bug when multiple EEs in ee_list would fail when ee_builder_dir_clean was true
+  - bug not removing ee_controller.yaml file
