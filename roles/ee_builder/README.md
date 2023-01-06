@@ -161,7 +161,7 @@ ansible-playbook playbook.yml
 
 ## License
 
-MIT
+[GPLv3+](https://github.com/redhat-cop/ee_utilities#licensing)
 
 ## Author Information
 
