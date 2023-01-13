@@ -1,0 +1,40 @@
+---
+name: Run Test of EE utilities
+on: [push, pull_request]
+
+jobs:
+  Integration-test:
+    name: Run Test of EE utilities
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Ansible and Ansible Builder
+        run: pip install --upgrade ansible-core ansible-builder
+
+      - name: Install podman
+        run: ansible-galaxy collection install containers.podman -f
+
+      - name: Build and install the collection
+        id: build
+        uses: redhat-cop/ansible_collections_tooling/actions/build_ansible_collection@main
+        with:
+          collection_namespace: infra
+          collection_name: ee_utilities
+          collection_version: 1.0.0
+          collection_repo: https://github.com/redhat-cop/ee_utilities/
+
+      - name: Docker login
+        run: docker login -u="$redhat_cop+github_action" -p="${{ secrets.quay_token }}" quay.io
+
+      - name: Run Ansible Playbook
+        run: ansible-playbook .github/tests/build_ee.yml -i .github/deploy_ee/inventory_ci.yml -l dev -e "ee_registry_username=${{ inputs.quay_username }}+github_action" -e "ee_registry_password=${{ secrets.quay_token }}" --connection=local -e "ee_registry_dest=quay.io/${{ inputs.quay_username }}/config_as_code_ee" -vvv
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: False
+...
