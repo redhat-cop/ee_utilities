@@ -1,9 +1,8 @@
 ---
 - name: Playbook to configure execution environments
-  hosts: builder
+  hosts: localhost
+  connection: local
   gather_facts: false
-  # vars_files:
-  #   - "../vaults/{{ env }}.yml"
   pre_tasks:
     - name: Validate that ansible-builder is installed on target system
       block:
@@ -33,11 +32,11 @@
   tasks:
     - name: Include ee_builder role
       ansible.builtin.include_role:
-        name: infra.ee_utilities.ee_builder
+        name: ee_builder
       vars:
         ee_pull_collections_from_hub: false
         ee_list:
-          - ee_name: config_as_code_ee
+          - name: config_as_code_ee
             bindep:
               - unzip
             python:
