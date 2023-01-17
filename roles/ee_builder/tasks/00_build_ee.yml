@@ -84,10 +84,4 @@
       dest: "{{ ee_registry_dest }}"
       sign_by: "{{ ee_sign_by | default(omit) }}"
   when: ee_image_push
-
-- name: Empty build directory
-  ansible.builtin.file:
-    state: absent
-    path: "{{ build_dir.path | default(builder_dir) }}"
-  when: ee_builder_dir_clean
 ...

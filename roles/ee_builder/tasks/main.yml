@@ -5,6 +5,12 @@
   loop_control:
     loop_var: __execution_environment_definition
 
+- name: Empty build directory
+  ansible.builtin.file:
+    state: absent
+    path: "{{ build_dir.path | default(builder_dir) }}"
+  when: ee_builder_dir_clean
+
 - name: Push to controller
   when: ee_create_controller_def
   block:
