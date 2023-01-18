@@ -21,6 +21,17 @@ releases:
   2.0.4:
     changes:
       minor_changes:
-        - Removed ee_create_ansible_config in favour of ee_pull_collections_from_hub in
-          ee_builder role.
+      - Removed ee_create_ansible_config in favour of ee_pull_collections_from_hub
+        in ee_builder role.
     release_date: '2022-12-06'
+  2.0.5:
+    changes:
+      breaking_changes:
+      - renaming ee_name to name in the ee_list variable
+      bugfixes:
+      - bug not removing ee_controller.yaml file
+      - bug when multiple EEs in ee_list would fail when ee_builder_dir_clean was
+        true
+    fragments:
+    - fixes.yml
+    release_date: '2023-01-17'
