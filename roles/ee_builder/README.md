@@ -148,6 +148,8 @@ ansible-playbook playbook.yml
           - awxkit  # For import and export modules
         collections:
           - name: awx.awx
+            type: url
+            source: https://galaxy.ansible.com/download/awx-awx-21.11.0.tar.gz
           - name: redhat_cop.controller_configuration
           - name: redhat_cop.ah_configuration
         prepend:
