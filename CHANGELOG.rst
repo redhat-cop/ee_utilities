@@ -5,6 +5,9 @@ Redhat_Cop.Ee_Utilities Release Notes
 .. contents:: Topics
 
 
+v2.0.6
+======
+
 v2.0.5
 ======
 
