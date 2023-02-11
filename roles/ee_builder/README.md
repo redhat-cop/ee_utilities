@@ -1,6 +1,6 @@
 # redhat_cop.ee_utilities.ee_builder
 
-Ansible role to prep to use the setup an execution environment. This role invokes ansible builder and depends on either variables or files being provided to specify inclusions
+Ansible role use to build execution environments. This role invokes ansible builder and depends on certain variables or files being provided.
 
 ## Requirements
 
@@ -80,7 +80,7 @@ It takes variables from the following sections the list variables section.
 
 |Variable Name|Default Value|Required|Description|
 |:---:|:---:|:---:|:---:|
-|`name`||yes|Name of the ee image to create.|
+|`name`||yes|Name of the ee image to create. Only the name goes here, the namespace goes in the ee_registry_dest variable|
 |`tag`||no|Tag to use when pushing the image.|
 |`base_image`|"registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest"|no|Build arg specifies the base image for the execution environment to use.|
 |`builder_image`|registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest|no|str|Build arg specifies the image used for compiling type tasks.||
@@ -109,7 +109,7 @@ These variables are only use in creating the Execution Environment 'controller_e
 |:---:|:---:|:---:|:---:|
 |`ee_registry_username`||no|Username to use when authenticating to destination registries.|
 |`ee_registry_password`||no|Password to use when authenticating to destination registries.|
-|`ee_registry_dest`||no|Path or URL where image will be pushed.|
+|`ee_registry_dest`||no|Path or URL where image will be pushed. Namespaces for containers go here. Examples: registry.redhat.io, registry.redhat.io/rh-custom |
 |`ee_image_push`|True|no|Control to choose whether to push image to registry or not.|
 |`ee_auth_file`||no|Path to file containing authorization credentials to the remote registry.|
 |`ee_executable`||no|Path to podman executable if it is not in the $PATH on the machine running podman.|
@@ -161,6 +161,67 @@ ansible-playbook playbook.yml
     - redhat_cop.ee_utilities.ee_builder
 ```
 
+This is an example for building using automated pipelines like Gitlab or Azure Devops where the build container and other dependencies used for building the final artifact are destroyed after the pipeline is finished
+```yaml
+---
+- name: Playbook to create custom EE
+  hosts: localhost
+  gather_facts: false
+  collections:
+    - infra.ee_utilities
+    # One of these two may be required in certain environments
+    # - containers.podman
+    # - community.docker
+  vars:
+    ee_base_registry_username: admin
+    ee_base_registry_password: secret123
+    # As stated in ee_registry_dest's description, if you want to namespace an image you put the namespace in the ee_registry_dest variable like so instead of in the name variable
+    ee_registry_dest: ahnosso.node/custom-images-for-prod
+    ee_registry_username: admin
+    ee_registry_password: secret123
+    # in this example we are assuming that we are pulling content and pushing the final artifact to the same location
+    ee_ah_host: ahnosso.node
+    ee_ah_token: iamatoken
+    # ee-builder_dir_clean is used because depending on the environment permissions errors can be thrown when attempting to clean up. It is also unnecessary if the entire environment is going to be destroyed at the end anyway.
+    #
+    ee_builder_dir_clean: false
+    #  builder_dir is set to the relative path "." because it tells ansible-builder to always use the temporary folder created by the pipeline. This may not be necessary depending on the envirnment but the temporary directories created by the pipeline for building the final artifacts can vary in location
+    builder_dir: "."
+    ee_list:
+        # To reiterate, only the name variable goes here, not the namespace, that is placed in ee_registry_dest, please refer to ee_registry_dest's description for more details
+      - name: custom_ee
+        # Using the latest tag is best practice and should be replaced with a tested version of the container. However latest can be a good starting point to figure out which container works, then replacing latest with the version number for the tested latest container.
+        base_image: registry.redhat.io/ansible-automation-platform/ee-minimal-rhel8:latest
+        builder_image: registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest
+        bindep:
+          - python38-requests [platform:centos-8 platform:rhel-8]
+          - python38-pyyaml [platform:centos-8 platform:rhel-8]
+        python:
+          - pytz  # for schedule_rrule lookup plugin
+          - python-dateutil>=2.7.0  # schedule_rrule
+          - awxkit  # For import and export modules
+        collections:
+          - name: awx.awx
+            type: url
+            source: https://galaxy.ansible.com/download/awx-awx-21.11.0.tar.gz
+          - name: redhat_cop.controller_configuration
+          - name: redhat_cop.ah_configuration
+        prepend:
+          - RUN whoami
+          - RUN cat /etc/os-release
+        append:
+          - RUN echo This is a post-install command!
+  # This pre-task section is provided because older environment or environments like build pipelines may not have ansible-builder pre-installed. This is a good place to install other dependencies that need to be in the build pipeline its self not in the final artifact.
+#  pre_tasks:
+#    - name: install ansible-builder
+#      ansible.builtin.pip:
+#        name: ansible-builder
+#        executable: pip3.9
+#      tags: always
+  roles:
+    - infra.ee_utilities.ee_builder
+```
+
 ## License
 
 [GPLv3+](https://github.com/redhat-cop/ee_utilities#licensing)
@@ -168,3 +229,4 @@ ansible-playbook playbook.yml
 ## Author Information
 
 Sean Sullivan
+Jonathan Bouligny
