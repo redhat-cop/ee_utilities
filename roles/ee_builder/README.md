@@ -162,6 +162,7 @@ ansible-playbook playbook.yml
 ```
 
 This is an example for building using automated pipelines like Gitlab or Azure Devops where the build container and other dependencies used for building the final artifact are destroyed after the pipeline is finished
+
 ```yaml
 ---
 - name: Playbook to create custom EE
