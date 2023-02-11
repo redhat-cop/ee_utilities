@@ -168,13 +168,13 @@ This is an example for building using automated pipelines like Gitlab or Azure D
   hosts: localhost
   gather_facts: false
   collections:
-    - redhat_cop.ee_utilities
+    - infra.ee_utilities
     # One of these two may be required in certain environments
     # - containers.podman
     # - community.docker
   vars:
     ee_base_registry_username: admin
-    ee_base_registry_password: secret123 
+    ee_base_registry_password: secret123
     # As stated in ee_registry_dest's description, if you want to namespace an image you put the namespace in the ee_registry_dest variable like so instead of in the name variable
     ee_registry_dest: ahnosso.node/custom-images-for-prod
     ee_registry_username: admin
@@ -183,7 +183,7 @@ This is an example for building using automated pipelines like Gitlab or Azure D
     ee_ah_host: ahnosso.node
     ee_ah_token: iamatoken
     # ee-builder_dir_clean is used because depending on the environment permissions errors can be thrown when attempting to clean up. It is also unnecessary if the entire environment is going to be destroyed at the end anyway.
-    # 
+    #
     ee_builder_dir_clean: false
     #  builder_dir is set to the relative path "." because it tells ansible-builder to always use the temporary folder created by the pipeline. This may not be necessary depending on the envirnment but the temporary directories created by the pipeline for building the final artifacts can vary in location
     builder_dir: "."
@@ -219,7 +219,7 @@ This is an example for building using automated pipelines like Gitlab or Azure D
 #        executable: pip3.9
 #      tags: always
   roles:
-    - redhat_cop.ee_utilities.ee_builder
+    - infra.ee_utilities.ee_builder
 ```
 
 ## License
