@@ -8,6 +8,11 @@ This ansible collection includes a number of roles which can be useful for manag
 
 * prepare and maintain Ansible Execution Environments
 
+## Requirements
+
+The containers.podman collection MUST be installed in order for this collection to work.
+In addition the podman executable is required for the containers.podman collection.
+
 ## Redhat Communities of Practice Configuration Collections Suite
 
 |Collection Name|Purpose|
