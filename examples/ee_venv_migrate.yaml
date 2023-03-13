@@ -3,17 +3,17 @@
   hosts: tower
   gather_facts: false
   collections:
-    - redhat_cop.ee_utilities
+    - infra.ee_utilities
   vars:
     venv_migrate_default_ee_url: registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest
     ee_collections:
       - name: awx.awx
-      - name: redhat_cop.controller_configuration
-      - name: redhat_cop.ah_configuration
+      - name: infra.controller_configuration
+      - name: infra.ah_configuration
   tasks:
     - name: Include venv_migrate role
       ansible.builtin.include_role:
-        name: redhat_cop.ee_utilities.virtualenv_migrate
+        name: infra.ee_utilities.virtualenv_migrate
 
     - name: Display ee_list
       ansible.builtin.debug:
@@ -30,7 +30,7 @@
 
     - name: Create EE
       ansible.builtin.include_role:
-        name: redhat_cop.ee_utilities.ee_builder
+        name: infra.ee_utilities.ee_builder
 
     - name: Export python virtual enviroment list to file  # noqa template-instead-of-copy
       ansible.builtin.copy:
