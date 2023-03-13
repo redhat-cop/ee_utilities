@@ -1,4 +1,0 @@
----
-minor_changes:
-  - Added changed_when false to built in commands that gather information.
-...

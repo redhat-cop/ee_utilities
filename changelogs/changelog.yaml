@@ -37,3 +37,10 @@ releases:
     release_date: '2023-01-17'
   2.0.6:
     release_date: '2023-01-26'
+  2.0.7:
+    changes:
+      minor_changes:
+      - Added changed_when false to built in commands that gather information.
+    fragments:
+    - changed_when_lint.yml
+    release_date: '2023-03-13'
