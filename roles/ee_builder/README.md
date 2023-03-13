@@ -1,4 +1,4 @@
-# redhat_cop.ee_utilities.ee_builder
+# infra.ee_utilities.ee_builder
 
 Ansible role use to build execution environments. This role invokes ansible builder and depends on certain variables or files being provided.
 
@@ -131,7 +131,7 @@ ansible-playbook playbook.yml
   hosts: localhost
   gather_facts: false
   collections:
-    - redhat_cop.ee_utilities
+    - infra.ee_utilities
   vars:
     ee_registry_dest: ahnosso.node
     ee_registry_username: admin
@@ -150,15 +150,15 @@ ansible-playbook playbook.yml
           - name: awx.awx
             type: url
             source: https://galaxy.ansible.com/download/awx-awx-21.11.0.tar.gz
-          - name: redhat_cop.controller_configuration
-          - name: redhat_cop.ah_configuration
+          - name: infra.controller_configuration
+          - name: infra.ah_configuration
         prepend:
           - RUN whoami
           - RUN cat /etc/os-release
         append:
           - RUN echo This is a post-install command!
   roles:
-    - redhat_cop.ee_utilities.ee_builder
+    - infra.ee_utilities.ee_builder
 ```
 
 This is an example for building using automated pipelines like Gitlab or Azure Devops where the build container and other dependencies used for building the final artifact are destroyed after the pipeline is finished
@@ -205,8 +205,8 @@ This is an example for building using automated pipelines like Gitlab or Azure D
           - name: awx.awx
             type: url
             source: https://galaxy.ansible.com/download/awx-awx-21.11.0.tar.gz
-          - name: redhat_cop.controller_configuration
-          - name: redhat_cop.ah_configuration
+          - name: infra.controller_configuration
+          - name: infra.ah_configuration
         prepend:
           - RUN whoami
           - RUN cat /etc/os-release

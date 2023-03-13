@@ -1,4 +1,4 @@
-# redhat_cop.ee_utilities.virtualenv_migrate
+# infra.ee_utilities.virtualenv_migrate
 
 Use this role to create a list of python requirements from custom virtualenvs present in your AAP 1.2 cluster, after comparing those with requirements in Default Execution Environment.
 This role is based on the `awx-manage` utility and needs an AAP1.2 tower node to gather requirements from and localhost to pull EE and compare those requirements.
@@ -41,7 +41,7 @@ podman on localhost
   tasks:
     - name: Include venv role
       include_role:
-        name: redhat_cop.ee_utilities.virtualenv_migrate
+        name: infra.ee_utilities.virtualenv_migrate
 ```
 
 ## Example Playbook Using both roles together
@@ -53,17 +53,17 @@ podman on localhost
   hosts: tower
   gather_facts: false
   collections:
-    - redhat_cop.ee_utilities
+    - infra.ee_utilities
   vars:
     venv_migrate_default_ee_url: registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest
     ee_collections:
       - name: awx.awx
-      - name: redhat_cop.controller_configuration
-      - name: redhat_cop.ah_configuration
+      - name: infra.controller_configuration
+      - name: infra.ah_configuration
   tasks:
     - name: Include venv_migrate role
       include_role:
-        name: redhat_cop.ee_utilities.virtualenv_migrate
+        name: infra.ee_utilities.virtualenv_migrate
 
     - name: ee_list
       ansible.builtin.debug:
@@ -82,7 +82,7 @@ podman on localhost
 
     - name: Create EE
       include_role:
-        name: redhat_cop.ee_utilities.ee_builder
+        name: infra.ee_utilities.ee_builder
 
     - name: Export python virtual enviroment list to file
       copy:
