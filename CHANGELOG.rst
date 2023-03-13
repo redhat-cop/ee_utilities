@@ -5,6 +5,14 @@ Redhat_Cop.Ee_Utilities Release Notes
 .. contents:: Topics
 
 
+v2.0.7
+======
+
+Minor Changes
+-------------
+
+- Added changed_when false to built in commands that gather information.
+
 v2.0.6
 ======
 
