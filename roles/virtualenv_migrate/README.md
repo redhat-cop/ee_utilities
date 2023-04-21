@@ -97,4 +97,4 @@ podman on localhost
 
 ## Author Information
 
-Anshul Behl (abehl@redhat.com)
+Anshul Behl
