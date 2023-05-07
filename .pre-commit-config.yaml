@@ -7,6 +7,7 @@ repos:
       - id: trailing-whitespace
   - repo: https://github.com/ansible-community/ansible-lint.git
     rev: v6.15.0
+
     hooks:
       # see discussions here about what arguments are used, and behavior
       # https://github.com/ansible/ansible-lint/issues/649
