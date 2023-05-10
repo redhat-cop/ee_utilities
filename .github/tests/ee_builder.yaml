@@ -4,15 +4,18 @@
   gather_facts: false
   collections:
     - infra.ee_utilities
+    - infra.controller_configuration
   vars:
-    ee_builder_dir_clean: true
-    ah_host: ahnosso.node
-    ah_token: 4ab76668c4b2622ab1dfb7cbee7e6c9b8e62c0f5
-    ee_registry_dest: ahnosso.node
-    ee_registry_username: admin
-    ee_registry_password: secret123
+    # For ansible.cfg generation
+    # For controller configuration definition
+    ee_reg_credential: Automation Hub Container Registry
+    ee_create_ansible_config: false
     ee_list:
       - name: custom_ee
+        alt_name: Custom EE
+        ee_base_image: registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest
+        ee_builder_image: registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest
+        tag: 1-11-21-2
         # base_image
         bindep:
           - python38-requests [platform:centos-8 platform:rhel-8]
@@ -23,7 +26,7 @@
           - awxkit  # For import and export modules
         collections:
           - name: awx.awx
-            version: 12.0.0
+            version: 21.9.0
           - name: infra.controller_configuration
           - name: infra.ah_configuration
         prepend:
@@ -31,6 +34,10 @@
           - RUN cat /etc/os-release
         append:
           - RUN echo This is a post-install command!
+      - name: custom_ee2
+        alt_name: Custom EE2
+        ee_base_image: 2registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest
+        ee_builder_image: 2registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest
   roles:
     - infra.ee_utilities.ee_builder
 ...

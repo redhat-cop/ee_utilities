@@ -7,6 +7,12 @@ collections:
 {% if item.version is defined %}
   version: {{ item.version }}
 {% endif %}
+{% if item.type is defined %}
+  type: {{ item.type }}
+{% endif %}
+{% if item.source is defined %}
+  source: {{ item.source }}
+{% endif %}
 {% endfor %}
 {% endif %}
 {% endif %}

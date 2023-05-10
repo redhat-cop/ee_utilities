@@ -10,20 +10,18 @@ build_arg_defaults:
   ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: "{{ galaxy_cli_opts }}"
 {%    endif %}
 {% endif %}
-{% if ee_base_image is defined %}
-{%    if ee_base_image|length %}
-  EE_BASE_IMAGE: {{ ee_base_image }}
-{%    endif %}
+{% endif %}
+{% if ee_version == 1 %}
+{%- if (__execution_environment_definition.base_image is defined) or (ee_base_image is defined) %}
+  EE_BASE_IMAGE: {{ __execution_environment_definition.base_image | default(ee_base_image) }}
 {% endif %}
 {% if ee_builder_image is defined %}
-{%    if ee_builder_image|length %}
-  EE_BUILDER_IMAGE: {{ ee_builder_image }}
-{%    endif %}
+  EE_BUILDER_IMAGE: {{ __execution_environment_definition.builder_image | default(ee_builder_image) }}
 {% endif %}
 {% endif %}
 
-{% if ansible_config is defined %}
-ansible_config: '{{ ansible_config }}'
+{% if ee_pull_collections_from_hub %}
+ansible_config: {{ ansible_cfg_file }}
 {% endif %}
 
 {% if (__execution_environment_definition.bindep is defined and __execution_environment_definition.bindep|length ) or
@@ -59,5 +57,30 @@ additional_build_steps:
 {% for item in __execution_environment_definition.append %}
     - {{ item }}
 {% endfor %}
+{% endif %}
+{% endif %}
+
+{% if ee_version == 2 %}
+{% if (__execution_environment_definition.base_image is defined) or (ee_base_image is defined)
+        or (__execution_environment_definition.builder_image is defined) or (ee_builder_image is defined) %}
+images:
+  {%- if (__execution_environment_definition.base_image is defined) or (ee_base_image is defined) %}
+
+  base_image:
+    name: {{ __execution_environment_definition.base_image | default(ee_base_image) }}
+    {%- if (__execution_environment_definition.base_sig_name is defined) or (ee_base_sig_name is defined) %}
+
+    signature_original_name: {{ __execution_environment_definition.base_sig_name | default(ee_base_sig_name) }}
+    {%- endif %}
+  {%- endif %}
+  {%- if (__execution_environment_definition.builder_image is defined) or (ee_builder_image is defined) %}
+
+  builder_image:
+    name: {{ __execution_environment_definition.builder_image | default(ee_builder_image) }}
+    {%- if (__execution_environment_definition.builder_sig_name is defined) or (ee_builder_sig_name is defined) %}
+
+    signature_original_name: {{ __execution_environment_definition.builder_sig_name | default(ee_builder_sig_name) }}
+    {%- endif %}
+  {%- endif %}
 {% endif %}
 {% endif %}

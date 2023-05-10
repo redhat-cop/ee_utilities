@@ -1,5 +1,5 @@
 ---
 collections:
-  - name: sean_m_sullivan.ee_utilities
   - name: containers.podman
+    version: ">=1.0.0"
 ...

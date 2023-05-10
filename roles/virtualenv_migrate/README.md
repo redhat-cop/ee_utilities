@@ -25,7 +25,7 @@ podman on localhost
 
 |Variable Name|Default Value|Required|Description|Example|
 |:---:|:---:|:---:|:---:|:---:|
-|`venv_migrate_default_ee_url`|`registry.redhat.io/ansible-automation-platform-22/ee-minimal-rhel8:latest`|no|"Registry link of the EE you want to compare requirements with"|`localhost/ee:latest`
+|`venv_migrate_default_ee_url`|`registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest`|no|"Registry link of the EE you want to compare requirements with"|`localhost/ee:latest`
 |`registry_username`|None|yes(for default EE value)|username to sign in to the registry|`admin`|
 |`registry_password`|None|yes(for default EE value)|password to sign in to the registry|`pass`|
 |`venv_migrate_ee_python_list`|None|No|This is an output variable, if you want to pass the requirements for ee_building|debug:msg="{{ venv_migrate_ee_python_list }}"
@@ -44,10 +44,57 @@ podman on localhost
         name: infra.ee_utilities.virtualenv_migrate
 ```
 
+## Example Playbook Using both roles together
+
+```yaml
+# playbook to create EE's from an existing tower.
+---
+- name: Playbook to create custom EE
+  hosts: tower
+  gather_facts: false
+  collections:
+    - infra.ee_utilities
+  vars:
+    venv_migrate_default_ee_url: registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest
+    ee_collections:
+      - name: awx.awx
+      - name: infra.controller_configuration
+      - name: infra.ah_configuration
+  tasks:
+    - name: Include venv_migrate role
+      include_role:
+        name: infra.ee_utilities.virtualenv_migrate
+
+    - name: ee_list
+      ansible.builtin.debug:
+        var: ee_list
+
+- name: Build EEs with ee_builder role
+  hosts: localhost
+  vars:
+    ee_registry_dest: hub
+    ee_ah_host: hub
+    ee_ah_token: f12ca3e34afcbfe2c81a563ad5446ae61cd7d530
+    ee_validate_certs: false
+    ee_list: "{{ hostvars[groups['tower'][0]]['ee_list'] }}"
+    ee_image_push: false
+  tasks:
+
+    - name: Create EE
+      include_role:
+        name: infra.ee_utilities.ee_builder
+
+    - name: Export python virtual enviroment list to file
+      copy:
+        content: "{{ ee_list | to_nice_yaml( width=50, explicit_start=True, explicit_end=True) }}"
+        dest: venv_migrate_ee_python.yaml
+...
+```
+
 ## License
 
-MIT
+[GPLv3+](https://github.com/redhat-cop/ee_utilities#licensing)
 
 ## Author Information
 
-Anshul Behl (abehl@redhat.com)
+Anshul Behl

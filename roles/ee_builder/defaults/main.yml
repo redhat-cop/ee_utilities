@@ -7,7 +7,7 @@ galaxy_cli_opts: '-v'
 ee_stream: "{% if ee_base_registry_username is defined %}downstream{% else %}upstream{% endif %}"
 
 # Image defaults
-ee_base_image: "{{ __execution_environment_definition.base_image | default(__ee_stream_images[ee_stream].base_image) }}"
+ee_base_image: "{{ __ee_stream_images[ee_stream].base_image }}"
 ee_builder_image: "{{ __ee_stream_images[ee_stream].builder_image }}"
 ee_registry_username: "{{ ee_base_registry_username | default(omit, true) }}"
 ee_registry_password: "{{ ee_base_registry_password | default(omit, true) }}"
@@ -16,6 +16,7 @@ ee_registry_password: "{{ ee_base_registry_password | default(omit, true) }}"
 bindep_file: bindep.txt
 python_requirements_file: requirements.txt
 galaxy_requirements_file: requirements.yml
+ansible_cfg_file: ansible.cfg
 
 # Default EE list
 ee_list: []
@@ -23,14 +24,19 @@ ee_list: []
 # Controls
 ee_image_push: true
 ee_update_base_images: true
-ee_create_ansible_config: true
+ee_pull_collections_from_hub: "{{ ee_create_ansible_config | default('true') }}"  # Keep old variable as default, remove in 3 months March 2023
 ee_builder_dir_clean: true
 ee_validate_certs: false
 ee_prune_images: true
+ee_create_controller_def: false
 
 # Registry
-# ee_name
+# name
 # ee_registry_username
 # ee_registry_password
 # ee_registry_dest
+
+# Hub host variables for ansible.cfgw
+ee_ah_host: "{{ ah_host }}"
+ee_ah_token: "{{ ah_token }}"
 ...

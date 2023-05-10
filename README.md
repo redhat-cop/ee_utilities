@@ -1,12 +1,17 @@
 # Redhat Communities of Practice Execution Environment Utilities Collection
 
-![Ansible Lint](https://github.com/redhat-cop/ee_utilities/workflows/Ansible%20Lint/badge.svg)
-![Galaxy Release](https://github.com/redhat-cop/ee_utilities/workflows/galaxy-release/badge.svg)
-<!-- Further CI badges go here as above -->
+[![pre-commit tests](https://github.com/redhat-cop/ee_utilities/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/redhat-cop/ee_utilities/actions/workflows/pre-commit.yml)
+[![Run Test of EE utilities](https://github.com/redhat-cop/ee_utilities/actions/workflows/ci_testing.yaml/badge.svg)](https://github.com/redhat-cop/ee_utilities/actions/workflows/ci_testing.yaml)
+[![Galaxy Release](https://github.com/redhat-cop/ee_utilities/actions/workflows/release.yml/badge.svg)](https://github.com/redhat-cop/ee_utilities/actions/workflows/release.yml)
 
 This ansible collection includes a number of roles which can be useful for managing Ansible Execution Environments. Using this collection, you'll be able to automate following tasks:
 
 * prepare and maintain Ansible Execution Environments
+
+## Requirements
+
+The containers.podman collection MUST be installed in order for this collection to work.
+In addition the podman executable is required for the containers.podman collection.
 
 ## Redhat Communities of Practice Configuration Collections Suite
 
@@ -46,6 +51,14 @@ collections:
 * [Ansible Using collections](https://docs.ansible.com/ansible/latest/user_guide/collections_using.html) for more details.
 
 ## Release and Upgrade Notes
+
+## Releasing, Versioning and Deprecation
+
+This collection follows [Semantic Versioning](https://semver.org/). More details on versioning can be found [in the Ansible docs](https://docs.ansible.com/ansible/latest/dev_guide/developing_collections.html#collection-versions).
+
+We plan to regularly release new minor or bugfix versions once new features or bugfixes have been implemented.
+
+Releasing the current major version happens from the `devel` branch.
 
 ## Roadmap
 
