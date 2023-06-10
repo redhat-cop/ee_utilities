@@ -1,0 +1,31 @@
+---
+- name: Playbook to configure ansible controller organizations
+  hosts: localhost
+  gather_facts: false
+  collections:
+    - sean_m_sullivan.tower_utilities
+    - containers.podman
+  vars:
+    # builder_dir: /tmp
+    ee_registry_dest: quay.io/ssulliva/ee_tools
+    ee_base_image: quay.io/ssulliva/ee_tools  # quay.io/podman/stable
+    ee_name: ee_tools
+    ee_bindep:
+      - python3
+      - python3-pip
+    ee_python:
+      - podman
+      - ansible-core
+      - ansible-runner
+      - ansible-lint
+      - ansible-builder
+    ee_collections:
+      - name: sean_m_sullivan.ee_utilities
+      - name: containers.podman
+    ee_append:
+      - RUN pip3 install ansible-core
+      - VOLUME /var/lib/docker
+      - VOLUME /runner
+  roles:
+    - infra.ee_utilities.ee_builder
+...
