@@ -1,15 +1,14 @@
 ---
 namespace: infra
 name: ee_utilities
-version: 2.0.1
+version: 2.0.8
 description: A collection of utility roles for usage with Ansible Execution Enviroments
 readme: README.md
 authors:
     - Sean Sullivan @sean-m-sullivan
-    - Tom Page @Tompage1994
-    - David Danielsson @djdanielsson
-repository: https://github.com/redhat-cop/ee_utilities
-issues: https://github.com/redhat-cop/ee_utilities/issues
+    - Anshul Behl @anshulbehl
+repository: https://github.com/redhat-cop/ee_utilities/
+issues: https://github.com/redhat-cop/ee_utilities//issues
 build_ignore:
     - galaxy.yml.j2
     - release.yml
@@ -28,6 +27,9 @@ tags:
     - collection
     - utilities
     - utils
+    - infrastructure
     - ee_utilities
     - ee_utils
-dependencies: {}
+dependencies:
+    "containers.podman": ">=1.0.0"
+...
