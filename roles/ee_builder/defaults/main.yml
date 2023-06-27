@@ -1,30 +1,33 @@
 ---
 # build_arg_defaults
 ee_container_runtime: podman
-ee_version: 1
-galaxy_cli_opts: '-v'
+ee_version: 3
+
 
 ee_stream: "{% if ee_base_registry_username is defined %}downstream{% else %}upstream{% endif %}"
 
 # Image defaults
 ee_base_image: "{{ __ee_stream_images[ee_stream].base_image }}"
-ee_builder_image: "{{ __ee_stream_images[ee_stream].builder_image }}"
 ee_registry_username: "{{ ee_base_registry_username | default(omit, true) }}"
 ee_registry_password: "{{ ee_base_registry_password | default(omit, true) }}"
 
 # Req File defaults
-bindep_file: bindep.txt
-python_requirements_file: requirements.txt
-galaxy_requirements_file: requirements.yml
 ansible_cfg_file: ansible.cfg
 
 # Default EE list
 ee_list: []
 
+# Major section Options
+ee_build_options:
+  package_manager_path: /usr/bin/microdnf  # This is set because the default images and redhat images require microdnf
+ee_build_arg_defaults:
+  ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: '-vv'
+
 # Controls
 ee_image_push: true
 ee_update_base_images: true
-ee_pull_collections_from_hub: "{{ ee_create_ansible_config | default('true') }}"  # Keep old variable as default, remove in 3 months March 2023
+# mark as breaking change
+ee_pull_collections_from_hub: true
 ee_builder_dir_clean: true
 ee_validate_certs: false
 ee_prune_images: true
