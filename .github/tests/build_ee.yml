@@ -48,7 +48,6 @@
                   - name: awx.awx
                     version: 22.4.0
                   - infra.controller_configuration
-                  - ansible.controller
                   - infra.ah_configuration
                   - infra.ee_utilities
                   - infra.aap_utilities
