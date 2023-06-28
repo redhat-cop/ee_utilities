@@ -18,8 +18,7 @@ ansible_cfg_file: ansible.cfg
 ee_list: []
 
 # Major section Options
-ee_build_options:
-  package_manager_path: /usr/bin/microdnf  # This is set because the default images and redhat images require microdnf
+ee_build_options: "{{ __ee_dnf_fix[ee_stream] }}"
 ee_build_arg_defaults:
   ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: '-vv'
 
