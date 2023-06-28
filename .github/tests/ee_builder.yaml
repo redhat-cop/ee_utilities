@@ -11,33 +11,31 @@
     ee_reg_credential: Automation Hub Container Registry
     ee_create_ansible_config: false
     ee_list:
-      - name: custom_ee
-        alt_name: Custom EE
-        ee_base_image: registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest
-        ee_builder_image: registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest
-        tag: 1-11-21-2
-        # base_image
-        bindep:
-          - python38-requests [platform:centos-8 platform:rhel-8]
-          - python38-pyyaml [platform:centos-8 platform:rhel-8]
-        python:
-          - pytz  # for schedule_rrule lookup plugin
-          - python-dateutil>=2.7.0  # schedule_rrule
-          - awxkit  # For import and export modules
-        collections:
-          - name: awx.awx
-            version: 21.9.0
-          - name: infra.controller_configuration
-          - name: infra.ah_configuration
-        prepend:
-          - RUN whoami
-          - RUN cat /etc/os-release
-        append:
-          - RUN echo This is a post-install command!
+      - name: config_as_code_ee
+        dependencies:
+          system:
+            - unzip
+          python:
+            - ansible-lint
+            - netaddr
+          galaxy:
+            collections:
+              - name: awx.awx
+                version: 22.4.0
+              - infra.controller_configuration
+              - ansible.controller
+              - infra.ah_configuration
+              - infra.ee_utilities
+              - infra.aap_utilities
+        build_steps:
+          prepend_final:
+            - RUN whoami
+            - RUN cat /etc/os-release
+          append_final:
+            - RUN echo This is a post-install command!
       - name: custom_ee2
         alt_name: Custom EE2
-        ee_base_image: 2registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest
-        ee_builder_image: 2registry.redhat.io/ansible-automation-platform-23/ansible-builder-rhel8:latest
+        ee_base_image: registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel9:latest
   roles:
     - infra.ee_utilities.ee_builder
 ...

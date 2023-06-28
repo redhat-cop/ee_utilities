@@ -5,58 +5,34 @@
     state: directory
     suffix: temp
   register: build_dir
-  when: builder_dir is not defined
+  when: ee_builder_dir is not defined
 
 - name: Pull builder images
   containers.podman.podman_image:
-    name: "{{ item }}"
+    name: "{{ __execution_environment_definition.base_image | default(ee_base_image) }}"
     username: "{{ ee_base_registry_username | default(omit, true) }}"
     password: "{{ ee_base_registry_password | default(omit, true) }}"
     validate_certs: "{{ ee_validate_certs | default(omit) }}"
     force: true
-  loop:
-    - "{{ __execution_environment_definition.base_image | default(ee_base_image) }}"
-    - "{{ __execution_environment_definition.builder_image | default(ee_builder_image) }}"
   when: ee_update_base_images
 
-- name: Ensure bindep file is rendered
-  ansible.builtin.template:
-    src: bindep.j2
-    dest: "{{ builder_dir | default(build_dir.path) }}/{{ bindep_file }}"
-    mode: '0644'
-  when: __execution_environment_definition.bindep is defined
-
-- name: Ensure python file is rendered
-  ansible.builtin.template:
-    src: python.j2
-    dest: "{{ builder_dir | default(build_dir.path) }}/{{ python_requirements_file }}"
-    mode: '0644'
-  when: __execution_environment_definition.python is defined
-
-- name: Ensure requirements file is rendered
-  ansible.builtin.template:
-    src: requirements.yml.j2
-    dest: "{{ builder_dir | default(build_dir.path) }}/{{ galaxy_requirements_file }}"
-    mode: '0644'
-  when: (__execution_environment_definition.collections is defined) or (__execution_environment_definition.roles is defined)
-
-- name: Ensure ansible.cfg is rendered
+- name: Create ansible.cfg file if requested.
   ansible.builtin.template:
     src: ansible.cfg.j2
-    dest: "{{ builder_dir | default(build_dir.path) }}/ansible.cfg"
+    dest: "{{ ee_builder_dir | default(build_dir.path) }}/ansible.cfg"
     mode: '0644'
   when: ee_pull_collections_from_hub
 
 - name: Create EE definition file
   ansible.builtin.template:
     src: execution_environment.yml.j2
-    dest: "{{ builder_dir | default(build_dir.path) }}/execution_environment.yml"
+    dest: "{{ ee_builder_dir | default(build_dir.path) }}/execution_environment.yml"
     mode: '0644'
 
 - name: Run the Ansible Builder Program
   ansible.builtin.command: >
     ansible-builder build -f
-      {{ builder_dir | default(build_dir.path) }}/execution_environment.yml
+      {{ ee_builder_dir | default(build_dir.path) }}/execution_environment.yml
       -t {{ __execution_environment_definition.name | default( __execution_environment_definition.ee_name )}}{% if __execution_environment_definition.tag is defined %}:{{ __execution_environment_definition.tag }}{% endif %} --container-runtime={{ ee_container_runtime }}
       {% if ee_prune_images %} --prune-images{% endif %}
       {% if ee_galaxy_keyring is defined %} --galaxy-keyring={{ ee_galaxy_keyring }}{% endif %}
@@ -65,7 +41,7 @@
       {% if ee_container_policy is defined %} --container-policy={{ ee_container_policy }}{% endif %}
       --verbosity {{ ee_verbosity | default(0) }}
   args:
-    chdir: "{{ builder_dir | default(build_dir.path) }}/"
+    chdir: "{{ ee_builder_dir | default(build_dir.path) }}/"
   changed_when: true   # these will always run and will always report "changed" otherwise
 
 - name: Push image to registry
@@ -88,6 +64,6 @@
 - name: Empty build directory
   ansible.builtin.file:
     state: absent
-    path: "{{ build_dir.path | default(builder_dir) }}"
+    path: "{{ build_dir.path | default(ee_builder_dir) }}"
   when: ee_builder_dir_clean
 ...
