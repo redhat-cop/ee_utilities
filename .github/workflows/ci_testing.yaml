@@ -1,6 +1,8 @@
 ---
 name: Run Test of EE utilities
-on: [push, pull_request_target]
+on:
+  push:
+  pull_request:
 
 jobs:
   Integration-test:
