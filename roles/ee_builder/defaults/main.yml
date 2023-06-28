@@ -18,7 +18,7 @@ ansible_cfg_file: ansible.cfg
 ee_list: []
 
 # Major section Options
-ee_build_options: "{{ __ee_dnf_fix[ee_stream].base_image }}"
+ee_build_options: "{{ __ee_dnf_fix[ee_stream] }}"
 ee_build_arg_defaults:
   ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: '-vv'
 
