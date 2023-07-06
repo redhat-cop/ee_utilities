@@ -44,7 +44,7 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_builder_dir`|playbook_directory|no|str|The directory to store all build and context files.|'/tmp'|
 |`ee_builder_dir_clean`|true|no|bool|Whether to delete the build dir when done.|true|
 |`ee_container_runtime`|podman|no|str|container run time to use podman/docker.|podman|
-|`ee_version`|3|no|int|What Execution Environment version to use.|2|
+|`ee_version`|3|no|int|What Execution Environment definition file version to use. This can be different then the actual buider version.|3|
 |`ee_galaxy_keyring`||no|str|Path to the keyring to verify collection signatures during installation.||
 |`ee_galaxy_ignore_signature_status_code`||no|list|List of status codes to ignore while verifying collections.|-500|
 |`galaxy_required_valid_signature_count`||no|int|Number of required valid collection signatures.|5|
