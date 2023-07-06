@@ -25,9 +25,11 @@ podman on localhost
 
 |Variable Name|Default Value|Required|Description|Example|
 |:---:|:---:|:---:|:---:|:---:|
-|`venv_migrate_default_ee_url`|`registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest`|no|"Registry link of the EE you want to compare requirements with"|`localhost/ee:latest`
+|`venv_migrate_default_ee_url`|`registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest`|no|"Registry link of the EE you want to compare requirements with"|`localhost/ee:latest`
 |`registry_username`|None|yes(for default EE value)|username to sign in to the registry|`admin`|
 |`registry_password`|None|yes(for default EE value)|password to sign in to the registry|`pass`|
+|`ee_collections`|None|No|List of collections to add to the execution environments. Must be in a requirements.yml galaxy format.|``|
+|`venv_migrate_show_diff_with_default`|`False`|No|Include default venv with the list of virtual environments scanned.|``|
 |`venv_migrate_ee_python_list`|None|No|This is an output variable, if you want to pass the requirements for ee_building|debug:msg="{{ venv_migrate_ee_python_list }}"
 
 ## Example Playbook
@@ -55,7 +57,7 @@ podman on localhost
   collections:
     - infra.ee_utilities
   vars:
-    venv_migrate_default_ee_url: registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest
+    venv_migrate_default_ee_url: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
     ee_collections:
       - name: awx.awx
       - name: infra.controller_configuration

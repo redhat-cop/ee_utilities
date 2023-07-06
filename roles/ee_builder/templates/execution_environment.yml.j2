@@ -1,86 +1,61 @@
 ---
 version: {{ ee_version }}
 
-{% if ( (galaxy_cli_opts is defined) or
-        (__execution_environment_definition.base_image is defined) or
-        (ee_builder_image is defined) ) %}
+{% if (ee_build_arg_defaults is defined and ee_build_arg_defaults|length ) %}
 build_arg_defaults:
-{% if galaxy_cli_opts is defined %}
-{%    if galaxy_cli_opts|length %}
-  ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: "{{ galaxy_cli_opts }}"
-{%    endif %}
-{% endif %}
-{% endif %}
-{% if ee_version == 1 %}
-{%- if (__execution_environment_definition.base_image is defined) or (ee_base_image is defined) %}
-  EE_BASE_IMAGE: {{ __execution_environment_definition.base_image | default(ee_base_image) }}
-{% endif %}
-{% if ee_builder_image is defined %}
-  EE_BUILDER_IMAGE: {{ __execution_environment_definition.builder_image | default(ee_builder_image) }}
-{% endif %}
-{% endif %}
+{{ ee_build_arg_defaults | to_nice_yaml | indent(2, true) }}
+{% endif -%}
 
-{% if ee_pull_collections_from_hub %}
-ansible_config: {{ ansible_cfg_file }}
-{% endif %}
+{% if (__execution_environment_definition.options is defined and __execution_environment_definition.options|length ) or
+        (ee_build_options is defined and ee_build_options |length) %}
+options:
+{{ __execution_environment_definition.options | default(ee_build_options) | to_nice_yaml | indent(2, true) }}
+{% endif -%}
 
-{% if (__execution_environment_definition.bindep is defined and __execution_environment_definition.bindep|length ) or
-        (__execution_environment_definition.python is defined and __execution_environment_definition.python|length ) or
-        (__execution_environment_definition.collections is defined and __execution_environment_definition.collections|length) or
-        (__execution_environment_definition.roles is defined and __execution_environment_definition.roles|length) %}
+{% if (__execution_environment_definition.dependencies is defined and __execution_environment_definition.dependencies|length ) %}
 dependencies:
-{% if (__execution_environment_definition.bindep is defined and __execution_environment_definition.bindep|length )%}
-  system: {{ bindep_file }}
-{% endif %}
-{% if (__execution_environment_definition.python is defined and __execution_environment_definition.python|length ) %}
-  python: {{ python_requirements_file }}
-{% endif %}
-{% if (__execution_environment_definition.collections is defined and __execution_environment_definition.collections|length) or
-        (__execution_environment_definition.roles is defined and __execution_environment_definition.roles|length) %}
-  galaxy: {{ galaxy_requirements_file }}
-{% endif %}
-{% endif %}
+{{ __execution_environment_definition.dependencies | to_nice_yaml | indent(2, true) }}
+{% endif -%}
 
-{% if (__execution_environment_definition.prepend is defined and __execution_environment_definition.prepend|length) or
-        (__execution_environment_definition.append is defined and __execution_environment_definition.append|length) %}
+{% if (__execution_environment_definition.build_files is defined and __execution_environment_definition.build_files|length )  or
+        (ee_pull_collections_from_hub) %}
+additional_build_files:
+{% if (__execution_environment_definition.build_files is defined and __execution_environment_definition.build_files|length ) %}
+{{ __execution_environment_definition.build_files | to_yaml  | indent(2, true) }}
+{% endif -%}
+{% if ee_pull_collections_from_hub %}
+  - src: ansible.cfg
+    dest: configs
+{% endif -%}
+{% endif -%}
+
+{% if (__execution_environment_definition.build_steps is defined and __execution_environment_definition.build_steps|length )  or
+        (ee_pull_collections_from_hub) %}
 additional_build_steps:
-{% if __execution_environment_definition.prepend is defined and __execution_environment_definition.prepend|length %}  prepend: {% else %}{% endif %}
-
-{% if __execution_environment_definition.prepend is defined and __execution_environment_definition.prepend|length %}
-{% for item in __execution_environment_definition.prepend %}
-    - {{ item }}
+{% if ee_pull_collections_from_hub and 'prepend_galaxy' not in __execution_environment_definition.build_steps %}
+  prepend_galaxy:
+    - ADD _build/configs/ansible.cfg /etc/ansible/ansible.cfg
+{% endif %}
+{% for key,value in __execution_environment_definition.build_steps.items() %}
+{{ key | indent(2, true) }}:
+{{ value | to_nice_yaml | indent(4, true) }}
+{%- if key == "prepend_galaxy" and ee_pull_collections_from_hub and 'prepend_galaxy' in __execution_environment_definition.build_steps %}
+    - ADD _build/configs/ansible.cfg /etc/ansible/ansible.cfg
+{% endif %}
 {% endfor %}
-{% endif %}
-{% if __execution_environment_definition.append is defined and __execution_environment_definition.append|length %}  append: {% else %}{% endif %}
+{% endif -%}
 
-{% if __execution_environment_definition.append is defined and __execution_environment_definition.append|length %}
-{% for item in __execution_environment_definition.append %}
-    - {{ item }}
-{% endfor %}
-{% endif %}
-{% endif %}
-
-{% if ee_version == 2 %}
-{% if (__execution_environment_definition.base_image is defined) or (ee_base_image is defined)
-        or (__execution_environment_definition.builder_image is defined) or (ee_builder_image is defined) %}
+{% if (__execution_environment_definition.images is defined and __execution_environment_definition.images|length ) or
+        (__execution_environment_definition.base_image is defined) or (ee_base_image is defined) %}
 images:
-  {%- if (__execution_environment_definition.base_image is defined) or (ee_base_image is defined) %}
-
+{% if ((__execution_environment_definition.base_image is defined) or (ee_base_image is defined)) and (__execution_environment_definition.images is not defined ) %}
   base_image:
     name: {{ __execution_environment_definition.base_image | default(ee_base_image) }}
-    {%- if (__execution_environment_definition.base_sig_name is defined) or (ee_base_sig_name is defined) %}
-
-    signature_original_name: {{ __execution_environment_definition.base_sig_name | default(ee_base_sig_name) }}
-    {%- endif %}
-  {%- endif %}
-  {%- if (__execution_environment_definition.builder_image is defined) or (ee_builder_image is defined) %}
-
-  builder_image:
-    name: {{ __execution_environment_definition.builder_image | default(ee_builder_image) }}
-    {%- if (__execution_environment_definition.builder_sig_name is defined) or (ee_builder_sig_name is defined) %}
-
-    signature_original_name: {{ __execution_environment_definition.builder_sig_name | default(ee_builder_sig_name) }}
-    {%- endif %}
-  {%- endif %}
+    {% if (__execution_environment_definition.base_sig_name is defined) or (ee_base_sig_name is defined) %}
+signature_original_name: {{ __execution_environment_definition.base_sig_name | default(ee_base_sig_name) }}
 {% endif %}
 {% endif %}
+{% if (__execution_environment_definition.images is defined and __execution_environment_definition.images|length ) %}
+{{ __execution_environment_definition.images | to_nice_yaml | indent(2, true) }}
+{% endif %}
+{% endif -%}

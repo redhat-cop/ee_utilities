@@ -1,6 +1,8 @@
 ---
 name: Run Test of EE utilities
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
 
 jobs:
   Integration-test:
@@ -26,8 +28,7 @@ jobs:
         with:
           registry: quay.io
           username: redhat_cop+github_action
-          password: ${{ secrets.QUAY_TOKEN }}
-
+          password: ${{ secrets.quay_token }}
 
       - name: Build EE
         run: ansible-playbook .github/tests/build_ee.yml -e "ee_registry_username=redhat_cop+github_action" -e "ee_registry_password=${{ secrets.quay_token }}" --connection=local -e "ee_registry_dest=quay.io/redhat_cop/config_as_code_ee" -vvv

@@ -18,7 +18,7 @@
                 name:
                   - ansible-builder
                   - ansible-core
-                enablerepo: ansible-automation-platform-2.2-for-rhel-8-x86_64-rpms
+                enablerepo: ansible-automation-platform-2.4-for-rhel-8-x86_64-rpms
                 state: present
               become: true
           rescue:
@@ -37,17 +37,24 @@
         ee_pull_collections_from_hub: false
         ee_list:
           - name: config_as_code_ee
-            bindep:
-              - unzip
-            python:
-              - ansible-lint
-              - netaddr
-            collections:
-              - name: infra.controller_configuration
-              - name: infra.ah_configuration
-              - name: infra.ee_utilities
-              - name: infra.aap_utilities
-              - name: awx.awx
-            append:
-              - RUN dnf update -y
+            dependencies:
+              system:
+                - unzip
+              python:
+                - ansible-lint
+                - netaddr
+              galaxy:
+                collections:
+                  - name: awx.awx
+                    version: 22.4.0
+                  - infra.controller_configuration
+                  - infra.ah_configuration
+                  - infra.ee_utilities
+                  - infra.aap_utilities
+            build_steps:
+              prepend_final:
+                - RUN whoami
+                - RUN cat /etc/os-release
+              append_final:
+                - RUN echo This is a post-install command!
 ...

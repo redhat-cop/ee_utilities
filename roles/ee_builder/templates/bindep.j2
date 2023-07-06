@@ -1,7 +1,0 @@
-{% if __execution_environment_definition.bindep is defined %}
-{%      if __execution_environment_definition.bindep|length %}
-{% for item in __execution_environment_definition.bindep %}
-{{ item }}
-{% endfor %}
-{%      endif %}
-{% endif %}
