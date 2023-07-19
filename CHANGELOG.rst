@@ -5,6 +5,16 @@ Redhat_Cop.Ee_Utilities Release Notes
 .. contents:: Topics
 
 
+v3.0.0
+======
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- Check the ee_builder documentation for updated vars, All dependency files moved to the dependency variable. Other options moved to their respective places as well.
+- Updated the venv role to use v3 format, updated the documentation on this role as well.
+- builder role rewritten from ground up to match the v3 ansible-builder structure. This has simplified many of the previous variables, allowing for more customization and allows for adaptability of future updates without code changes.
+
 v2.0.8
 ======
 
