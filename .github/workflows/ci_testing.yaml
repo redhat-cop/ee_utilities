@@ -20,6 +20,9 @@ jobs:
       - name: Install Ansible and Ansible Builder
         run: pip install --upgrade ansible-core ansible-builder
 
+      - name: Move ansible.cfg to root
+        run: mv .github/files/ansible.cfg .
+
       - name: Install Dependencies
         run: ansible-galaxy collection install containers.podman -f
 
