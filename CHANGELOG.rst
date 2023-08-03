@@ -5,6 +5,14 @@ Redhat_Cop.Ee_Utilities Release Notes
 .. contents:: Topics
 
 
+v3.1.0
+======
+
+Minor Changes
+-------------
+
+- ansible.cfg removed from root and galaxy.yml added to enable install from source
+
 v3.0.0
 ======
 
