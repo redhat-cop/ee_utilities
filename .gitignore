@@ -19,5 +19,3 @@ collections/*
 
 # Ignore test directory
 test
-
-galaxy.yml
