@@ -5,6 +5,9 @@ Redhat_Cop.Ee_Utilities Release Notes
 .. contents:: Topics
 
 
+v3.1.1
+======
+
 v3.1.0
 ======
 
