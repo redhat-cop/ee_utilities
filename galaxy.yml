@@ -32,6 +32,4 @@ tags:
     - infrastructure
     - ee_utilities
     - ee_utils
-dependencies:
-    "containers.podman": ">=1.0.0"
 ...
