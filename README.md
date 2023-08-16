@@ -12,6 +12,7 @@ This ansible collection includes a number of roles which can be useful for manag
 
 The containers.podman collection MUST be installed in order for this collection to work.
 In addition the podman executable is required for the containers.podman collection.
+It is not listed as a dependency because of issues with syncing the validated content repo from console.redhat.com.
 
 ## Links to Ansible Automation Platform Collections
 
