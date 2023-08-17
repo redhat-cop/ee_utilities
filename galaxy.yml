@@ -1,7 +1,7 @@
 ---
 namespace: infra
 name: ee_utilities
-version: 3.1.1-devel
+version: 3.1.2-devel
 description: A collection of utility roles for usage with Ansible Execution Enviroments
 readme: README.md
 authors:
@@ -9,8 +9,8 @@ authors:
     - Anshul Behl @anshulbehl
     - Tom Page @Tompage1994
     - David Danielsson @djdanielsson
-repository: https://github.com/redhat-cop/ee_utilities/
-issues: https://github.com/redhat-cop/ee_utilities//issues
+repository: https://github.com/redhat-cop/controller_configuration/
+issues: https://github.com/redhat-cop/controller_configuration//issues
 build_ignore:
     - galaxy.yml.j2
     - release.yml

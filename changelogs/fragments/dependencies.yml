@@ -1,2 +1,0 @@
-bugfixes:
-  - removed containers.podman dependency. It made it so you could not sync this collection to automation hub.

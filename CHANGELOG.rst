@@ -5,6 +5,14 @@ Redhat_Cop.Ee_Utilities Release Notes
 .. contents:: Topics
 
 
+v3.1.2
+======
+
+Bugfixes
+--------
+
+- removed containers.podman dependency. It made it so you could not sync this collection to automation hub.
+
 v3.1.1
 ======
 
