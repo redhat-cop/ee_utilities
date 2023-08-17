@@ -27,7 +27,6 @@ jobs:
       collection_version: ${{ github.ref_name }}
       collection_repo: https://github.com/redhat-cop/controller_configuration/
       quay_username: redhat_cop
-      collection_dependencies: containers.podman
       matrix_message: This Ansible collection makes it easy to build execution environments for AWX or Ansible Controller server and converting from python environments to execution environments.
     secrets:
       collection_api_key_1: ${{ secrets.GALAXY_INFRA_KEY }}
