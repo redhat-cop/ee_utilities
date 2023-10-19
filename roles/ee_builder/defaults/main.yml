@@ -4,12 +4,12 @@ ee_container_runtime: podman
 ee_version: 3
 
 
-ee_stream: "{% if ee_base_registry_username is defined %}downstream{% else %}upstream{% endif %}"
+ee_stream: "{% if ee_registry_username is defined %}downstream{% else %}upstream{% endif %}"
 
 # Image defaults
 ee_base_image: "{{ __ee_stream_images[ee_stream].base_image }}"
-ee_registry_username: "{{ ee_base_registry_username | default(omit, true) }}"
-ee_registry_password: "{{ ee_base_registry_password | default(omit, true) }}"
+ee_base_registry_username: "{{ ee_registry_username | default(omit, true) }}"
+ee_base_registry_password: "{{ ee_registry_password | default(omit, true) }}"
 
 # Req File defaults
 ansible_cfg_file: ansible.cfg
