@@ -8,6 +8,14 @@ This ansible collection includes a number of roles which can be useful for manag
 
 * prepare and maintain Ansible Execution Environments
 
+## Getting Help
+
+We are on the Ansible Forums and Matrix, if you want to discuss something, ask for help, or participate in the community, please use the #infra-config-as-code tag on the fourm, or post to the chat in Matrix.
+
+[Ansible Forums](https://forum.ansible.com/tag/infra-config-as-code)
+
+[Matrix Chat Room](https://matrix.to/#/#aap_config_as_code:ansible.com)
+
 ## Requirements
 
 The containers.podman collection MUST be installed in order for this collection to work.
