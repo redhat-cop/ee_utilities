@@ -32,10 +32,11 @@ additional_build_files:
 {% if (__execution_environment_definition.build_steps is defined and __execution_environment_definition.build_steps|length )  or
         (ee_pull_collections_from_hub) %}
 additional_build_steps:
-{% if ee_pull_collections_from_hub and 'prepend_galaxy' not in __execution_environment_definition.build_steps %}
+{% if ee_pull_collections_from_hub and (__execution_environment_definition.build_steps is not defined or (__execution_environment_definition.build_steps is defined and 'prepend_galaxy' not in __execution_environment_definition.build_steps)) %}
   prepend_galaxy:
     - ADD _build/configs/ansible.cfg /etc/ansible/ansible.cfg
 {% endif %}
+{% if __execution_environment_definition.build_steps is defined %}
 {% for key,value in __execution_environment_definition.build_steps.items() %}
 {{ key | indent(2, true) }}:
 {{ value | to_nice_yaml | indent(4, true) }}
@@ -43,6 +44,7 @@ additional_build_steps:
     - ADD _build/configs/ansible.cfg /etc/ansible/ansible.cfg
 {% endif %}
 {% endfor %}
+{% endif %}
 {% endif -%}
 
 {% if (__execution_environment_definition.images is defined and __execution_environment_definition.images|length ) or

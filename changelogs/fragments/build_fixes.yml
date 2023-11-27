@@ -1,0 +1,4 @@
+---
+bugfixes:
+  - Fixed an issue when ee_pull_collections_from_hub was set to true, and build_steps were not defined, an error was raised.
+...
