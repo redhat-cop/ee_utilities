@@ -77,6 +77,7 @@ It takes variables from the following sections the list variables section.
 |`tag`||no|Tag to use when pushing the image.|
 |`dependencies`|dict|no|This section allows you to describe any dependencies that will need to be installed into the final image. Reference [builder dependencies documentation](https://ansible.readthedocs.io/projects/builder/en/stable/definition/#dependencies), examples and our examples for its structure.|
 |`build_steps`|dict|no|This section enables you to specify custom build commands for any build phase. Reference [builder build_steps documentation](https://ansible.readthedocs.io/projects/builder/en/stable/definition/#additional-build-steps), examples and our examples for its structure.|
+|`build_items`|list|no|This is a list of files or folders that will be copied to the working directory for use with the build files. Example below.|
 |`build_files`|dict|no|This section allows you to add any file to the build context directory. Reference [builder build_files documentation](https://ansible.readthedocs.io/projects/builder/en/stable/definition/#additional-build-files), examples and our examples for its structure.|
 |`images`|dict|no|This section is a dictionary that is used to define the base image to be used. Reference [builder images documentation](https://ansible.readthedocs.io/projects/builder/en/stable/definition/#images), examples and our examples for its structure. This will override 'ee_base_image'.|
 |`options`|dict|no|This section is a dictionary that contains keywords/options that can affect builder runtime functionality. Reference [builder options documentation](https://ansible.readthedocs.io/projects/builder/en/stable/definition/#options), examples and our examples for its structure.|
@@ -155,10 +156,18 @@ ansible-playbook playbook.yml
               - infra.controller_configuration
               - ansible.controller
               - infra.ah_configuration
+        build_items:
+          - files/
+          - test.yml
+        build_files:
+          - src: files/stuff.txt
+            dest: folders
+          - src: test.yml
+            dest: folders
         build_steps:
           prepend_final:
-            - RUN whoami
-            - RUN cat /etc/os-release
+            - ADD _build/folders/stuff.txt /etc/ansible/stuff.txt
+            - ADD _build/folders/test.yml /etc/ansible/test.yml
           append_final:
             - RUN echo This is a post-install command!
   roles:
