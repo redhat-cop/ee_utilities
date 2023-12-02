@@ -5,6 +5,15 @@ Redhat_Cop.Ee_Utilities Release Notes
 .. contents:: Topics
 
 
+v3.1.3
+======
+
+Bugfixes
+--------
+
+- Added an option of build_files to the ee definition. This will allow for files/folders to be copied to the working directory to be used for build files.
+- Fixed an issue when ee_pull_collections_from_hub was set to true, and build_steps were not defined, an error was raised.
+
 v3.1.2
 ======
 
