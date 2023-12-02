@@ -16,6 +16,16 @@
     force: true
   when: ee_update_base_images
 
+- name: Copy files/folders to pull from for additional_build_files
+  ansible.builtin.copy:
+    src: '{{ item }}'
+    dest: '{{ ee_builder_dir | default(build_dir.path) }}/{{ item }}'
+    mode: '0655'
+  loop: '{{ __execution_environment_definition.build_items }}'
+  when:
+    - __execution_environment_definition.build_items is defined
+    - __execution_environment_definition.build_items|length
+
 - name: Create ansible.cfg file if requested.
   ansible.builtin.template:
     src: ansible.cfg.j2
