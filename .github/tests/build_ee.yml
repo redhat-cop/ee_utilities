@@ -45,16 +45,15 @@
                 - netaddr
               galaxy:
                 collections:
-                  - name: awx.awx
-                    version: 22.4.0
                   - infra.controller_configuration
                   - infra.ah_configuration
                   - infra.ee_utilities
                   - infra.aap_utilities
+                  - awx.awx
             build_steps:
-              prepend_final:
-                - RUN whoami
-                - RUN cat /etc/os-release
               append_final:
-                - RUN echo This is a post-install command!
+                - RUN true && microdnf clean all && microdnf upgrade --refresh && microdnf clean all && true
+                - RUN cat /etc/redhat-r*
+            options:
+              package_manager_path: /usr/bin/microdnf
 ...
