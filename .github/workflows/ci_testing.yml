@@ -15,6 +15,9 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install podman
+        run: apt -y install podman
+
       - name: Install Ansible and Ansible Builder
         run: pip install --upgrade setuptools ansible-core ansible-builder
 
