@@ -53,8 +53,9 @@
                   - awx.awx
             build_steps:
               append_final:
-                - RUN true && microdnf clean all && microdnf upgrade --refresh && microdnf clean all && true
+                # - RUN true && microdnf clean all && microdnf upgrade --refresh && microdnf clean all && true
+                - RUN yum update -y
                 - RUN cat /etc/redhat-r*
-            options:
-              package_manager_path: /usr/bin/microdnf
+            # options:
+            #   package_manager_path: /usr/bin/microdnf
 ...
