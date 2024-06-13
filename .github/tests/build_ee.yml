@@ -35,7 +35,7 @@
         name: ee_builder
       vars:
         ee_pull_collections_from_hub: false
-        ee_executable: docker
+        ee_container_runtime: docker
         ee_list:
           - name: config_as_code_ee
             dependencies:
