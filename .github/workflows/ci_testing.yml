@@ -16,7 +16,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install Ansible and Ansible Builder
-        run: pip install --upgrade ansible-core ansible-builder
+        run: pip install --upgrade setuptools ansible-core ansible-builder
 
       - name: Move ansible.cfg to root
         run: mv .github/files/ansible.cfg .
