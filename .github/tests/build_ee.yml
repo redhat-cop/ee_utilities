@@ -62,4 +62,3 @@
                 - RUN yum update -y
                 - RUN cat /etc/redhat-r*
 ...
-
