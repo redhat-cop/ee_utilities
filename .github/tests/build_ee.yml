@@ -40,6 +40,10 @@
         ee_list:
           - name: config_as_code_ee
             dependencies:
+              ansible_core:
+                package_pip: ansible-core
+              ansible_runner:
+                package_pip: ansible-runner
               system:
                 - unzip
               python:
