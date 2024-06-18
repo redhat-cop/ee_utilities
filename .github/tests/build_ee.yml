@@ -53,6 +53,7 @@
                 collections:
                   - infra.controller_configuration
                   - infra.ah_configuration
+                  - infra.eda_configuration
                   - infra.ee_utilities
                   - infra.aap_utilities
                   - awx.awx
