@@ -13,9 +13,9 @@ galaxy_info:
   # next line and provide a value
   # issue_tracker_url: http://example.com/issue/tracker
 
-  license: MIT
+  license: GPL-3.0-or-later
 
-  min_ansible_version: '2.9'
+  min_ansible_version: 2.14.0
 
   platforms:
     - name: Fedora

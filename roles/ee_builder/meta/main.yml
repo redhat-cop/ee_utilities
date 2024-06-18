@@ -4,9 +4,9 @@ galaxy_info:
   description: Excecution enviroment builder
   company: Red Hat
 
-  license: license (MIT)
+  license: GPL-3.0-or-later
 
-  min_ansible_version: '2.11'
+  min_ansible_version: 2.14.0
   platforms:
     - name: Fedora
       versions:

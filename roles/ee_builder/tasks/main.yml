@@ -7,6 +7,7 @@
 
 - name: Push to controller
   when: ee_create_controller_def
+  delegate_to: localhost
   block:
     - name: Create temporary folder
       ansible.builtin.tempfile:
@@ -19,12 +20,10 @@
         src: ee_controller.yaml.j2
         dest: "{{ controller_ee.path }}/ee_controller.yaml"
         mode: '0644'
-      delegate_to: localhost
 
     - name: Include templated variable
       ansible.builtin.include_vars:
         file: "{{ controller_ee.path }}/ee_controller.yaml"
-      delegate_to: localhost
 
     - name: Display templated variables
       ansible.builtin.debug:

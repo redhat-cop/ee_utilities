@@ -1,0 +1,4 @@
+---
+bugfixes:
+  - Fixed an issue where a tempfile was not created locally, but rather on the remote machine
+...
