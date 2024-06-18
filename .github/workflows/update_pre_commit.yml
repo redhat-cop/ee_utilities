@@ -3,7 +3,6 @@
 # See .pre-commit-config.yaml for what hooks are executed
 name: Update pre-commit configuration
 
-
 on:
   schedule:
     - cron: "0 5 * * *"
