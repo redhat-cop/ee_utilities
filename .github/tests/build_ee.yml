@@ -6,7 +6,7 @@
   pre_tasks:
     - name: Validate that ansible-builder is installed on target system
       block:
-        - name: Try command
+        - name: Try command  # noqa command-instead-of-shell
           ansible.builtin.shell: ansible-builder --version
           register: r_builder
           changed_when: false
@@ -22,7 +22,7 @@
                 state: present
               become: true
           rescue:
-            - name: Install ansible-builder from pip
+            - name: Install ansible-builder from pip  # noqa package-latest
               ansible.builtin.pip:
                 name:
                   - ansible-builder
@@ -36,6 +36,7 @@
       vars:
         ee_pull_collections_from_hub: false
         ee_container_runtime: podman
+        ee_base_image: quay.io/centos/centos:stream9
         ee_list:
           - name: config_as_code_ee
             dependencies:
@@ -56,6 +57,6 @@
                 # - RUN true && microdnf clean all && microdnf upgrade --refresh && microdnf clean all && true
                 - RUN yum update -y
                 - RUN cat /etc/redhat-r*
-            # options:
-            #   package_manager_path: /usr/bin/microdnf
+              # options:
+              #   package_manager_path: /usr/bin/microdnf
 ...
