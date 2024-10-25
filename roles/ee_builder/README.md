@@ -208,8 +208,7 @@ This is an example for building using automated pipelines like Gitlab or Azure D
       - name: custom_ee
         # Using the latest tag is best practice and should be replaced with a tested version of the container. However latest can be a good starting point to figure out which container works, then replacing latest with the version number for the tested latest container.
         images:
-          base_image:
-            name: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
+          base_image: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
         dependencies:
           ansible_core:
             package_pip: ansible-core==2.15
