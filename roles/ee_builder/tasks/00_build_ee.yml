@@ -9,7 +9,7 @@
 
 - name: Pull builder images
   containers.podman.podman_image:
-    name: "{{ __execution_environment_definition.images.base_image | default(__execution_environment_definition.base_image) | default(ee_base_image) }}"
+    name: "{{ __execution_environment_definition.images.base_image.name | default(__execution_environment_definition.images.base_image) | default(__execution_environment_definition.base_image) | default(ee_base_image) }}"
     username: "{{ ee_base_registry_username | default(omit, true) }}"
     password: "{{ ee_base_registry_password | default(omit, true) }}"
     validate_certs: "{{ ee_validate_certs | default(omit) }}"
