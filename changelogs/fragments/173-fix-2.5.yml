@@ -1,6 +1,6 @@
 ---
 minor_changes:
-  - adds an aap_version var to allow for pushing collections to either AAP 2.4 or 2.5
+  - adds an ee_aap_version var to allow for pushing collections to either AAP 2.4 or 2.5
 bugfixes:
   - found some typoes in readme and corrected them.
 ...

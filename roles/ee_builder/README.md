@@ -57,8 +57,9 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_base_registry_username`|ee_registry_username|no|str|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_base_registry_password`|ee_registry_password|no|str|Password to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_pull_collections_from_hub`|true|no|bool|Whether or not to pull collections from a specific hub for use in building an Execution Environment. This will create entries that adds the ansible.cfg file into the EE.||
-|`ee_ah_host`|`ah_host`|no|str|Host to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_pull_collections_from_hub` is `True`.||
+|`ee_ah_host`|`ah_host`|no|str|Host to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. (if AAP 2.5 use gateway host and infra.aap_configuration) Required if `ee_pull_collections_from_hub` is `True`.||
 |`ee_ah_token`|`ah_token`|no|str|Token to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_pull_collections_from_hub` is `True`.||
+|`ee_aap_version`|`2.4`|no|str|Changes what API endpoint to point to depending on AAP version||
 |`ee_create_controller_def`|false|no|bool|Option to create the 'controller_execution_environments' definition for use by the infra.controller_configuration role||
 
 ### Execution environment list
