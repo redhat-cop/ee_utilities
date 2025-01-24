@@ -25,8 +25,8 @@ Order of preferences for images
 
 3. If none of the above are set, a default will be used.
 
-   Downstream images from the redhat registery will be used if you provide a 'ee_base_registry_username'
-   Otherwise it will default to the upstream images on quay. These are only used if no base is specificed.
+   Downstream images from the redhat registry will be used if you provide a 'ee_base_registry_username'
+   Otherwise it will default to the upstream images on quay. These are only used if no base is specified.
 
     ```yaml
       upstream:
@@ -44,7 +44,7 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_builder_dir`|playbook_directory|no|str|The directory to store all build and context files.|'/tmp'|
 |`ee_builder_dir_clean`|true|no|bool|Whether to delete the build dir when done.|true|
 |`ee_container_runtime`|podman|no|str|container run time to use podman/docker.|podman|
-|`ee_version`|3|no|int|What Execution Environment definition file version to use. This can be different then the actual buider version.|3|
+|`ee_version`|3|no|int|What Execution Environment definition file version to use. This can be different then the actual builder version.|3|
 |`ee_galaxy_keyring`||no|str|Path to the keyring to verify collection signatures during installation.||
 |`ee_galaxy_ignore_signature_status_code`||no|list|List of status codes to ignore while verifying collections.|-500|
 |`galaxy_required_valid_signature_count`||no|int|Number of required valid collection signatures.|5|
@@ -57,9 +57,11 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_base_registry_username`|ee_registry_username|no|str|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_base_registry_password`|ee_registry_password|no|str|Password to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_pull_collections_from_hub`|true|no|bool|Whether or not to pull collections from a specific hub for use in building an Execution Environment. This will create entries that adds the ansible.cfg file into the EE.||
-|`ee_ah_host`|`ah_host`|no|str|Host to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_pull_collections_from_hub` is `True`.||
+|`ee_ah_host`|`ah_host`|no|str|Host to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. (if AAP 2.5 use gateway host and infra.aap_configuration) Required if `ee_pull_collections_from_hub` is `True`.||
 |`ee_ah_token`|`ah_token`|no|str|Token to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_pull_collections_from_hub` is `True`.||
+|`ee_aap_version`|`2.4`|no|str|Changes what API endpoint to point to depending on AAP version||
 |`ee_create_controller_def`|false|no|bool|Option to create the 'controller_execution_environments' definition for use by the infra.controller_configuration role||
+
 ### Execution environment list
 
 This role takes a list of execution environments to describe a state.
@@ -85,7 +87,7 @@ It takes variables from the following sections the list variables section.
 
 #### Additional List variables for Execution environment definition for Controller configuration
 
-These variables are only use in creating the Execution Environment 'controller_execution_environments' definition that is useable wtih the infra.controller_configuration role to push definitions to the Automation controller.
+These variables are only use in creating the Execution Environment 'controller_execution_environments' definition that is useable with the infra.controller_configuration role to push definitions to the Automation controller.
 
 |Variable Name|Default Value|Required|Type|Description|
 |:---:|:---:|:---:|:---:|:---:|
@@ -201,7 +203,7 @@ This is an example for building using automated pipelines like Gitlab or Azure D
     # ee_builder_dir_clean is used because depending on the environment permissions errors can be thrown when attempting to clean up. It is also unnecessary if the entire environment is going to be destroyed at the end anyway.
     #
     ee_builder_dir_clean: false
-    #  ee_builder_dir is set to the relative path "." because it tells ansible-builder to always use the temporary folder created by the pipeline. This may not be necessary depending on the envirnment but the temporary directories created by the pipeline for building the final artifacts can vary in location
+    #  ee_builder_dir is set to the relative path "." because it tells ansible-builder to always use the temporary folder created by the pipeline. This may not be necessary depending on the environment but the temporary directories created by the pipeline for building the final artifacts can vary in location
     ee_builder_dir: "."
     ee_list:
         # To reiterate, only the name variable goes here, not the namespace, that is placed in ee_registry_dest, please refer to ee_registry_dest's description for more details

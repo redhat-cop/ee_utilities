@@ -39,4 +39,5 @@ ee_create_controller_def: false
 # Hub host variables for ansible.cfgw
 ee_ah_host: "{{ ah_host }}"
 ee_ah_token: "{{ ah_token }}"
+ee_aap_version: 2.4
 ...
