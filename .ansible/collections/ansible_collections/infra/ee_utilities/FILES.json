@@ -1,0 +1,411 @@
+{
+ "files": [
+  {
+   "name": ".",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "CHANGELOG.rst",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "6b7f95ed6151225be8a49db4d7397eacc34a6ef530a079fd69ce58be7ac35a20",
+   "format": 1
+  },
+  {
+   "name": "LICENSE",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+   "format": 1
+  },
+  {
+   "name": "requirements.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "0bdd1dfa462165452714d407d84866e0be22215541e64ec1b1329b1d821fb87e",
+   "format": 1
+  },
+  {
+   "name": "STANDARDS.md",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "e0a731f9389ff93c41906cac90dfa499dc094767f069e02f401fb212b8200a73",
+   "format": 1
+  },
+  {
+   "name": "tests",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "tests/config.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "fc0b5a1b5e64a3ca5d5b65ec485122ee4fb226199bda034d8ce8c9905c78e3e7",
+   "format": 1
+  },
+  {
+   "name": "meta",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "meta/runtime.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "4869ba0dc93de99afcdf55f82485c8f9e8d1191edc8c34e51ba0336f1772ca7e",
+   "format": 1
+  },
+  {
+   "name": "README.md",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "f1d5e55b1441f18ee3f47631e2cddf279fef103c00cb568f82a9d4e94be37df7",
+   "format": 1
+  },
+  {
+   "name": "roles",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/virtualenv_migrate",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/virtualenv_migrate/defaults",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/virtualenv_migrate/defaults/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "00ec4a197455e15ba49e34414c739134e9ca4796f4ce4601e7e4b53cb6db6ca1",
+   "format": 1
+  },
+  {
+   "name": "roles/virtualenv_migrate/meta",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/virtualenv_migrate/meta/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "1fe6024217d0eb535073598e2ebb65153ad23c25b616c2ae319d068ca221cc4f",
+   "format": 1
+  },
+  {
+   "name": "roles/virtualenv_migrate/README.md",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "37510761a4c6cfcd7a705edda36d17fc087d22c556f00c61344b05071b76cb01",
+   "format": 1
+  },
+  {
+   "name": "roles/virtualenv_migrate/tasks",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/virtualenv_migrate/tasks/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "fa3373b0c7f995422de25d7ee22562f6081311e4c01dc1a0a104a1f0f11b3266",
+   "format": 1
+  },
+  {
+   "name": "roles/virtualenv_migrate/tasks/02_ee_list_create.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "401cba1c8f9a9d7e86a6dc14168bf5ce386dffd3d24baad979d91c20378afe3d",
+   "format": 1
+  },
+  {
+   "name": "roles/virtualenv_migrate/tasks/00_gather_custom_requirements.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "af5ac262d0e320dde6c8f81d631e1311fac525cab65cfa02d860d80582954418",
+   "format": 1
+  },
+  {
+   "name": "roles/virtualenv_migrate/tasks/01_ee_diff.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "246b0cbf76f6cd833d5b5f2cf4e92c42c326a47e53dd28b98d8e3a5f34388725",
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder/defaults",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder/defaults/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "f54ea49a7b0e5567a77c4e5a18517f903fcd9ae7dd6b7c609ee53d41f621363f",
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder/meta",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder/meta/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "fb67c61e6ab82acdc4269e713adb2e0c1c39c7911ed4cbdf4d41720d2ab449b0",
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder/README.md",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "159cde656ccfd4d97c118865a24489e928276b6d10bfdbc3894fa040e4e466f5",
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder/tasks",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder/tasks/00_build_ee.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "297eff57b21eb9e9e21ce183f4290231a447c7e7ffe3998b509d5788ca961975",
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder/tasks/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "5bf7c0d5384d9109000bd72855311de01b2d4283924a05ff48ac98148aaa8c85",
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder/templates",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder/templates/ee_controller.yaml.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "ee9b0f606f4ca01022bdc8351b398f793751c2c96439992f8274c7d2d9f37ce3",
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder/templates/ansible.cfg.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "d81cc64da04e241a3121bac3c5d1465c66d5c5c7a0ff0d7c114c1822a6be58b9",
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder/templates/execution_environment.yml.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "1e66505f5897699d56f44a7be77847f1c3be12ec6761dbb9b0f3c54ff5464767",
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder/vars",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/ee_builder/vars/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "542be38cf3991ab80e9ee5c3e4145081bb5c9332adb4c5639e73d48df49ced24",
+   "format": 1
+  },
+  {
+   "name": "bindep.txt",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "8bc94b65d0b3ae8998cc0405a424ee7c3a04c72996f99eda9670374832dc9667",
+   "format": 1
+  },
+  {
+   "name": "changelogs",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "changelogs/fragments",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "changelogs/fragments/147-pull-image.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "5762a25eecd8b1c96dbf0b7000ed847011bb28feb732d24a21cb7402f3396936",
+   "format": 1
+  },
+  {
+   "name": "changelogs/fragments/base_image_name.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "50b4017c7c1f1bc2ab00107118ac2abf7211b1b9bd70cf1461be34a1e487f080",
+   "format": 1
+  },
+  {
+   "name": "changelogs/fragments/.gitkeep",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "format": 1
+  },
+  {
+   "name": "changelogs/fragments/173-fix-2.5.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "5e6075eae01854dfeb4a801ac4884830c250d8e29ad2c933d845686c8aa28cf5",
+   "format": 1
+  },
+  {
+   "name": "changelogs/fragments/148-delegation.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "5c3e121dda3b719c762f4d3215635b3d95e295630f09e4c26d92318c04dd5596",
+   "format": 1
+  },
+  {
+   "name": "changelogs/.plugin-cache.yaml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "c326dc673872b078b27d830a2a40b6b8f246d79147856b942f6246be391131a7",
+   "format": 1
+  },
+  {
+   "name": "changelogs/config.yaml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "58d3d4d9382c670145e8fbcc43b89569e445accb9c7df45fa075a733a4adc476",
+   "format": 1
+  },
+  {
+   "name": "changelogs/changelog.yaml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "7419d7c3574d1efda269169e2fd0757fdc5b9c7239383e01652d50e31d05f948",
+   "format": 1
+  },
+  {
+   "name": ".yamllint",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "4570b56afc08bb9122213ab419a3e3bfd4eb6679e2486d9a8c69d95e1f7f4803",
+   "format": 1
+  },
+  {
+   "name": ".ansible",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": ".ansible/roles",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": ".ansible/.lock",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "format": 1
+  },
+  {
+   "name": ".ansible/collections",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": ".ansible/collections/ansible_collections",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": ".ansible/modules",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "examples",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "examples/ee_builder_base.yaml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "00885f838b51c5335419bdfa2426e24c823fc41ccfda35ab2fb6c4902f59f02d",
+   "format": 1
+  },
+  {
+   "name": "examples/ee_venv_migrate.yaml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "c83964ab82911cd297c524cb72b1768619c489e733fed3a9bac460229088d4df",
+   "format": 1
+  }
+ ],
+ "format": 1
+}

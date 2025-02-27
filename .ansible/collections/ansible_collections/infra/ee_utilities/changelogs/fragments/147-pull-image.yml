@@ -1,0 +1,4 @@
+---
+bugfixes:
+  - Fixed an issue where depending on your ee base image variable location, it might not pull the correct image.
+...

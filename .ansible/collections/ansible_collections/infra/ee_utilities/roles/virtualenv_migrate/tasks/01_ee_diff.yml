@@ -1,0 +1,29 @@
+---
+- name: Diff with EE requirements
+  delegate_to: localhost
+  block:
+    - name: Diff | Download the default EE on localhost
+      containers.podman.podman_image:
+        name: "{{ venv_migrate_default_ee_url }}"
+        username: "{{ venv_migrate_registry_username }}"
+        password: "{{ venv_migrate_registry_password }}"
+
+    - name: Diff | Get pip list from Default EE
+      ansible.builtin.command: podman run --rm -it {{ venv_migrate_default_ee_url }} bash -c "/bin/pip3 freeze"
+      register: __venv_migrate_ee_pip_list_output
+      changed_when: false
+
+    - name: Diff | Retain the EE pip list without package versions
+      ansible.builtin.set_fact:
+        __venv_migrate_ee_pip_list: "{{ __venv_migrate_ee_pip_list_output.stdout.split('\n') | map('regex_replace', '(\\w+)==([\\d+\\.]+).*', '\\1') | list }}"
+
+    - name: Diff | Check what's extra in venv and create a requirement list for the new EE and set to ee_python variable
+      ansible.builtin.set_fact:
+        venv_migrate_ee_python_list: "{{ venv_migrate_ee_python_list | d([]) + [{item.item: (item.stdout_lines | difference(__venv_migrate_ee_pip_list))}] }}"
+      loop: "{{ __venv_migrate_combined_requirements_ser }}"
+      no_log: true
+
+    - name: Diff | Show the packages that are extra from default EEs in custom venvs.
+      ansible.builtin.debug:
+        msg: "{{ venv_migrate_ee_python_list }}"
+...

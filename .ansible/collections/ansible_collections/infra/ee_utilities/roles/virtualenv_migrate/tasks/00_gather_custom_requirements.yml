@@ -1,0 +1,46 @@
+---
+- name: Gather | Get the list of custom virtualenvs
+  ansible.builtin.command: awx-manage list_custom_venvs
+  register: __venv_migrate_custom_venvs
+  changed_when: false # only gathering information
+
+- name: Gather | Record all virtualenvs from AAP1.2 tower node
+  ansible.builtin.set_fact:
+    __venv_migrate_virtualenvs: "{{ __venv_migrate_custom_venvs.stdout | regex_findall('\\n?(/.*/)\\n\\n?') }}"
+  failed_when: __venv_migrate_custom_venvs.rc != 0
+
+- name: Gather | Exit the play if there are no custom virtualenvironments on AAP1.2 tower node or the awx-manage command errors.
+  ansible.builtin.meta: end_play
+  when: (__venv_migrate_virtualenvs | length == 1 and not venv_migrate_show_diff_with_default) or (__venv_migrate_custom_venvs.rc != 0)
+
+- name: Gather pip freeze output from all venvs except default venv
+  ansible.builtin.command: "{{ item }}/bin/pip freeze"
+  loop: "{{ __venv_migrate_virtualenvs | difference(venv_migrate_default_venv_paths) }}"
+  when:
+    - not venv_migrate_show_diff_with_default
+    - __venv_migrate_virtualenvs | length > 1
+  register: __venv_migrate_freeze_results
+  changed_when: false # only gathering information
+
+- name: Gather pip freeze output from all venvs including the default venv
+  ansible.builtin.command: "{{ item }}/bin/pip freeze"
+  loop: "{{ __venv_migrate_virtualenvs }}"
+  when: venv_migrate_show_diff_with_default | bool
+  register: __venv_migrate_freeze_results_default
+  changed_when: false # only gathering information
+
+- name: Gather results from pip_freeze based on conditions
+  ansible.builtin.set_fact:
+    __venv_migrate_freeze_results: "{{ __venv_migrate_freeze_results_default }}"
+  when: not __venv_migrate_freeze_results_default.skipped | bool
+
+- name: Gather | Combining all custom venv requirements in a variable without the versions
+  ansible.builtin.set_fact:
+    __venv_migrate_combined_requirements: "{{ __venv_migrate_freeze_results.results | map('regex_replace', '(\\w+)==[\\d+\\.]+', '\\1') }}"
+
+- name: Gather | Convert string to yaml dict
+  ansible.builtin.set_fact:
+    __venv_migrate_combined_requirements_ser: "{{ __venv_migrate_combined_requirements_ser | d([]) + [item | from_yaml] }}"
+  loop: "{{ __venv_migrate_combined_requirements }}"
+  no_log: true
+...

@@ -1,0 +1,13 @@
+---
+# vars file for ee_builder
+__ee_stream_images:
+  upstream:
+    base_image: ghcr.io/ansible-community/community-ee-base:latest
+  downstream:
+    base_image: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
+
+__ee_dnf_fix:
+  upstream: {}
+  downstream:
+    package_manager_path: /usr/bin/microdnf # This is set because the default images and redhat images require microdnf
+...

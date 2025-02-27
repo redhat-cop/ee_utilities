@@ -1,0 +1,49 @@
+---
+- name: Playbook to create custom EE
+  hosts: localhost
+  gather_facts: false
+  vars:
+    # For controller configuration definition
+    ee_builder_dir_clean: false
+    builder_dir: .
+    ee_update_base_images: false
+    ee_reg_credential: Automation Hub Container Registry
+    ee_base_image: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
+    ee_pull_collections_from_hub: true
+    ah_host: hub.nas
+    ah_token: ec28091dfebd9fb4c7ddc59d34cddb35350b71cb
+    ee_registry_dest: ahnosso.node
+    ee_registry_username: admin
+    ee_registry_password: secret123
+    ee_verbosity: 3
+    ee_list:
+      - name: custom_ee
+        alt_name: Custom EE
+        tag: 1-11-21-2
+        dependencies:
+          system:
+            - python-requests
+            - python-pyyaml
+          python:
+            - pytz # for schedule_rrule lookup plugin
+            - python-dateutil>=2.7.0 # schedule_rrule
+            - awxkit # For import and export modules
+          galaxy:
+            collections:
+              - name: awx.awx
+                version: 22.4.0
+              - infra.controller_configuration
+              - ansible.controller
+              - infra.ah_configuration
+        build_steps:
+          prepend_final:
+            - RUN whoami
+            - RUN cat /etc/os-release
+          append_final:
+            - RUN echo This is a post-install command!
+        images:
+          base_image:
+            name: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
+  roles:
+    - infra.ee_utilities.ee_builder
+...

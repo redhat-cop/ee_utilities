@@ -1,0 +1,42 @@
+{
+ "collection_info": {
+  "namespace": "infra",
+  "name": "ee_utilities",
+  "version": "3.1.3-devel",
+  "authors": [
+   "Sean Sullivan @sean-m-sullivan",
+   "Anshul Behl @anshulbehl",
+   "Tom Page @Tompage1994",
+   "David Danielsson @djdanielsson"
+  ],
+  "readme": "README.md",
+  "tags": [
+   "execution",
+   "enviroments",
+   "collection",
+   "utilities",
+   "utils",
+   "infrastructure",
+   "ee_utilities",
+   "ee_utils"
+  ],
+  "description": "A collection of utility roles for usage with Ansible Execution Enviroments",
+  "license": [
+   "GPL-3.0-or-later"
+  ],
+  "license_file": null,
+  "dependencies": {},
+  "repository": "https://github.com/redhat-cop/ee_utilities/",
+  "documentation": null,
+  "homepage": null,
+  "issues": "https://github.com/redhat-cop/ee_utilities//issues"
+ },
+ "file_manifest_file": {
+  "name": "FILES.json",
+  "ftype": "file",
+  "chksum_type": "sha256",
+  "chksum_sha256": "e028fc1a4584284c7376bd504653c5d592095ad121ce884062026d9a437b7aa7",
+  "format": 1
+ },
+ "format": 1
+}

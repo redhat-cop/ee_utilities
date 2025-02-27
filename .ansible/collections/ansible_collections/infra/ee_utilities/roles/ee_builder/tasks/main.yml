@@ -1,0 +1,36 @@
+---
+- name: Build EE environments
+  ansible.builtin.include_tasks: 00_build_ee.yml
+  loop: "{{ ee_list }}"
+  loop_control:
+    loop_var: __execution_environment_definition
+
+- name: Push to controller
+  when: ee_create_controller_def
+  delegate_to: localhost
+  block:
+    - name: Create temporary folder
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: temp
+      register: controller_ee
+
+    - name: Create execution environment definition file
+      ansible.builtin.template:
+        src: ee_controller.yaml.j2
+        dest: "{{ controller_ee.path }}/ee_controller.yaml"
+        mode: "0644"
+
+    - name: Include templated variable
+      ansible.builtin.include_vars:
+        file: "{{ controller_ee.path }}/ee_controller.yaml"
+
+    - name: Display templated variables
+      ansible.builtin.debug:
+        var: controller_execution_environments
+
+    - name: Set stats for use in another workflow node
+      ansible.builtin.set_stats:
+        data:
+          controller_execution_environments: "{{ controller_execution_environments }}"
+...

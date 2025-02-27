@@ -1,0 +1,13 @@
+---
+- name: Gather custom venv requirements
+  ansible.builtin.include_tasks: 00_gather_custom_requirements.yml
+
+- name: Diff with EE requirements
+  ansible.builtin.include_tasks: 01_ee_diff.yml
+
+- name: Create EE list
+  ansible.builtin.include_tasks: 02_ee_list_create.yml
+  loop: "{{ __venv_migrate_combined_requirements_ser }}"
+  loop_control:
+    loop_var: __venv_migrate_python_item
+...
