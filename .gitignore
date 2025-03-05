@@ -19,3 +19,6 @@ collections/*
 
 # Ignore test directory
 test
+
+# Ignore ansible directory
+.ansible

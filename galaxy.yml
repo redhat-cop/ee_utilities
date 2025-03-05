@@ -32,4 +32,8 @@ tags:
   - infrastructure
   - ee_utilities
   - ee_utils
+dependencies:
+  - name: containers.podman
+    version: ">=1.14.0"
+    source: https://galaxy.ansible.com
 ...
