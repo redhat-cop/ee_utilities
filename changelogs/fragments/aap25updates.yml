@@ -1,0 +1,5 @@
+---
+minor_changes:
+  - updated 'ee_ah_host' and 'ee_ah_token' to also take aap_hostname and aap_token as defaults, updated readme to reflect new changes.
+breaking_changes:
+  - update execution_environment.yml to execution-environment.yaml to be in line with the ansible-builder default. Only effects files generated. #172
