@@ -35,15 +35,15 @@
 
 - name: Create EE definition file
   ansible.builtin.template:
-    src: execution_environment.yml.j2
-    dest: "{{ ee_builder_dir | default(build_dir.path) }}/execution_environment.yml"
+    src: execution-environment.yaml.j2
+    dest: "{{ ee_builder_dir | default(build_dir.path) }}/execution-environment.yaml"
     mode: "0644"
   when: not __execution_environment_definition.skip_generation | default(false) | bool
 
 - name: Run the Ansible Builder Program
   ansible.builtin.command: >
     ansible-builder build -f
-      execution_environment.yml
+      execution-environment.yaml
       -t {{ __execution_environment_definition.name | default(__execution_environment_definition.ee_name) }}{% if __execution_environment_definition.tag is defined
     %}:{{ __execution_environment_definition.tag }}{% endif %} --container-runtime={{ ee_container_runtime }}
       {% if ee_prune_images %} --prune-images{% endif %}

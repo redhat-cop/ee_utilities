@@ -15,25 +15,25 @@ Order of preferences for images
 
 1. ee_list images
 
-```yaml
-    ee_list:
-      - name: custom_ee
-        base_image: image_name
-```
+    ```yaml
+        ee_list:
+          - name: custom_ee
+            base_image: image_name
+    ```
 
 2. 'ee_base_image' top level variables.
 
 3. If none of the above are set, a default will be used.
 
-Downstream images from the redhat registry will be used if you provide a 'ee_base_registry_username'
-Otherwise it will default to the upstream images on quay. These are only used if no base is specified.
+   Downstream images from the redhat registery will be used if you provide a 'ee_base_registry_username'
+   Otherwise it will default to the upstream images on quay. These are only used if no base is specificed.
 
-```yaml
-  upstream:
-    base_image: quay.io/ansible/ansible-runner:latest
-  downstream:
-    base_image: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
-```
+    ```yaml
+      upstream:
+        base_image: quay.io/ansible/ansible-runner:latest
+      downstream:
+        base_image: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
+    ```
 
 Best practice is to use the default images, unless needing to pull from another repository.
 
@@ -56,9 +56,9 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_base_image`|registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest|no|str|Build arg specifies parent image for the execution environment. Use the images option to override this for an individual list item.||
 |`ee_base_registry_username`|ee_registry_username|no|str|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_base_registry_password`|ee_registry_password|no|str|Password to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
-|`ee_pull_collections_from_hub`|true|no|bool|Whether or not to pull collections from a specific hub for use in building an Execution Environment. This will create entries that adds the ansible.cfg file into the EE.||
-|`ee_ah_host`|`ah_host`|no|str|Host to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. (if AAP 2.5 use gateway host and infra.aap_configuration) Required if `ee_pull_collections_from_hub` is `True`.||
-|`ee_ah_token`|`ah_token`|no|str|Token to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_pull_collections_from_hub` is `True`.||
+|`ee_pull_collections_from_hub`|true|no|bool|Whether or not to pull collections from a specific hub for use in building an Execution Environment. This will create entries that adds the ansible.cfg file into the EE. These can be hidden using environment variables as detailed [in this article](https://developers.redhat.com/articles/2025/01/23/strategies-eliminating-ansible-hardcoded-credentials) ||
+|`ee_ah_host`|`aap_hostname`|no|str|Host to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. (if AAP 2.5 use gateway host and infra.aap_configuration) Required if `ee_pull_collections_from_hub` is `True`.||
+|`ee_ah_token`|`aap_token`|no|str|Token to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_pull_collections_from_hub` is `True`.||
 |`ee_aap_version`|`2.4`|no|str|Changes what API endpoint to point to depending on AAP version||
 |`ee_create_controller_def`|false|no|bool|Option to create the 'controller_execution_environments' definition for use by the infra.controller_configuration role||
 
@@ -83,7 +83,7 @@ It takes variables from the following sections the list variables section.
 |`build_files`|dict|no|This section allows you to add any file to the build context directory. Reference [builder build_files documentation](https://ansible.readthedocs.io/projects/builder/en/stable/definition/#additional-build-files), examples and our examples for its structure.|
 |`images`|dict|no|This section is a dictionary that is used to define the base image to be used. Reference [builder images documentation](https://ansible.readthedocs.io/projects/builder/en/stable/definition/#images), examples and our examples for its structure. This will override 'ee_base_image'.|
 |`options`|dict|no|This section is a dictionary that contains keywords/options that can affect builder runtime functionality. Reference [builder options documentation](https://ansible.readthedocs.io/projects/builder/en/stable/definition/#options), examples and our examples for its structure.|
-|`skip_generation`|bool|false|Should the generation of execution_environment.yml be skipped and an already provided definition be used.|
+|`skip_generation`|bool|false|Should the generation of execution-environment.yaml be skipped and an already provided definition be used.|
 
 #### Additional List variables for Execution environment definition for Controller configuration
 
@@ -103,7 +103,7 @@ These variables are only use in creating the Execution Environment 'controller_e
 |:---:|:---:|:---:|:---:|
 |`ee_registry_username`||no|Username to use when authenticating to destination registries.|
 |`ee_registry_password`||no|Password to use when authenticating to destination registries.|
-|`ee_registry_dest`||no|Path or URL where image will be pushed. Namespaces for containers go here. Examples: registry.redhat.io, registry.redhat.io/rh-custom |
+|`ee_registry_dest`||no|Path or URL where image will be pushed. Namespaces for containers go here. Examples: registry.redhat.io, registry.redhat.io/rh-custom , in AAP 2.5 containers.podman:1.14.0 require images be pushed to a namespace, such as the previous namespace rh-custom |
 |`ee_image_push`|True|no|Control to choose whether to push image to registry or not.|
 |`ee_auth_file`||no|Path to file containing authorization credentials to the remote registry.|
 |`ee_executable`||no|Path to podman executable if it is not in the $PATH on the machine running podman.|
@@ -136,7 +136,7 @@ ansible-playbook playbook.yml
     ee_pull_collections_from_hub: true
     ah_host: hub.nas
     ah_token: ec28091dfebd9fb4c7ddc59d34cddb35350b71cb
-    ee_registry_dest: ahnosso.node
+    ee_registry_dest: ahnosso.node/namespace
     ee_registry_username: admin
     ee_registry_password: secret123
     ee_verbosity: 1
