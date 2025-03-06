@@ -1,0 +1,9 @@
+---
+# defaults file for virtualenv_migrate
+venv_migrate_default_venv_paths:
+  - /var/lib/awx/venv/ansible/
+venv_migrate_default_ee_url: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
+venv_migrate_show_diff_with_default: false
+venv_migrate_registry_username: "{{ registry_username | default('') }}"
+venv_migrate_registry_password: "{{ registry_password | default('') }}"
+...

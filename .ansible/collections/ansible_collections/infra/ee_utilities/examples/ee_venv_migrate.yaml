@@ -1,0 +1,37 @@
+---
+- name: Playbook to create custom EE
+  hosts: tower
+  gather_facts: false
+  vars:
+    venv_migrate_default_ee_url: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
+    ee_collections:
+      - name: awx.awx
+      - name: infra.controller_configuration
+      - name: infra.ah_configuration
+  tasks:
+    - name: Include venv_migrate role
+      ansible.builtin.include_role:
+        name: infra.ee_utilities.virtualenv_migrate
+
+    - name: Display ee_list
+      ansible.builtin.debug:
+        var: ee_list
+
+- name: Build EEs with ee_builder role
+  hosts: localhost
+  vars:
+    ee_registry_dest: ahnosso.node
+    ah_host: ahnosso.node
+    ee_ah_token: 4ab76668c4b2622ab1dfb7cbee7e6c9b8e62c0f5
+    ee_list: "{{ hostvars[groups['tower'][0]]['ee_list'] }}"
+  tasks:
+    - name: Create EE
+      ansible.builtin.include_role:
+        name: infra.ee_utilities.ee_builder
+
+    - name: Export python virtual enviroment list to file # noqa template-instead-of-copy
+      ansible.builtin.copy:
+        content: "{{ ee_list | to_nice_yaml(width=50, explicit_start=True, explicit_end=True) }}"
+        dest: venv_migrate_ee_python.yaml
+        mode: "0644"
+...

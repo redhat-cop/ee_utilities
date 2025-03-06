@@ -1,0 +1,63 @@
+---
+version: {{ ee_version }}
+
+{% if (ee_build_arg_defaults is defined and ee_build_arg_defaults|length ) %}
+build_arg_defaults:
+{{ ee_build_arg_defaults | to_nice_yaml | indent(2, true) }}
+{% endif -%}
+
+{% if (__execution_environment_definition.options is defined and __execution_environment_definition.options|length ) or
+        (ee_build_options is defined and ee_build_options |length) %}
+options:
+{{ __execution_environment_definition.options | default(ee_build_options) | to_nice_yaml | indent(2, true) }}
+{% endif -%}
+
+{% if (__execution_environment_definition.dependencies is defined and __execution_environment_definition.dependencies|length ) %}
+dependencies:
+{{ __execution_environment_definition.dependencies | to_nice_yaml | indent(2, true) }}
+{% endif -%}
+
+{% if (__execution_environment_definition.build_files is defined and __execution_environment_definition.build_files|length )  or
+        (ee_pull_collections_from_hub) %}
+additional_build_files:
+{% if (__execution_environment_definition.build_files is defined and __execution_environment_definition.build_files|length ) %}
+{{ __execution_environment_definition.build_files | to_yaml  | indent(2, true) }}
+{% endif -%}
+{% if ee_pull_collections_from_hub %}
+  - src: ansible.cfg
+    dest: configs
+{% endif -%}
+{% endif -%}
+
+{% if (__execution_environment_definition.build_steps is defined and __execution_environment_definition.build_steps|length )  or
+        (ee_pull_collections_from_hub) %}
+additional_build_steps:
+{% if ee_pull_collections_from_hub and (__execution_environment_definition.build_steps is not defined or (__execution_environment_definition.build_steps is defined and 'prepend_galaxy' not in __execution_environment_definition.build_steps)) %}
+  prepend_galaxy:
+    - ADD _build/configs/ansible.cfg /etc/ansible/ansible.cfg
+{% endif %}
+{% if __execution_environment_definition.build_steps is defined %}
+{% for key,value in __execution_environment_definition.build_steps.items() %}
+{{ key | indent(2, true) }}:
+{{ value | to_nice_yaml | indent(4, true) }}
+{%- if key == "prepend_galaxy" and ee_pull_collections_from_hub and 'prepend_galaxy' in __execution_environment_definition.build_steps %}
+    - ADD _build/configs/ansible.cfg /etc/ansible/ansible.cfg
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif -%}
+
+{% if (__execution_environment_definition.images is defined and __execution_environment_definition.images|length ) or
+        (__execution_environment_definition.base_image is defined) or (ee_base_image is defined) %}
+images:
+{% if ((__execution_environment_definition.base_image is defined) or (ee_base_image is defined)) and (__execution_environment_definition.images is not defined ) %}
+  base_image:
+    name: {{ __execution_environment_definition.base_image | default(ee_base_image) }}
+    {% if (__execution_environment_definition.base_sig_name is defined) or (ee_base_sig_name is defined) %}
+signature_original_name: {{ __execution_environment_definition.base_sig_name | default(ee_base_sig_name) }}
+{% endif %}
+{% endif %}
+{% if (__execution_environment_definition.images is defined and __execution_environment_definition.images|length ) %}
+{{ __execution_environment_definition.images | to_nice_yaml | indent(2, true) }}
+{% endif %}
+{% endif -%}

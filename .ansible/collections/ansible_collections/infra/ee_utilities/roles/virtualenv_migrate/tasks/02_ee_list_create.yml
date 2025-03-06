@@ -1,0 +1,21 @@
+---
+- name: Diff | Show the packages that are extra from default EEs in custom venvs.
+  ansible.builtin.debug:
+    var: __venv_migrate_python_item
+
+- name: Create EE temp list
+  ansible.builtin.set_fact:
+    ee_list_temp:
+      - name: "{{ __venv_migrate_python_item.item | regex_replace('^/|/$', '') | regex_replace('/|/', '_') }}"
+        base_image: "{{ venv_migrate_default_ee_url }}"
+        dependencies:
+          galaxy:
+            collections: "{{ ee_collections }}"
+          python: "{{ __venv_migrate_python_item.stdout_lines | difference(__venv_migrate_ee_pip_list) }}"
+  delegate_to: localhost
+
+- name: Create EE list from venv_migrate_ee_python_list
+  ansible.builtin.set_fact:
+    ee_list: "{{ ee_list | default([]) + ee_list_temp }}"
+  delegate_to: localhost
+...

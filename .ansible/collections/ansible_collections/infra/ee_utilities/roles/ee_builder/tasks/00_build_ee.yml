@@ -1,0 +1,82 @@
+---
+# tasks file for ee_builder
+- name: Create temporary folder
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: temp
+  register: build_dir
+  when: ee_builder_dir is not defined
+
+- name: Pull builder images
+  containers.podman.podman_image:
+    name: "{{ __execution_environment_definition.images.base_image.name | default(__execution_environment_definition.images.base_image) | default(__execution_environment_definition.base_image) | default(ee_base_image) }}"
+    username: "{{ ee_base_registry_username | default(omit, true) }}"
+    password: "{{ ee_base_registry_password | default(omit, true) }}"
+    validate_certs: "{{ ee_validate_certs | default(omit) }}"
+    force: true
+  when: ee_update_base_images
+
+- name: Copy files/folders to pull from for additional_build_files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ ee_builder_dir | default(build_dir.path) }}/{{ item }}"
+    mode: "0655"
+  loop: "{{ __execution_environment_definition.build_items }}"
+  when:
+    - __execution_environment_definition.build_items is defined
+    - __execution_environment_definition.build_items|length
+
+- name: Create ansible.cfg file if requested.
+  ansible.builtin.template:
+    src: ansible.cfg.j2
+    dest: "{{ ee_builder_dir | default(build_dir.path) }}/ansible.cfg"
+    mode: "0644"
+  when: ee_pull_collections_from_hub
+
+- name: Create EE definition file
+  ansible.builtin.template:
+    src: execution_environment.yml.j2
+    dest: "{{ ee_builder_dir | default(build_dir.path) }}/execution_environment.yml"
+    mode: "0644"
+  when: not __execution_environment_definition.skip_generation | default(false) | bool
+
+- name: Run the Ansible Builder Program
+  ansible.builtin.command: >
+    ansible-builder build -f
+      execution_environment.yml
+      -t {{ __execution_environment_definition.name | default(__execution_environment_definition.ee_name) }}{% if __execution_environment_definition.tag is defined
+    %}:{{ __execution_environment_definition.tag }}{% endif %} --container-runtime={{ ee_container_runtime }}
+      {% if ee_prune_images %} --prune-images{% endif %}
+      {% if ee_galaxy_keyring is defined %} --galaxy-keyring={{ ee_galaxy_keyring }}{% endif %}
+      {% if ee_galaxy_ignore_signature_status_code is defined %}{% for status_code in ee_galaxy_ignore_signature_status_code %} --galaxy-ignore-signature-status-code={{
+    status_code }}{% endfor %}{% endif %}
+      {% if galaxy_required_valid_signature_count is defined %} --galaxy-required-valid-signature-count={{ galaxy_required_valid_signature_count }}{% endif %}
+      {% if ee_container_policy is defined %} --container-policy={{ ee_container_policy }}{% endif %}
+      --verbosity {{ ee_verbosity | default(0) }}
+  args:
+    chdir: "{{ ee_builder_dir | default(build_dir.path) }}/"
+  changed_when: true # these will always run and will always report "changed" otherwise
+
+- name: Push image to registry
+  containers.podman.podman_image:
+    name: "{{ __execution_environment_definition.name }}"
+    pull: false
+    push: true
+    username: "{{ ee_registry_username | default(omit, true) }}"
+    password: "{{ ee_registry_password | default(omit, true) }}"
+    auth_file: "{{ ee_auth_file | default(omit, true) }}"
+    executable: "{{ ee_executable | default(omit, true) }}"
+    ca_cert_dir: "{{ ee_ca_cert_dir | default(omit) }}"
+    tag: "{{ __execution_environment_definition.tag | default(omit) }}"
+    validate_certs: "{{ ee_validate_certs | default(omit) }}"
+    push_args:
+      dest: "{{ ee_registry_dest }}/{{ __execution_environment_definition.name }}{{ (':' + __execution_environment_definition.tag) if __execution_environment_definition.tag is defined }}"
+      sign_by: "{{ ee_sign_by | default(omit) }}"
+  when: ee_image_push
+
+- name: Empty build directory
+  ansible.builtin.file:
+    state: absent
+    path: "{{ build_dir.path | default(ee_builder_dir) }}"
+  when: ee_builder_dir_clean
+...
