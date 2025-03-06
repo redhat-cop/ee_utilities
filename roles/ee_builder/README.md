@@ -15,25 +15,25 @@ Order of preferences for images
 
 1. ee_list images
 
-  ```yaml
-      ee_list:
-        - name: custom_ee
-          base_image: image_name
-  ```
+    ```yaml
+        ee_list:
+          - name: custom_ee
+            base_image: image_name
+    ```
 
 2. 'ee_base_image' top level variables.
 
 3. If none of the above are set, a default will be used.
 
-   Downstream images from the redhat registry will be used if you provide a 'ee_base_registry_username'
-   Otherwise it will default to the upstream images on quay. These are only used if no base is specified.
+   Downstream images from the redhat registery will be used if you provide a 'ee_base_registry_username'
+   Otherwise it will default to the upstream images on quay. These are only used if no base is specificed.
 
-  ```yaml
-    upstream:
-      base_image: quay.io/ansible/ansible-runner:latest
-    downstream:
-      base_image: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
-  ```
+    ```yaml
+      upstream:
+        base_image: quay.io/ansible/ansible-runner:latest
+      downstream:
+        base_image: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
+    ```
 
 Best practice is to use the default images, unless needing to pull from another repository.
 
