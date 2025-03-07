@@ -25,7 +25,7 @@ jobs:
       galaxy_publish_2: false
       ah_publish_2: true
       collection_version: ${{ github.ref_name }}
-      collection_repo: https://github.com/redhat-cop/controller_configuration/
+      collection_repo: https://github.com/redhat-cop/ee_utilities/
       quay_username: redhat_cop
       matrix_message: This Ansible collection makes it easy to build execution environments for AWX or Ansible Controller server and converting from python environments to execution environments.
     secrets:
