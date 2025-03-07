@@ -1,3 +1,0 @@
----
-bugfixes:
-  - Fixed issue where the base image name was not able to be set for individual ee

@@ -1,9 +1,30 @@
-=====================================
-Redhat_Cop.Ee_Utilities Release Notes
-=====================================
+=======================================
+Redhat\_Cop.Ee\_Utilities Release Notes
+=======================================
 
 .. contents:: Topics
 
+v4.0.0
+======
+
+Minor Changes
+-------------
+
+- adds an ee_aap_version var to allow for pushing collections to either AAP 2.4 or 2.5
+- updated 'ee_ah_host' and 'ee_ah_token' to also take aap_hostname and aap_token as defaults, updated readme to reflect new changes.
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- update execution_environment.yml to execution-environment.yaml to be in line with the ansible-builder default. Only affects files generated. Any user-defined automation depending on this file will need to be updated.
+
+Bugfixes
+--------
+
+- Fixed an issue where a tempfile was not created locally, but rather on the remote machine
+- Fixed an issue where depending on your ee base image variable location, it might not pull the correct image.
+- Fixed issue where the base image name was not able to be set for individual ee
+- found some typoes in readme and corrected them.
 
 v3.1.3
 ======
