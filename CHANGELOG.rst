@@ -1,5 +1,5 @@
 =======================================
-Redhat\_Cop.Ee\_Utilities Release Notes
+Infra.Ee_Utilities Release Notes
 =======================================
 
 .. contents:: Topics
