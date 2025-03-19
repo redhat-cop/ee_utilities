@@ -4,16 +4,20 @@ ignore_certs = true
 
 [galaxy_server.automation_hub_cert]
 url=https://{{ ee_ah_host }}{% if ee_aap_version >= 2.5 %}/pulp_ansible/galaxy/rh-certified/{% else %}/api/galaxy/content/rh-certified/{% endif %}
+
 token={{ ee_ah_token }}
 
 [galaxy_server.automation_hub_pub]
 url=https://{{ ee_ah_host }}{% if ee_aap_version >= 2.5 %}/pulp_ansible/galaxy/published/{% else %}/api/galaxy/content/published/{% endif %}
+
 token={{ ee_ah_token }}
 
 [galaxy_server.automation_hub_comm]
 url=https://{{ ee_ah_host }}{% if ee_aap_version >= 2.5 %}/pulp_ansible/galaxy/community/{% else %}/api/galaxy/content/community/{% endif %}
+
 token={{ ee_ah_token }}
 
 [galaxy_server.automation_hub_validated]
 url=https://{{ ee_ah_host }}{% if ee_aap_version >= 2.5 %}/pulp_ansible/galaxy/validated/{% else %}/api/galaxy/content/validated/{% endif %}
+
 token={{ ee_ah_token }}
