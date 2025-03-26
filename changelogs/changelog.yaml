@@ -119,3 +119,10 @@ releases:
     - aap25updates.yml
     - base_image_name.yml
     release_date: '2025-03-07'
+  4.0.1:
+    changes:
+      bugfixes:
+      - Fixes issue where ee_builder role concatenates the URL and token on ansible.cfg
+    fragments:
+    - 189-token-concat.yml
+    release_date: '2025-03-26'

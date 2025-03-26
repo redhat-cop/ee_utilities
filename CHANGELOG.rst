@@ -4,6 +4,14 @@ Infra.Ee_Utilities Release Notes
 
 .. contents:: Topics
 
+v4.0.1
+======
+
+Bugfixes
+--------
+
+- Fixes issue where ee_builder role concatenates the URL and token on ansible.cfg
+
 v4.0.0
 ======
 
