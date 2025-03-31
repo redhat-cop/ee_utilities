@@ -126,3 +126,10 @@ releases:
     fragments:
     - 189-token-concat.yml
     release_date: '2025-03-26'
+  4.0.2:
+    changes:
+      bugfixes:
+      - Allow ee_ah_token to be blank for anonymous access
+    fragments:
+    - empty_token.yml
+    release_date: '2025-03-31'

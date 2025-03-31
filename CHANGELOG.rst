@@ -1,8 +1,16 @@
 =======================================
-Infra.Ee_Utilities Release Notes
+Redhat\_Cop.Ee\_Utilities Release Notes
 =======================================
 
 .. contents:: Topics
+
+v4.0.2
+======
+
+Bugfixes
+--------
+
+- Allow ee_ah_token to be blank for anonymous access
 
 v4.0.1
 ======
