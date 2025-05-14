@@ -1,3 +1,4 @@
+---
 - name: Playbook to create custom Execution Environment 
   hosts: localhost
   connection: local
@@ -10,3 +11,6 @@
     - name: Include ee_builder role for building and publishing ee
       ansible.builtin.include_role:
         name: infra.ee_utilities.ee_builder
+
+# ansible-playbook create_execution_environment.yml -e '{ee_name: custom_rhel9_ee}'
+...
