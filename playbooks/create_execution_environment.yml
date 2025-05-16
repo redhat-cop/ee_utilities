@@ -1,10 +1,10 @@
 ---
-- name: Playbook to create custom Execution Environment 
+- name: Playbook to create custom Execution Environment
   hosts: localhost
   connection: local
   gather_facts: false
   tasks:
-    - name: Include ee-definition vars based on ee-name
+    - name: Include ee_definitions vars based on ee_name
       ansible.builtin.include_vars:
         file: "{{ ee_definitions_dir | default((lookup('env', 'EE_DEFINITIONS_DIR') == '') | ternary('./ee_definitions', lookup('env', 'EE_DEFINITIONS_DIR'))) }}/{{ ee_name }}.yml"
 
