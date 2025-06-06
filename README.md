@@ -61,6 +61,12 @@ collections:
 
 ## Using this collection
 
+The following command will invoke the collection playbook. This is considered a starting point for the collection.
+
+```console
+ansible-playbook infra.ee_utilities.create_execution_environment.yml
+```
+
 ### See Also
 
 * [Ansible Using collections](https://docs.ansible.com/ansible/latest/user_guide/collections_using.html) for more details.

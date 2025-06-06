@@ -1,0 +1,16 @@
+---
+- name: Playbook to create custom Execution Environment
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Include ee_definitions vars based on ee_name
+      ansible.builtin.include_vars:
+        file: "{{ ee_definitions_dir | default((lookup('env', 'EE_DEFINITIONS_DIR') == '') | ternary('./ee_definitions', lookup('env', 'EE_DEFINITIONS_DIR'))) }}/{{ ee_name }}.yml"
+
+    - name: Include ee_builder role for building and publishing ee
+      ansible.builtin.include_role:
+        name: infra.ee_utilities.ee_builder
+
+# ansible-playbook create_execution_environment.yml -e '{ee_name: custom_rhel9_ee}'
+...
