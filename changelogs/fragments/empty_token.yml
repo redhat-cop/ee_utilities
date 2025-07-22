@@ -1,4 +1,0 @@
----
-bugfixes:
-  - Allow ee_ah_token to be blank for anonymous access
-...
