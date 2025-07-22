@@ -5,6 +5,7 @@ Redhat\_Cop.Ee\_Utilities Release Notes
 .. contents:: Topics
 
 v4.0.4
+
 ======
 
 Bugfixes
