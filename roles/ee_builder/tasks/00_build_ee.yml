@@ -24,7 +24,7 @@
   loop: "{{ __execution_environment_definition.build_items }}"
   when:
     - __execution_environment_definition.build_items is defined
-    - __execution_environment_definition.build_items|length
+    - __execution_environment_definition.build_items|length|bool
 
 - name: Create ansible.cfg file if requested.
   ansible.builtin.template:
