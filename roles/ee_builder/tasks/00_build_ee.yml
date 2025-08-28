@@ -87,9 +87,9 @@
     executable: "{{ ee_executable | default(omit, true) }}"
     ca_cert_dir: "{{ ee_ca_cert_dir | default(omit) }}"
     validate_certs: "{{ ee_validate_certs | default(omit) }}"
-    tag: "{{ item }}"
+    tag: "{{ __execution_environment_tag }}"
     push_args:
-      dest: "{{ ee_registry_dest }}/{{ __execution_environment_definition.name }}:{{ item }}"
+      dest: "{{ ee_registry_dest }}/{{ __execution_environment_definition.name }}:{{ __execution_environment_tag }}"
       sign_by: "{{ ee_sign_by | default(omit) }}"
   loop: >-
     {{
@@ -97,6 +97,8 @@
        if (__execution_environment_definition.tags is defined and __execution_environment_definition.tags is terable)
        else [__execution_environment_definition.tag | default('latest')])
     }}
+  loop_control:
+    loop_var: __execution_environment_tag
   when: ee_image_push
 
 
