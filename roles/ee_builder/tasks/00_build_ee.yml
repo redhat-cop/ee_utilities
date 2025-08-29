@@ -6,12 +6,7 @@
     suffix: temp
   register: build_dir
   when: ee_builder_dir is not defined
-# Don't break if tag exist, transform it into a list 
-- name: transform ee tag into a list
-  ansible.builtin.set_fact:
-    __execution_environment_definition: "{{  __execution_environment_definition | combine( {tags: [__execution_environment_definition.tag]} ) }}""
-  when: 
-    - __execution_environment_definition.tag is defined
+
 
 - name: Pull builder images
   containers.podman.podman_image:
@@ -53,6 +48,8 @@
       {% for tag in __execution_environment_definition.tags %}
         -t {{ __execution_environment_definition.name | default(__execution_environment_definition.ee_name) }}:{{ tag }}
       {% endfor %}
+    {% elif __execution_environment_definition.tag is defined  %}
+        -t {{ __execution_environment_definition.name | default(__execution_environment_definition.ee_name) }}:{{ __execution_environment_definition.tag }}
     {% else %}
       -t {{ __execution_environment_definition.name | default(__execution_environment_definition.ee_name) }}
     {% endif %}
@@ -71,11 +68,10 @@
       --container-policy={{ ee_container_policy }}
     {% endif %}
     --verbosity {{ ee_verbosity | default(0) }}
-
   args:
     chdir: "{{ ee_builder_dir | default(build_dir.path) }}/"
   changed_when: true # these will always run and will always report "changed" otherwise
-
+  
 - name: Push image to registry
   containers.podman.podman_image:
     name: "{{ __execution_environment_definition.name }}"
@@ -94,7 +90,7 @@
   loop: >-
     {{
       (__execution_environment_definition.tags
-       if (__execution_environment_definition.tags is defined and __execution_environment_definition.tags is terable)
+       if (__execution_environment_definition.tags is defined and __execution_environment_definition.tags is iterable)
        else [__execution_environment_definition.tag | default('latest')])
     }}
   loop_control:
