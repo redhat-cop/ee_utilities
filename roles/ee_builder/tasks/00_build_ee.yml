@@ -47,14 +47,18 @@
       {% for tag in __execution_environment_definition.tags %}
         -t {{ __execution_environment_definition.name | default(__execution_environment_definition.ee_name) }}:{{ tag }}
       {% endfor %}
-    {% elif __execution_environment_definition.tag is defined  %}
-        -t {{ __execution_environment_definition.name | default(__execution_environment_definition.ee_name) }}:{{ __execution_environment_definition.tag }}
+    {% elif __execution_environment_definition.tag is defined %}
+      -t {{ __execution_environment_definition.name | default(__execution_environment_definition.ee_name) }}:{{ __execution_environment_definition.tag }}
     {% else %}
       -t {{ __execution_environment_definition.name | default(__execution_environment_definition.ee_name) }}
     {% endif %}
     --container-runtime={{ ee_container_runtime }}
-    {% if ee_prune_images %} --prune-images{% endif %}
-    {% if ee_galaxy_keyring is defined %} --galaxy-keyring={{ ee_galaxy_keyring }}{% endif %}
+    {% if ee_prune_images %}
+      --prune-images
+    {% endif %}
+    {% if ee_galaxy_keyring is defined %}
+      --galaxy-keyring={{ ee_galaxy_keyring }}
+    {% endif %}
     {% if ee_galaxy_ignore_signature_status_code is defined %}
       {% for status_code in ee_galaxy_ignore_signature_status_code %}
         --galaxy-ignore-signature-status-code={{ status_code }}
@@ -69,7 +73,7 @@
     --verbosity {{ ee_verbosity | default(0) }}
   args:
     chdir: "{{ ee_builder_dir | default(build_dir.path) }}/"
-  changed_when: true # these will always run and will always report "changed" otherwise
+  changed_when: true  # these will always run and will always report "changed" otherwise
 
 - name: Push image to registry
   containers.podman.podman_image:
