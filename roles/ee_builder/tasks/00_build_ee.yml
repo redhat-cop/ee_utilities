@@ -7,7 +7,6 @@
   register: build_dir
   when: ee_builder_dir is not defined
 
-
 - name: Pull builder images
   containers.podman.podman_image:
     name: "{{ __execution_environment_definition.images.base_image.name | default(__execution_environment_definition.images.base_image) | default(__execution_environment_definition.base_image) | default(ee_base_image) }}"
@@ -71,7 +70,7 @@
   args:
     chdir: "{{ ee_builder_dir | default(build_dir.path) }}/"
   changed_when: true # these will always run and will always report "changed" otherwise
-  
+
 - name: Push image to registry
   containers.podman.podman_image:
     name: "{{ __execution_environment_definition.name }}"
@@ -96,7 +95,6 @@
   loop_control:
     loop_var: __execution_environment_tag
   when: ee_image_push
-
 
 - name: Empty build directory
   ansible.builtin.file:
