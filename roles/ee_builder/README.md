@@ -144,7 +144,7 @@ ansible-playbook playbook.yml
     ee_list:
       - name: custom_ee
         alt_name: Custom EE
-        tags: 
+        tags:
           - 1-11-21-2
         dependencies:
           system:
