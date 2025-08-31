@@ -4,8 +4,15 @@ Redhat\_Cop.Ee\_Utilities Release Notes
 
 .. contents:: Topics
 
-v4.0.4
+v4.0.5
+======
 
+Minor Changes
+-------------
+
+- Added support for building and pushing EE images with multiple tags.
+
+v4.0.4
 ======
 
 Bugfixes
