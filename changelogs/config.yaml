@@ -28,7 +28,7 @@ sections:
     - Bugfixes
   - - known_issues
     - Known Issues
-title: Redhat_Cop.Ee_Utilities
+title: infra.ee_utilities
 trivial_section_name: trivial
 use_fqcn: true
 ...

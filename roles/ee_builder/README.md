@@ -76,7 +76,8 @@ It takes variables from the following sections the list variables section.
 |Variable Name|Default Value|Required|Description|
 |:---:|:---:|:---:|:---:|
 |`name`||yes|Name of the ee image to create. Only the name goes here, the namespace goes in the ee_registry_dest variable|
-|`tag`||no|Tag to use when pushing the image.|
+|`tag`||no|[DEPRECATED] Tag to use when pushing the image.|
+|`tags`||no|A list of tags to use when pushing the image.|
 |`dependencies`|dict|no|This section allows you to describe any dependencies that will need to be installed into the final image. Reference [builder dependencies documentation](https://ansible.readthedocs.io/projects/builder/en/stable/definition/#dependencies), examples and our examples for its structure.|
 |`build_steps`|dict|no|This section enables you to specify custom build commands for any build phase. Reference [builder build_steps documentation](https://ansible.readthedocs.io/projects/builder/en/stable/definition/#additional-build-steps), examples and our examples for its structure.|
 |`build_items`|list|no|This is a list of files or folders that will be copied to the working directory for use with the build files. Example below.|
@@ -143,7 +144,8 @@ ansible-playbook playbook.yml
     ee_list:
       - name: custom_ee
         alt_name: Custom EE
-        tag: 1-11-21-2
+        tags:
+          - 1-11-21-2
         dependencies:
           system:
           - python-requests

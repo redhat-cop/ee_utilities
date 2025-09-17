@@ -41,6 +41,8 @@
             - RUN cat /etc/os-release
           append_final:
             - RUN echo This is a post-install command!
+        options:
+          package_manager_path: /usr/bin/microdnf
         images:
           base_image:
             name: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
