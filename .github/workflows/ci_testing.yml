@@ -24,7 +24,7 @@ jobs:
         run: mv .github/files/ansible.cfg .
 
       - name: Install Dependencies
-        run: ansible-galaxy collection install containers.podman -f
+        run: ansible-galaxy collection install infra.ee_utilities containers.podman -f
 
       - name: podman login
         run: podman login quay.io --username redhat_cop+github_action --password ${{ secrets.quay_token }}

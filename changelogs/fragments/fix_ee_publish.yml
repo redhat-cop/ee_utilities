@@ -1,0 +1,4 @@
+---
+bugfix:
+  - this should fix the ci action to build and publish an EE with all the collections
+...
