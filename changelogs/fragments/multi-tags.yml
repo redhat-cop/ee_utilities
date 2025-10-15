@@ -1,4 +1,0 @@
----
-minor_changes:
-  - Added support for building and pushing EE images with multiple tags.
-...

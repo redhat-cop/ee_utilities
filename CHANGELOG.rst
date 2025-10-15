@@ -1,11 +1,23 @@
-=======================================
-Redhat\_Cop.Ee\_Utilities Release Notes
-=======================================
+=================================
+infra.ee\_utilities Release Notes
+=================================
 
 .. contents:: Topics
 
-v4.0.4
+v4.2.0
+======
 
+Minor Changes
+-------------
+
+- Added support for building and pushing EE images with multiple tags.
+
+Bugfixes
+--------
+
+- this should fix the ci action to build and publish an EE with all the collections
+
+v4.0.4
 ======
 
 Bugfixes
