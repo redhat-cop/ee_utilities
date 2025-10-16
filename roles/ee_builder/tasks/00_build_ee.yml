@@ -1,6 +1,13 @@
 ---
 # tasks file for ee_builder
-- name: Create temporary folder
+- name: Create user-defined build directory
+  ansible.builtin.file:
+    state: directory
+    path: "{{ ee_builder_dir }}"
+    mode: '0700'
+  when: ee_builder_dir is defined
+
+- name: Create temp-named build directory
   ansible.builtin.tempfile:
     state: directory
     suffix: temp
@@ -16,7 +23,7 @@
     force: true
   when: ee_update_base_images
 
-- name: Copy files/folders to pull from for additional_build_files
+- name: Copy files/directories to pull from for additional_build_files
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ ee_builder_dir | default(build_dir.path) }}/{{ item }}"

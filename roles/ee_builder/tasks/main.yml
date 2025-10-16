@@ -9,7 +9,7 @@
   when: ee_create_controller_def
   delegate_to: localhost
   block:
-    - name: Create temporary folder
+    - name: Create temporary directory
       ansible.builtin.tempfile:
         state: directory
         suffix: temp

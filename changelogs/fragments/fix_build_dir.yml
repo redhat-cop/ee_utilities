@@ -1,0 +1,4 @@
+---
+bugfixes:
+  - make ee_builder_dir work with multiple EEs defined in ee_list
+...
