@@ -77,6 +77,9 @@
     {% if ee_container_policy is defined %}
       --container-policy={{ ee_container_policy }}
     {% endif %}
+    {% if ee_squash is defined and ee_squash in ['all', 'new', 'off'] %}
+      --squash={{ ee_squash }}
+    {% endif %}
     --verbosity {{ ee_verbosity | default(0) }}
   args:
     chdir: "{{ ee_builder_dir | default(build_dir.path) }}/"

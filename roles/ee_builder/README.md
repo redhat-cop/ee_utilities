@@ -50,6 +50,7 @@ Best practice is to use the default images, unless needing to pull from another 
 |`galaxy_required_valid_signature_count`||no|int|Number of required valid collection signatures.|5|
 |`ee_container_policy`||no|str|The container image validation policy to use with podman. Can be one of 'ignore_all', 'system','signature_required'.|ignore_all|
 |`ee_verbosity`|0|no|int|Options Increase the output verbosity, can be from 0-3.||
+|`ee_squash`|off|no|str|The value for ansible-builder squash option, one of 'all','new','off'.|new|
 |`ee_prune_images`|true|no|bool|To enable or disable pruning the images after building.||
 |`ee_stream`|upstream unless ee_base_registry_username is defined then downstream|no|str|What stream to pull images from either upstream or downstream. Also changes package manager used for downstream to microdnf to avoid errors.||
 |`ee_update_base_images`|false|no|bool|Whether to pull down images, this forces an update to avoid stale images.||
@@ -141,6 +142,7 @@ ansible-playbook playbook.yml
     ee_registry_username: admin
     ee_registry_password: secret123
     ee_verbosity: 1
+    ee_squash: new
     ee_list:
       - name: custom_ee
         alt_name: Custom EE
