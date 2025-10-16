@@ -133,3 +133,13 @@ releases:
     fragments:
     - empty_token.yml
     release_date: '2025-06-15'
+  4.2.0:
+    changes:
+      bugfixes:
+      - this should fix the ci action to build and publish an EE with all the collections
+      minor_changes:
+      - Added support for building and pushing EE images with multiple tags.
+    fragments:
+    - fix_ee_publish.yml
+    - multi-tags.yml
+    release_date: '2025-10-15'
