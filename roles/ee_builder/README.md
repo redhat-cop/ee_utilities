@@ -52,6 +52,7 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_verbosity`|0|no|int|Options Increase the output verbosity, can be from 0-3.||
 |`ee_squash`|off|no|str|The value for ansible-builder squash option, one of 'all','new','off'.|new|
 |`ee_prune_images`|true|no|bool|To enable or disable pruning the images after building.||
+|`ee_extra_build_cli_args`||no|str|String to use with ansible-builder option --extra-build-cli-args||
 |`ee_stream`|upstream unless ee_base_registry_username is defined then downstream|no|str|What stream to pull images from either upstream or downstream. Also changes package manager used for downstream to microdnf to avoid errors.||
 |`ee_update_base_images`|false|no|bool|Whether to pull down images, this forces an update to avoid stale images.||
 |`ee_base_image`|registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest|no|str|Build arg specifies parent image for the execution environment. Use the images option to override this for an individual list item.||

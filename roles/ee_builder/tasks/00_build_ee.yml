@@ -80,6 +80,9 @@
     {% if ee_squash is defined and ee_squash in ['all', 'new', 'off'] %}
       --squash={{ ee_squash }}
     {% endif %}
+    {% if ee_extra_build_cli_args is defined %}
+      --extra-build-cli-args='{{ ee_extra_build_cli_args }}'
+    {% endif %}
     --verbosity {{ ee_verbosity | default(0) }}
   args:
     chdir: "{{ ee_builder_dir | default(build_dir.path) }}/"
