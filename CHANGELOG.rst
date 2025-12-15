@@ -17,6 +17,15 @@ Bugfixes
 
 - this should fix the ci action to build and publish an EE with all the collections
 
+v4.1.1
+======
+
+Bugfixes
+--------
+
+- allow for providing the squash option to ansible-builder
+- make ee_builder_dir work with multiple EEs defined in ee_list
+
 v4.0.4
 ======
 

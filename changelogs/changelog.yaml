@@ -133,6 +133,15 @@ releases:
     fragments:
     - empty_token.yml
     release_date: '2025-06-15'
+  4.1.1:
+    changes:
+      bugfixes:
+      - allow for providing the squash option to ansible-builder
+      - make ee_builder_dir work with multiple EEs defined in ee_list
+    fragments:
+    - add_ee_squash_support.yml
+    - fix_build_dir.yml
+    release_date: '2025-12-15'
   4.2.0:
     changes:
       bugfixes:
