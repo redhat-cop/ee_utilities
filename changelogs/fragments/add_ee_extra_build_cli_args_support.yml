@@ -1,0 +1,4 @@
+---
+bugfixes:
+  - allow for providing the extra-build-cli-args option to ansible-builder
+...
