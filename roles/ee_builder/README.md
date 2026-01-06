@@ -58,7 +58,7 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_base_image`|registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest|no|str|Build arg specifies parent image for the execution environment. Use the images option to override this for an individual list item.||
 |`ee_base_registry_username`|ee_registry_username|no|str|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_base_registry_password`|ee_registry_password|no|str|Password to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
-|`ee_pull_collections_from_hub`|true|no|bool|Whether or not to pull collections from a specific hub for use in building an Execution Environment. This will create entries that adds the ansible.cfg file into the EE. These can be hidden using environment variables as detailed [in this article](https://developers.redhat.com/articles/2025/01/23/strategies-eliminating-ansible-hardcoded-credentials) ||
+|`ee_pull_collections_from_hub`|true|no|bool|Whether or not to pull collections from a specific hub for use in building an Execution Environment. This will create entries that adds the ansible.cfg file into the EE. These can be hidden using environment variables as detailed [in this article](https://developers.redhat.com/articles/2025/01/23/strategies-eliminating-ansible-hardcoded-credentials)||
 |`ee_ah_host`|`aap_hostname`|no|str|Host to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. (if AAP 2.5 use gateway host and infra.aap_configuration) Required if `ee_pull_collections_from_hub` is `True`.||
 |`ee_ah_token`|`aap_token`|no|str|Token to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_pull_collections_from_hub` is `True`.||
 |`ee_aap_version`|`2.4`|no|str|Changes what API endpoint to point to depending on AAP version||
@@ -106,12 +106,12 @@ These variables are only use in creating the Execution Environment 'controller_e
 |:---:|:---:|:---:|:---:|
 |`ee_registry_username`||no|Username to use when authenticating to destination registries.|
 |`ee_registry_password`||no|Password to use when authenticating to destination registries.|
-|`ee_registry_dest`||no|Path or URL where image will be pushed. Namespaces for containers go here. Examples: registry.redhat.io, registry.redhat.io/rh-custom , in AAP 2.5 containers.podman:1.14.0 require images be pushed to a namespace, such as the previous namespace rh-custom |
+|`ee_registry_dest`||no|Path or URL where image will be pushed. Namespaces for containers go here. Examples: registry.redhat.io, registry.redhat.io/rh-custom , in AAP 2.5 containers.podman:1.14.0 require images be pushed to a namespace, such as the previous namespace rh-custom|
 |`ee_image_push`|True|no|Control to choose whether to push image to registry or not.|
 |`ee_auth_file`||no|Path to file containing authorization credentials to the remote registry.|
 |`ee_executable`||no|Path to podman executable if it is not in the $PATH on the machine running podman.|
 |`ee_ca_cert_dir`||no|Path to directory containing TLS certificates and keys to use.|
-|`ee_validate_certs`||no|Require HTTPS and validate certificates when pulling or pushing. |
+|`ee_validate_certs`||no|Require HTTPS and validate certificates when pulling or pushing.|
 |`ee_sign_by`||no|Path to a key file to use to sign the image.|
 
 ## Example Playbook
