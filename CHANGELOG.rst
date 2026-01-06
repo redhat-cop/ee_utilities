@@ -17,7 +17,7 @@ Bugfixes
 
 - this should fix the ci action to build and publish an EE with all the collections
 
-v4.1.1
+v4.1.2
 ======
 
 Bugfixes

@@ -133,7 +133,7 @@ releases:
     fragments:
     - empty_token.yml
     release_date: '2025-06-15'
-  4.1.1:
+  4.1.2:
     changes:
       bugfixes:
       - allow for providing the squash option to ansible-builder
@@ -141,7 +141,7 @@ releases:
     fragments:
     - add_ee_squash_support.yml
     - fix_build_dir.yml
-    release_date: '2025-12-15'
+    release_date: '2026-01-01'
   4.2.0:
     changes:
       bugfixes:
