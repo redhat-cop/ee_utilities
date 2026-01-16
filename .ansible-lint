@@ -1,21 +1,64 @@
 ---
-# The exclude_paths does not appear to be working in pre-commit
-# this issue describes similar behavior but suggested fix doesn't work
-# https://github.com/ansible/ansible-lint/issues/371
-# exclude_paths:
-#   - roles/master_role_example/
+# .ansible-lint
+
+profile: production # min, basic, moderate,safety, shared, production
+
+# Allows dumping of results in SARIF format
+# sarif_file: result.sarif
+
+# exclude_paths included in this file are parsed relative to this file's location
+# and not relative to the CWD of execution. CLI arguments passed to the --exclude
+# option are parsed relative to the CWD of execution.
 exclude_paths:
   - .github/
-  - roles/master_role_example/
   - changelogs/
+  - tests/templated_role_example
+  - .ansible/
+  - tests/
+
 parseable: true
-use_default_rules: true
-# https://github.com/ansible/ansible-lint/issues/808
-# with verbosity set to 1, its dumping 'unknown file type messages'
+# quiet: true
+# strict: true
 # verbosity: 1
+
+# Enable checking of loop variable prefixes in roles
+loop_var_prefix: ^(__|{role}_)
+
+# Enforce variable names to follow pattern below, in addition to Ansible own
+# requirements, like avoiding python identifiers. To disable add `var-naming`
+# to skip_list.
+var_naming_pattern: ^[a-z_][a-z0-9_]*$
+
+use_default_rules: true
+# Load custom rules from this specific folder
+# rulesdir:
+#   - ./rule/directory/
+
+# Ansible-lint is able to recognize and load skip rules stored inside
+# `.ansible-lint-ignore` (or `.config/ansible-lint-ignore.txt`) files.
+# To skip a rule just enter filename and tag, like "playbook.yml package-latest"
+# on a new line.
+# Optionally you can add comments after the tag, prefixed by "#". We discourage
+# the use of skip_list below because that will hide violations from the output.
+# When putting ignores inside the ignore file, they are marked as ignored, but
+# still visible, making it easier to address later.
 skip_list:
+  - jinja[spacing]
+  - role-name[path]
+  - sanity[cannot-ignore] # We're only ignoring sanity rules when we have to
   - var-naming[no-role-prefix]
-kinds:
-  - vars: "**/examples/vars/*.yml"
-  - vars: "**/examples/**/*.yml"
+
+# Ansible-lint does not automatically load rules that have the 'opt-in' tag.
+# You must enable opt-in rules by listing each rule 'id' below.
+enable_list:
+  - args
+  - empty-string-compare # opt-in
+  - no-log-password # opt-in
+  - no-same-owner # opt-in
+  - name[prefix] # opt-in
+  - galaxy-version-incorrect # opt-in
+
+# Ansible-lint does not fail on warnings from the rules or tags listed below
+warn_list:
+  - experimental # experimental is included in the implicit list
 ...
