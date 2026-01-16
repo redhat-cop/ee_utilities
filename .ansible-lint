@@ -16,7 +16,7 @@ exclude_paths:
   - .ansible/
   - tests/
 
-parseable: true
+# parseable: true
 # quiet: true
 # strict: true
 # verbosity: 1
