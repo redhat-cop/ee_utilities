@@ -7,5 +7,10 @@
           "Accept-Encoding": "zstd, br, gzip, deflate"
         }
       }
-    ]
+    ],
+    "ignorePatterns": [
+      {
+        "pattern": "^https://developers.redhat.com"
+      }
+    ],
   }
