@@ -48,16 +48,6 @@ skip_list:
   - sanity[cannot-ignore] # We're only ignoring sanity rules when we have to
   - var-naming[no-role-prefix]
 
-# Ansible-lint does not automatically load rules that have the 'opt-in' tag.
-# You must enable opt-in rules by listing each rule 'id' below.
-enable_list:
-  - args
-  - empty-string-compare # opt-in
-  - no-log-password # opt-in
-  - no-same-owner # opt-in
-  - name[prefix] # opt-in
-  - galaxy-version-incorrect # opt-in
-
 # Ansible-lint does not fail on warnings from the rules or tags listed below
 warn_list:
   - experimental # experimental is included in the implicit list
