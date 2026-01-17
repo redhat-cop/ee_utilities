@@ -4,6 +4,14 @@ infra.ee\_utilities Release Notes
 
 .. contents:: Topics
 
+v4.2.2
+======
+
+Bugfixes
+--------
+
+- allow for providing the extra-build-cli-args option to ansible-builder
+
 v4.2.0
 ======
 
