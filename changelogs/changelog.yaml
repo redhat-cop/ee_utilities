@@ -152,3 +152,10 @@ releases:
     - fix_ee_publish.yml
     - multi-tags.yml
     release_date: '2025-10-15'
+  4.2.2:
+    changes:
+      bugfixes:
+      - allow for providing the extra-build-cli-args option to ansible-builder
+    fragments:
+    - add_ee_extra_build_cli_args_support.yml
+    release_date: '2026-01-17'

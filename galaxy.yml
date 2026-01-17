@@ -1,7 +1,7 @@
 ---
 namespace: infra
 name: ee_utilities
-version: 4.1.2-devel
+version: 4.2.2-devel
 description: A collection of utility roles for usage with Ansible Execution Enviroments
 readme: README.md
 authors:
@@ -16,6 +16,8 @@ build_ignore:
   - release.yml
   - .github
   - .markdownlint.yml
+  - .ansible-lint
+  - .yamllint.yml
   - .pre-commit-config.yaml
   - .gitignore
   - .gitattributes
