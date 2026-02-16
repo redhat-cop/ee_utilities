@@ -1,0 +1,4 @@
+---
+bugfixes:
+  - use compact loop labels when building, don't print the full EE definition
+...
