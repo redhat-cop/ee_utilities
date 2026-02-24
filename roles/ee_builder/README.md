@@ -60,9 +60,10 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_base_registry_username`|ee_registry_username|no|str|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_base_registry_password`|ee_registry_password|no|str|Password to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_pull_collections_from_hub`|true|no|bool|Whether or not to pull collections from a specific hub for use in building an Execution Environment. This will create entries that adds the ansible.cfg file into the EE. These can be hidden using environment variables as detailed [in this article](https://developers.redhat.com/articles/2025/01/23/strategies-eliminating-ansible-hardcoded-credentials)||
-|`ee_ah_host`|`aap_hostname`|no|str|Host to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. (if AAP 2.5 use gateway host and infra.aap_configuration) Required if `ee_pull_collections_from_hub` is `True`.||
-|`ee_ah_token`|`aap_token`|no|str|Token to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_pull_collections_from_hub` is `True`.||
-|`ee_aap_version`|`2.4`|no|float|Changes what API endpoint to point to depending on AAP version||
+|`ee_hub_host`|`aap_hostname`|no|str|Host to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. (if AAP 2.5 use gateway host and infra.aap_configuration) Required if `ee_pull_collections_from_hub` is `True`. Also accepts the deprecated `ee_ah_host`.||
+|`ee_hub_token`|`aap_token`|no|str|Token to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_pull_collections_from_hub` is `True`. Also accepts the deprecated `ee_ah_token`.||
+|`ee_galaxy_ignore_certs`|true|no|bool|Whether to ignore TLS certificate validation in the generated ansible.cfg for Galaxy server connections.||
+|`ee_aap_version`|`2.6`|no|str|Changes what API endpoint to point to depending on AAP version||
 |`ee_create_controller_def`|false|no|bool|Option to create the 'controller_execution_environments' definition for use by the infra.controller_configuration role||
 
 ### Execution environment list
@@ -204,8 +205,8 @@ This is an example for building using automated pipelines like Gitlab or Azure D
     ee_registry_username: admin
     ee_registry_password: secret123
     # in this example we are assuming that we are pulling content and pushing the final artifact to the same location
-    ee_ah_host: ahnosso.node
-    ee_ah_token: iamatoken
+    ee_hub_host: ahnosso.node
+    ee_hub_token: iamatoken
     # ee_builder_dir_clean is used because depending on the environment permissions errors can be thrown when attempting to clean up. It is also unnecessary if the entire environment is going to be destroyed at the end anyway.
     #
     ee_builder_dir_clean: false

@@ -72,6 +72,10 @@ argument_specs:
         description: Whether to require HTTPS and validate certificates when pulling or pushing.
         type: bool
         default: false
+      ee_galaxy_ignore_certs:
+        description: Whether to ignore TLS certificate validation in the generated ansible.cfg for Galaxy server connections.
+        type: bool
+        default: true
       ee_prune_images:
         description: Whether to prune images after building.
         type: bool
@@ -80,16 +84,16 @@ argument_specs:
         description: Whether to create controller_execution_environments definition for use with infra.controller_configuration.
         type: bool
         default: false
-      ee_ah_host:
+      ee_hub_host:
         description: Automation Hub host for ansible.cfg. Required when ee_pull_collections_from_hub is true.
         type: str
-      ee_ah_token:
+      ee_hub_token:
         description: Automation Hub token for ansible.cfg. Required when ee_pull_collections_from_hub is true.
         type: str
       ee_aap_version:
         description: AAP version, used to determine API endpoint paths in ansible.cfg.
         type: str
-        default: "2.4"
+        default: "2.6"
       ee_verbosity:
         description: Verbosity level for ansible-builder (0-3).
         type: int
