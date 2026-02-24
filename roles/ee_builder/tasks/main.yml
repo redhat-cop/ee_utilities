@@ -1,4 +1,15 @@
 ---
+- name: Validate ee_list entries
+  ansible.builtin.assert:
+    that:
+      - item.name is defined or item.ee_name is defined
+    fail_msg: "Each entry in ee_list must have a 'name' (or 'ee_name') field defined. Entry at index {{ ansible_loop.index0 }} is missing it."
+    quiet: true
+  loop: "{{ ee_list }}"
+  loop_control:
+    extended: true
+    label: "{{ item.name | default(item.ee_name | default('UNNAMED')) }}"
+
 - name: Build EE environments
   ansible.builtin.include_tasks: 00_build_ee.yml
   loop: "{{ ee_list }}"
@@ -39,4 +50,11 @@
       ansible.builtin.set_stats:
         data:
           controller_execution_environments: "{{ controller_execution_environments }}"
+
+  always:
+    - name: Clean up controller temporary directory
+      ansible.builtin.file:
+        state: absent
+        path: "{{ controller_ee.path }}"
+      when: controller_ee.path is defined
 ...

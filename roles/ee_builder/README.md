@@ -4,8 +4,9 @@ Ansible role use to build execution environments. This role invokes ansible buil
 
 ## Requirements
 
-ansible-builder
-podman or docker
+- ansible-builder
+- podman (required for image pull and push operations, which use the `containers.podman` collection)
+- docker can be used as the build runtime via `ee_container_runtime: docker`, but `ee_update_base_images` and `ee_image_push` still require podman
 
 ## Role Variables
 
@@ -30,7 +31,7 @@ Order of preferences for images
 
     ```yaml
       upstream:
-        base_image: quay.io/ansible/ansible-runner:latest
+        base_image: ghcr.io/ansible-community/community-ee-base:latest
       downstream:
         base_image: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
     ```
@@ -54,7 +55,7 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_prune_images`|true|no|bool|To enable or disable pruning the images after building.||
 |`ee_extra_build_cli_args`||no|str|String to use with ansible-builder option --extra-build-cli-args||
 |`ee_stream`|upstream unless ee_base_registry_username is defined then downstream|no|str|What stream to pull images from either upstream or downstream. Also changes package manager used for downstream to microdnf to avoid errors.||
-|`ee_update_base_images`|false|no|bool|Whether to pull down images, this forces an update to avoid stale images.||
+|`ee_update_base_images`|true|no|bool|Whether to pull down images, this forces an update to avoid stale images.||
 |`ee_base_image`|registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest|no|str|Build arg specifies parent image for the execution environment. Use the images option to override this for an individual list item.||
 |`ee_base_registry_username`|ee_registry_username|no|str|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_base_registry_password`|ee_registry_password|no|str|Password to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||

@@ -1,0 +1,139 @@
+---
+argument_specs:
+  main:
+    short_description: Build and push Ansible Execution Environments
+    description:
+      - Automates building and pushing Ansible Execution Environments using ansible-builder.
+      - Supports multiple EEs via the ee_list variable.
+      - Optionally pulls collections from Automation Hub and pushes images to a registry.
+    options:
+      ee_list:
+        description: List of execution environment definitions to build.
+        type: list
+        elements: dict
+        required: true
+        default: []
+      ee_container_runtime:
+        description: Container runtime to use for building (podman or docker). Image pull/push operations require podman.
+        type: str
+        default: podman
+        choices:
+          - podman
+          - docker
+      ee_version:
+        description: Execution Environment definition file version.
+        type: int
+        default: 3
+      ee_stream:
+        description: Image stream to use. Set to 'downstream' when ee_base_registry_username is defined, otherwise 'upstream'.
+        type: str
+        default: upstream
+        choices:
+          - upstream
+          - downstream
+      ee_base_image:
+        description: Parent image for the execution environment. Overridden by per-item images in ee_list.
+        type: str
+      ee_registry_username:
+        description: Username for authenticating to destination registries.
+        type: str
+      ee_registry_password:
+        description: Password for authenticating to destination registries.
+        type: str
+      ee_base_registry_username:
+        description: Username for authenticating to base image registries.
+        type: str
+      ee_base_registry_password:
+        description: Password for authenticating to base image registries.
+        type: str
+      ee_registry_dest:
+        description: Path or URL where images will be pushed, including namespace.
+        type: str
+      ee_builder_dir:
+        description: Directory to store build and context files. A temp directory is created if not set.
+        type: str
+      ee_builder_dir_clean:
+        description: Whether to delete the build directory when done.
+        type: bool
+        default: true
+      ee_image_push:
+        description: Whether to push the built image to the registry.
+        type: bool
+        default: true
+      ee_update_base_images:
+        description: Whether to pull base images before building, forcing an update to avoid stale images.
+        type: bool
+        default: true
+      ee_pull_collections_from_hub:
+        description: Whether to pull collections from Automation Hub by generating an ansible.cfg in the EE.
+        type: bool
+        default: true
+      ee_validate_certs:
+        description: Whether to require HTTPS and validate certificates when pulling or pushing.
+        type: bool
+        default: false
+      ee_prune_images:
+        description: Whether to prune images after building.
+        type: bool
+        default: true
+      ee_create_controller_def:
+        description: Whether to create controller_execution_environments definition for use with infra.controller_configuration.
+        type: bool
+        default: false
+      ee_ah_host:
+        description: Automation Hub host for ansible.cfg. Required when ee_pull_collections_from_hub is true.
+        type: str
+      ee_ah_token:
+        description: Automation Hub token for ansible.cfg. Required when ee_pull_collections_from_hub is true.
+        type: str
+      ee_aap_version:
+        description: AAP version, used to determine API endpoint paths in ansible.cfg.
+        type: str
+        default: "2.4"
+      ee_verbosity:
+        description: Verbosity level for ansible-builder (0-3).
+        type: int
+        default: 0
+      ee_squash:
+        description: Squash option for ansible-builder.
+        type: str
+        choices:
+          - all
+          - new
+          - "off"
+      ee_galaxy_keyring:
+        description: Path to keyring for verifying collection signatures during installation.
+        type: str
+      ee_galaxy_ignore_signature_status_code:
+        description: List of status codes to ignore while verifying collections.
+        type: list
+        elements: str
+      galaxy_required_valid_signature_count:
+        description: Number of required valid collection signatures.
+        type: int
+      ee_container_policy:
+        description: Container image validation policy for podman.
+        type: str
+        choices:
+          - ignore_all
+          - system
+          - signature_required
+      ee_extra_build_cli_args:
+        description: Extra CLI arguments passed to ansible-builder via --extra-build-cli-args.
+        type: str
+      ee_auth_file:
+        description: Path to file containing authorization credentials for the remote registry.
+        type: str
+      ee_executable:
+        description: Path to podman executable if not in $PATH.
+        type: str
+      ee_ca_cert_dir:
+        description: Path to directory containing TLS certificates and keys.
+        type: str
+      ee_sign_by:
+        description: Path to a key file used to sign images.
+        type: str
+      ee_reg_credential:
+        description: Default credential name for controller execution environment definitions.
+        type: str
+...

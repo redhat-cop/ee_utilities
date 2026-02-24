@@ -14,7 +14,11 @@
   register: build_dir
   when: ee_builder_dir is not defined
 
-- name: Pull base image
+- name: Set build path fact
+  ansible.builtin.set_fact:
+    __ee_build_path: "{{ ee_builder_dir | default(build_dir.path) }}"
+
+- name: Pull builder images
   containers.podman.podman_image:
     name: "{{ __execution_environment_definition.images.base_image.name |
       default(__execution_environment_definition.images.base_image) |
@@ -28,8 +32,8 @@
 - name: Copy needed files/directories for additional_build_files
   ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "{{ ee_builder_dir | default(build_dir.path) }}/{{ item }}"
-    mode: "0644"
+    dest: "{{ __ee_build_path }}/{{ item }}"
+    mode: "0655"
   loop: "{{ __execution_environment_definition.build_items }}"
   when:
     - __execution_environment_definition.build_items is defined
@@ -38,14 +42,14 @@
 - name: Create ansible.cfg file if requested
   ansible.builtin.template:
     src: ansible.cfg.j2
-    dest: "{{ ee_builder_dir | default(build_dir.path) }}/ansible.cfg"
+    dest: "{{ __ee_build_path }}/ansible.cfg"
     mode: "0644"
   when: ee_pull_collections_from_hub
 
 - name: Create EE definition file
   ansible.builtin.template:
     src: execution-environment.yaml.j2
-    dest: "{{ ee_builder_dir | default(build_dir.path) }}/execution-environment.yaml"
+    dest: "{{ __ee_build_path }}/execution-environment.yaml"
     mode: "0644"
   when: not __execution_environment_definition.skip_generation | default(false) | bool
 
@@ -87,7 +91,7 @@
     {% endif %}
     --verbosity {{ ee_verbosity | default(0) }}
   args:
-    chdir: "{{ ee_builder_dir | default(build_dir.path) }}/"
+    chdir: "{{ __ee_build_path }}/"
   changed_when: true  # these will always run and will always report "changed" otherwise
 
 - name: Push image to registry
@@ -118,6 +122,6 @@
 - name: Remove build directory
   ansible.builtin.file:
     state: absent
-    path: "{{ build_dir.path | default(ee_builder_dir) }}"
+    path: "{{ __ee_build_path }}"
   when: ee_builder_dir_clean
 ...
