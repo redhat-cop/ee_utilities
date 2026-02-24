@@ -1,0 +1,4 @@
+---
+bugfixes:
+  - Handle empty build steps in execution-environment.yaml generation
+...
