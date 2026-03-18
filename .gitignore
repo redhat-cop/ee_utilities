@@ -29,4 +29,5 @@ test
 *.pem
 *.key
 
+# Ignore importer result from pre-commit tests
 importer_result.json
