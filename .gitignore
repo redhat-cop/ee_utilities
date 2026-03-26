@@ -22,3 +22,9 @@ test
 
 # Ignore ansible directory
 .ansible/*
+
+# Secrets and credentials (do not commit)
+.env
+.env.*
+*.pem
+*.key
