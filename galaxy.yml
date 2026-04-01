@@ -1,7 +1,7 @@
 ---
 namespace: infra
 name: ee_utilities
-version: 4.2.2-devel
+version: 4.2.4-devel
 description: A collection of utility roles for usage with Ansible Execution Enviroments
 readme: README.md
 authors:

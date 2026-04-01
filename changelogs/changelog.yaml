@@ -159,3 +159,12 @@ releases:
     fragments:
     - add_ee_extra_build_cli_args_support.yml
     release_date: '2026-01-17'
+  4.2.4:
+    changes:
+      bugfixes:
+      - Handle empty build steps in execution-environment.yaml generation
+      - use compact loop labels when building, don't print the full EE definition
+    fragments:
+    - handle_empty_build_steps.yml
+    - tweak_loop_label.yml
+    release_date: '2026-04-01'
