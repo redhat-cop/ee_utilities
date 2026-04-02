@@ -30,6 +30,11 @@
       ansible.builtin.debug:
         var: controller_execution_environments
 
+    - name: Remove temporary directory
+      ansible.builtin.file:
+        state: absent
+        path: "{{ controller_ee.path }}"
+
     - name: Set stats for use in another workflow node
       ansible.builtin.set_stats:
         data:

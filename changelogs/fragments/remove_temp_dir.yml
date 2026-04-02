@@ -1,0 +1,4 @@
+---
+bugfixes:
+  - remove possibly created temp directory
+...
