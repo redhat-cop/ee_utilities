@@ -1,0 +1,4 @@
+---
+bugfixes:
+  - use correct label when pulling base image, tweak other task names
+...

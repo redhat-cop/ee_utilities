@@ -22,7 +22,7 @@
         dest: "{{ controller_ee.path }}/ee_controller.yaml"
         mode: "0644"
 
-    - name: Include templated variable
+    - name: Include templated variables
       ansible.builtin.include_vars:
         file: "{{ controller_ee.path }}/ee_controller.yaml"
 
