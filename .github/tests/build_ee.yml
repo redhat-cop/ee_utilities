@@ -32,7 +32,7 @@
   tasks:
     - name: Include ee_builder role
       ansible.builtin.include_role:
-        name: infra.aap_utilities.ee_builder
+        name: infra.ee_utilities.ee_builder
       vars:
         ee_pull_collections_from_hub: false
         ee_container_runtime: podman
