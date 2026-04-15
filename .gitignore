@@ -28,3 +28,5 @@ test
 .env.*
 *.pem
 *.key
+
+importer_result.json
