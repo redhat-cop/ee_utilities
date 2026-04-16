@@ -1,6 +1,0 @@
----
-trivial:
-  - Update pre-commit configuration match the other repos
-  - Update release workflow to use the new release_auto.yml workflow
-
-...

@@ -4,6 +4,15 @@ infra.ee\_utilities Release Notes
 
 .. contents:: Topics
 
+v4.2.5
+======
+
+Bugfixes
+--------
+
+- remove possibly created temp directory
+- use correct label when pulling base image, tweak other task names
+
 v4.2.3
 ======
 

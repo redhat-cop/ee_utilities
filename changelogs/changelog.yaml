@@ -168,3 +168,13 @@ releases:
     - handle_empty_build_steps.yml
     - tweak_loop_label.yml
     release_date: '2026-03-01'
+  4.2.5:
+    changes:
+      bugfixes:
+      - remove possibly created temp directory
+      - use correct label when pulling base image, tweak other task names
+    fragments:
+    - remove_temp_dir.yml
+    - tweak_tasks_labels.yml
+    - update-pre-commit.yml
+    release_date: '2026-04-16'
