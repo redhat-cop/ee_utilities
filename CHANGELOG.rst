@@ -4,6 +4,15 @@ infra.ee\_utilities Release Notes
 
 .. contents:: Topics
 
+v4.2.3
+======
+
+Bugfixes
+--------
+
+- Handle empty build steps in execution-environment.yaml generation
+- use compact loop labels when building, don't print the full EE definition
+
 v4.2.2
 ======
 
