@@ -35,8 +35,8 @@ It is not listed as a dependency because of issues with syncing the validated co
 
 |                                      Collection Name                                                  |                      Purpose                      |
 |:-----------------------------------------------------------------------------------------------------:|:-------------------------------------------------:|
-| [AAP >= 2.5 Configuration](https://github.com/redhat-cop/infra.aap_configuration)                   | Ansible Automation Platform configuration |
-| [AAP <= 2.4 Controller Configuration](https://github.com/redhat-cop/infra.controller_configuration) | Automation controller configuration       |
+| [AAP >= 2.5 Configuration](https://github.com/redhat-cop/infra.aap_configuration)                     | Ansible Automation Platform configuration         |
+| [AAP <= 2.4 Controller Configuration](https://github.com/redhat-cop/infra.controller_configuration)   | Automation controller configuration               |
 | [AAP Configuration Extended](https://github.com/redhat-cop/aap_configuration_extended)                | Where other useful roles that don't fit here live |
 | [AAP installation Utilities](https://github.com/redhat-cop/aap_utilities)                             | Ansible Automation Platform Utilities             |
 | [AAP Configuration Template](https://github.com/redhat-cop/aap_configuration_template)                | Configuration Template for this suite             |
