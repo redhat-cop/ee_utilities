@@ -1,7 +1,7 @@
 ---
-minor_changes
-  - ee_builder role - linting fix - long line in Pull base image" task (https://github.com/redhat-cop/ee_utilities/pull/256)
+minor_changes:
+  - ee_builder role - linting fix - long line in Pull base image task (https://github.com/redhat-cop/ee_utilities/pull/256)
 bugfixes:
-  - ee_builder role - When creating Controller EE definition, use the first item in tags: entry of ee_list item. (https://github.com/redhat-cop/ee_utilities/issues/259)
+  - ee_builder role - When creating Controller EE definition, use the first item in tags entry of ee_list item. (https://github.com/redhat-cop/ee_utilities/issues/259)
 
 ...
