@@ -4,6 +4,19 @@ infra.ee\_utilities Release Notes
 
 .. contents:: Topics
 
+v4.3.0
+======
+
+Minor Changes
+-------------
+
+- ee_builder role - linting fix - long line in Pull base image task (https://github.com/redhat-cop/ee_utilities/pull/256)
+
+Bugfixes
+--------
+
+- ee_builder role - When creating Controller EE definition, use the first item in tags entry of ee_list item. (https://github.com/redhat-cop/ee_utilities/issues/259)
+
 v4.2.5
 ======
 
