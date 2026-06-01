@@ -178,3 +178,17 @@ releases:
     - tweak_tasks_labels.yml
     - update-pre-commit.yml
     release_date: '2026-04-16'
+  4.4.0:
+    changes:
+      bugfixes:
+      - ee_builder role - When creating Controller EE definition, use the first item
+        in tags entry of ee_list item. (https://github.com/redhat-cop/ee_utilities/issues/259)
+      minor_changes:
+      - README - Standardized collection links tables, added changelog link, fixed
+        LICENSE link, and added Support section for certification review.
+      - ee_builder role - linting fix - long line in Pull base image task (https://github.com/redhat-cop/ee_utilities/pull/256)
+    fragments:
+    - 259-image-tag-deprecation.yaml
+    - certification-review-updates.yaml
+    - release_auto-automation-hub-console-url.yml
+    release_date: '2026-06-01'
