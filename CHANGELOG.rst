@@ -4,6 +4,20 @@ infra.ee\_utilities Release Notes
 
 .. contents:: Topics
 
+v4.4.0
+======
+
+Minor Changes
+-------------
+
+- README - Standardized collection links tables, added changelog link, fixed LICENSE link, and added Support section for certification review.
+- ee_builder role - linting fix - long line in Pull base image task (https://github.com/redhat-cop/ee_utilities/pull/256)
+
+Bugfixes
+--------
+
+- ee_builder role - When creating Controller EE definition, use the first item in tags entry of ee_list item. (https://github.com/redhat-cop/ee_utilities/issues/259)
+
 v4.2.5
 ======
 
