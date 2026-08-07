@@ -133,6 +133,15 @@ releases:
     fragments:
     - empty_token.yml
     release_date: '2025-06-15'
+  4.1.2:
+    changes:
+      bugfixes:
+      - allow for providing the squash option to ansible-builder
+      - make ee_builder_dir work with multiple EEs defined in ee_list
+    fragments:
+    - add_ee_squash_support.yml
+    - fix_build_dir.yml
+    release_date: '2026-01-01'
   4.2.0:
     changes:
       bugfixes:
@@ -143,3 +152,43 @@ releases:
     - fix_ee_publish.yml
     - multi-tags.yml
     release_date: '2025-10-15'
+  4.2.2:
+    changes:
+      bugfixes:
+      - allow for providing the extra-build-cli-args option to ansible-builder
+    fragments:
+    - add_ee_extra_build_cli_args_support.yml
+    release_date: '2026-01-17'
+  4.2.3:
+    changes:
+      bugfixes:
+      - Handle empty build steps in execution-environment.yaml generation
+      - use compact loop labels when building, don't print the full EE definition
+    fragments:
+    - handle_empty_build_steps.yml
+    - tweak_loop_label.yml
+    release_date: '2026-03-01'
+  4.2.5:
+    changes:
+      bugfixes:
+      - remove possibly created temp directory
+      - use correct label when pulling base image, tweak other task names
+    fragments:
+    - remove_temp_dir.yml
+    - tweak_tasks_labels.yml
+    - update-pre-commit.yml
+    release_date: '2026-04-16'
+  4.4.0:
+    changes:
+      bugfixes:
+      - ee_builder role - When creating Controller EE definition, use the first item
+        in tags entry of ee_list item. (https://github.com/redhat-cop/ee_utilities/issues/259)
+      minor_changes:
+      - README - Standardized collection links tables, added changelog link, fixed
+        LICENSE link, and added Support section for certification review.
+      - ee_builder role - linting fix - long line in Pull base image task (https://github.com/redhat-cop/ee_utilities/pull/256)
+    fragments:
+    - 259-image-tag-deprecation.yaml
+    - certification-review-updates.yaml
+    - release_auto-automation-hub-console-url.yml
+    release_date: '2026-06-01'

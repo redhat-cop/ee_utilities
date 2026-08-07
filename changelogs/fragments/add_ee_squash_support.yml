@@ -1,4 +1,0 @@
----
-bugfixes:
-  - allow for providing the squash option to ansible-builder
-...

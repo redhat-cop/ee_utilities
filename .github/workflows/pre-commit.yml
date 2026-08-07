@@ -1,20 +1,31 @@
 ---
-# This workflow action will run pre-commit, which will execute ansible and yaml linting
-# See .pre-commit-config.yaml for what hooks are executed
-name: pre-commit tests
+name: pre-commit and sanity tests
 
 on:
-  pull_request:
   push:
+    branches: [devel]
+  pull_request:
   schedule:
     - cron: "0 6 * * *"
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
-  pre-commit_and_sanity:
-    uses: "redhat-cop/ansible_collections_tooling/.github/workflows/pre_commit_and_sanity.yml@main"
-    with:
-      collection_namespace: infra
-      collection_name: ee_utilities
-      collection_version: 2.0.0
-      collection_repo: https://github.com/redhat-cop/ee_utilities/
-...
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v6
+        with:
+          python-version: "3.x"
+      - name: Run default pre-commit hooks
+        uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
+      - name: Run sanity (manual stage)
+        uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
+        with:
+          extra_args: --hook-stage manual sanity --all-files

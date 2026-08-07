@@ -52,15 +52,16 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_verbosity`|0|no|int|Options Increase the output verbosity, can be from 0-3.||
 |`ee_squash`|off|no|str|The value for ansible-builder squash option, one of 'all','new','off'.|new|
 |`ee_prune_images`|true|no|bool|To enable or disable pruning the images after building.||
+|`ee_extra_build_cli_args`||no|str|String to use with ansible-builder option --extra-build-cli-args||
 |`ee_stream`|upstream unless ee_base_registry_username is defined then downstream|no|str|What stream to pull images from either upstream or downstream. Also changes package manager used for downstream to microdnf to avoid errors.||
 |`ee_update_base_images`|false|no|bool|Whether to pull down images, this forces an update to avoid stale images.||
 |`ee_base_image`|registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest|no|str|Build arg specifies parent image for the execution environment. Use the images option to override this for an individual list item.||
 |`ee_base_registry_username`|ee_registry_username|no|str|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_base_registry_password`|ee_registry_password|no|str|Password to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
-|`ee_pull_collections_from_hub`|true|no|bool|Whether or not to pull collections from a specific hub for use in building an Execution Environment. This will create entries that adds the ansible.cfg file into the EE. These can be hidden using environment variables as detailed [in this article](https://developers.redhat.com/articles/2025/01/23/strategies-eliminating-ansible-hardcoded-credentials) ||
+|`ee_pull_collections_from_hub`|true|no|bool|Whether or not to pull collections from a specific hub for use in building an Execution Environment. This will create entries that adds the ansible.cfg file into the EE. These can be hidden using environment variables as detailed [in this article](https://developers.redhat.com/articles/2025/01/23/strategies-eliminating-ansible-hardcoded-credentials)||
 |`ee_ah_host`|`aap_hostname`|no|str|Host to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. (if AAP 2.5 use gateway host and infra.aap_configuration) Required if `ee_pull_collections_from_hub` is `True`.||
 |`ee_ah_token`|`aap_token`|no|str|Token to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_pull_collections_from_hub` is `True`.||
-|`ee_aap_version`|`2.4`|no|str|Changes what API endpoint to point to depending on AAP version||
+|`ee_aap_version`|`2.4`|no|float|Changes what API endpoint to point to depending on AAP version||
 |`ee_create_controller_def`|false|no|bool|Option to create the 'controller_execution_environments' definition for use by the infra.controller_configuration role||
 
 ### Execution environment list
@@ -78,7 +79,7 @@ It takes variables from the following sections the list variables section.
 |:---:|:---:|:---:|:---:|
 |`name`||yes|Name of the ee image to create. Only the name goes here, the namespace goes in the ee_registry_dest variable|
 |`tag`||no|[DEPRECATED] Tag to use when pushing the image.|
-|`tags`||no|A list of tags to use when pushing the image.|
+|`tags`||no|A list of tags to use when pushing the image. If `ee_create_controller_def` is `true`, the first tag in the list will be used as the tag in the Controller EE definition.|
 |`dependencies`|dict|no|This section allows you to describe any dependencies that will need to be installed into the final image. Reference [builder dependencies documentation](https://ansible.readthedocs.io/projects/builder/en/stable/definition/#dependencies), examples and our examples for its structure.|
 |`build_steps`|dict|no|This section enables you to specify custom build commands for any build phase. Reference [builder build_steps documentation](https://ansible.readthedocs.io/projects/builder/en/stable/definition/#additional-build-steps), examples and our examples for its structure.|
 |`build_items`|list|no|This is a list of files or folders that will be copied to the working directory for use with the build files. Example below.|
@@ -105,12 +106,12 @@ These variables are only use in creating the Execution Environment 'controller_e
 |:---:|:---:|:---:|:---:|
 |`ee_registry_username`||no|Username to use when authenticating to destination registries.|
 |`ee_registry_password`||no|Password to use when authenticating to destination registries.|
-|`ee_registry_dest`||no|Path or URL where image will be pushed. Namespaces for containers go here. Examples: registry.redhat.io, registry.redhat.io/rh-custom , in AAP 2.5 containers.podman:1.14.0 require images be pushed to a namespace, such as the previous namespace rh-custom |
+|`ee_registry_dest`||no|Path or URL where image will be pushed. Namespaces for containers go here. Examples: registry.redhat.io, registry.redhat.io/rh-custom , in AAP 2.5 containers.podman:1.14.0 require images be pushed to a namespace, such as the previous namespace rh-custom|
 |`ee_image_push`|True|no|Control to choose whether to push image to registry or not.|
 |`ee_auth_file`||no|Path to file containing authorization credentials to the remote registry.|
 |`ee_executable`||no|Path to podman executable if it is not in the $PATH on the machine running podman.|
 |`ee_ca_cert_dir`||no|Path to directory containing TLS certificates and keys to use.|
-|`ee_validate_certs`||no|Require HTTPS and validate certificates when pulling or pushing. |
+|`ee_validate_certs`||no|Require HTTPS and validate certificates when pulling or pushing.|
 |`ee_sign_by`||no|Path to a key file to use to sign the image.|
 
 ## Example Playbook

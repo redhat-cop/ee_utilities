@@ -4,6 +4,7 @@
   loop: "{{ ee_list }}"
   loop_control:
     loop_var: __execution_environment_definition
+    label: "{{ __execution_environment_definition.name }}"
 
 - name: Push to controller
   when: ee_create_controller_def
@@ -21,13 +22,18 @@
         dest: "{{ controller_ee.path }}/ee_controller.yaml"
         mode: "0644"
 
-    - name: Include templated variable
+    - name: Include templated variables
       ansible.builtin.include_vars:
         file: "{{ controller_ee.path }}/ee_controller.yaml"
 
     - name: Display templated variables
       ansible.builtin.debug:
         var: controller_execution_environments
+
+    - name: Remove temporary directory
+      ansible.builtin.file:
+        state: absent
+        path: "{{ controller_ee.path }}"
 
     - name: Set stats for use in another workflow node
       ansible.builtin.set_stats:

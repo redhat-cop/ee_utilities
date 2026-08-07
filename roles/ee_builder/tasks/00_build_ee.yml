@@ -4,7 +4,7 @@
   ansible.builtin.file:
     state: directory
     path: "{{ ee_builder_dir }}"
-    mode: '0700'
+    mode: "0700"
   when: ee_builder_dir is defined
 
 - name: Create temp-named build directory
@@ -14,26 +14,28 @@
   register: build_dir
   when: ee_builder_dir is not defined
 
-- name: Pull builder images
+- name: Pull base image
   containers.podman.podman_image:
-    name: "{{ __execution_environment_definition.images.base_image.name | default(__execution_environment_definition.images.base_image) | default(__execution_environment_definition.base_image) | default(ee_base_image) }}"
+    name: "{{ __execution_environment_definition.images.base_image.name |
+      default(__execution_environment_definition.images.base_image) |
+      default(__execution_environment_definition.base_image) | default(ee_base_image) }}"
     username: "{{ ee_base_registry_username | default(omit, true) }}"
     password: "{{ ee_base_registry_password | default(omit, true) }}"
     validate_certs: "{{ ee_validate_certs | default(omit) }}"
     force: true
   when: ee_update_base_images
 
-- name: Copy files/directories to pull from for additional_build_files
+- name: Copy needed files/directories for additional_build_files
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ ee_builder_dir | default(build_dir.path) }}/{{ item }}"
-    mode: "0655"
+    mode: "0644"
   loop: "{{ __execution_environment_definition.build_items }}"
   when:
     - __execution_environment_definition.build_items is defined
-    - __execution_environment_definition.build_items|length|bool
+    - __execution_environment_definition.build_items | length > 0
 
-- name: Create ansible.cfg file if requested.
+- name: Create ansible.cfg file if requested
   ansible.builtin.template:
     src: ansible.cfg.j2
     dest: "{{ ee_builder_dir | default(build_dir.path) }}/ansible.cfg"
@@ -47,7 +49,7 @@
     mode: "0644"
   when: not __execution_environment_definition.skip_generation | default(false) | bool
 
-- name: Run the Ansible Builder Program
+- name: Run the Ansible Builder program
   ansible.builtin.command: >
     ansible-builder build -f execution-environment.yaml
     {% if __execution_environment_definition.tags is defined %}
@@ -80,6 +82,9 @@
     {% if ee_squash is defined and ee_squash in ['all', 'new', 'off'] %}
       --squash={{ ee_squash }}
     {% endif %}
+    {% if ee_extra_build_cli_args is defined %}
+      --extra-build-cli-args='{{ ee_extra_build_cli_args }}'
+    {% endif %}
     --verbosity {{ ee_verbosity | default(0) }}
   args:
     chdir: "{{ ee_builder_dir | default(build_dir.path) }}/"
@@ -110,7 +115,7 @@
     loop_var: __execution_environment_tag
   when: ee_image_push
 
-- name: Empty build directory
+- name: Remove build directory
   ansible.builtin.file:
     state: absent
     path: "{{ build_dir.path | default(ee_builder_dir) }}"

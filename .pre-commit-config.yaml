@@ -5,21 +5,17 @@ repos:
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
-  - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: v25.9.2
-    hooks:
-      # see discussions here about what arguments are used, and behavior
-      # https://github.com/ansible/ansible-lint/issues/649
-      # Roles will trigger an "unknown file type"
-      # https://github.com/ansible/ansible-lint/issues/808
-      - id: ansible-lint
-        pass_filenames: false
-        always_run: true
-        entry: ansible-lint
-        args:
-          - --profile=production
+
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.18.1
+    rev: v0.23.2
     hooks:
       - id: markdownlint-cli2
+
+  - repo: https://github.com/djdanielsson/ansible-content-prek-actions
+    rev: v26.4.6
+    hooks:
+      - id: ansible-lint
+      - id: changelog
+      - id: galaxy-importer
+      - id: sanity
 ...

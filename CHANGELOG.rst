@@ -4,6 +4,46 @@ infra.ee\_utilities Release Notes
 
 .. contents:: Topics
 
+v4.4.0
+======
+
+Minor Changes
+-------------
+
+- README - Standardized collection links tables, added changelog link, fixed LICENSE link, and added Support section for certification review.
+- ee_builder role - linting fix - long line in Pull base image task (https://github.com/redhat-cop/ee_utilities/pull/256)
+
+Bugfixes
+--------
+
+- ee_builder role - When creating Controller EE definition, use the first item in tags entry of ee_list item. (https://github.com/redhat-cop/ee_utilities/issues/259)
+
+v4.2.5
+======
+
+Bugfixes
+--------
+
+- remove possibly created temp directory
+- use correct label when pulling base image, tweak other task names
+
+v4.2.3
+======
+
+Bugfixes
+--------
+
+- Handle empty build steps in execution-environment.yaml generation
+- use compact loop labels when building, don't print the full EE definition
+
+v4.2.2
+======
+
+Bugfixes
+--------
+
+- allow for providing the extra-build-cli-args option to ansible-builder
+
 v4.2.0
 ======
 
@@ -16,6 +56,15 @@ Bugfixes
 --------
 
 - this should fix the ci action to build and publish an EE with all the collections
+
+v4.1.2
+======
+
+Bugfixes
+--------
+
+- allow for providing the squash option to ansible-builder
+- make ee_builder_dir work with multiple EEs defined in ee_list
 
 v4.0.4
 ======

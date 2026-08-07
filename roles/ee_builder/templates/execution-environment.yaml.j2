@@ -29,18 +29,24 @@ additional_build_files:
 {% endif -%}
 {% endif -%}
 
-{% if (__execution_environment_definition.build_steps is defined and __execution_environment_definition.build_steps|length )  or
+{% if (__execution_environment_definition.build_steps is defined and __execution_environment_definition.build_steps|length and __execution_environment_definition.build_steps.values() | select('truthy') | list | length > 0 )  or
         (ee_pull_collections_from_hub) %}
 additional_build_steps:
-{% if ee_pull_collections_from_hub and (__execution_environment_definition.build_steps is not defined or (__execution_environment_definition.build_steps is defined and 'prepend_galaxy' not in __execution_environment_definition.build_steps)) %}
+{% if ee_pull_collections_from_hub and
+      (__execution_environment_definition.build_steps is not defined
+       or ('prepend_galaxy' not in __execution_environment_definition.build_steps)
+       or (__execution_environment_definition.build_steps.prepend_galaxy is not defined)
+       or not __execution_environment_definition.build_steps.prepend_galaxy) %}
   prepend_galaxy:
     - ADD _build/configs/ansible.cfg /etc/ansible/ansible.cfg
 {% endif %}
 {% if __execution_environment_definition.build_steps is defined %}
 {% for key,value in __execution_environment_definition.build_steps.items() %}
+{% if value | list | length > 0 %}
 {{ key | indent(2, true) }}:
 {{ value | to_nice_yaml | indent(4, true) }}
-{%- if key == "prepend_galaxy" and ee_pull_collections_from_hub and 'prepend_galaxy' in __execution_environment_definition.build_steps %}
+{%- endif -%}
+{%- if key == "prepend_galaxy" and ee_pull_collections_from_hub and 'prepend_galaxy' in __execution_environment_definition.build_steps and value | length > 0 %}
     - ADD _build/configs/ansible.cfg /etc/ansible/ansible.cfg
 {% endif %}
 {% endfor %}
