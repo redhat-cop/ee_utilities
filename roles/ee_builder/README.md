@@ -4,8 +4,9 @@ Ansible role use to build execution environments. This role invokes ansible buil
 
 ## Requirements
 
-ansible-builder
-podman or docker
+- ansible-builder
+- podman (required for image pull and push operations, which use the `containers.podman` collection)
+- docker can be used as the build runtime via `ee_container_runtime: docker`, but `ee_update_base_images` and `ee_image_push` still require podman
 
 ## Role Variables
 
@@ -30,7 +31,7 @@ Order of preferences for images
 
     ```yaml
       upstream:
-        base_image: quay.io/ansible/ansible-runner:latest
+        base_image: ghcr.io/ansible-community/community-ee-base:latest
       downstream:
         base_image: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
     ```
@@ -54,14 +55,15 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_prune_images`|true|no|bool|To enable or disable pruning the images after building.||
 |`ee_extra_build_cli_args`||no|str|String to use with ansible-builder option --extra-build-cli-args||
 |`ee_stream`|upstream unless ee_base_registry_username is defined then downstream|no|str|What stream to pull images from either upstream or downstream. Also changes package manager used for downstream to microdnf to avoid errors.||
-|`ee_update_base_images`|false|no|bool|Whether to pull down images, this forces an update to avoid stale images.||
+|`ee_update_base_images`|true|no|bool|Whether to pull down images, this forces an update to avoid stale images.||
 |`ee_base_image`|registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest|no|str|Build arg specifies parent image for the execution environment. Use the images option to override this for an individual list item.||
 |`ee_base_registry_username`|ee_registry_username|no|str|Username to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_base_registry_password`|ee_registry_password|no|str|Password to use when authenticating to base registries. If neither ee or base registry provided will be omitted.||
 |`ee_pull_collections_from_hub`|true|no|bool|Whether or not to pull collections from a specific hub for use in building an Execution Environment. This will create entries that adds the ansible.cfg file into the EE. These can be hidden using environment variables as detailed [in this article](https://developers.redhat.com/articles/2025/01/23/strategies-eliminating-ansible-hardcoded-credentials)||
-|`ee_ah_host`|`aap_hostname`|no|str|Host to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. (if AAP 2.5 use gateway host and infra.aap_configuration) Required if `ee_pull_collections_from_hub` is `True`.||
-|`ee_ah_token`|`aap_token`|no|str|Token to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_pull_collections_from_hub` is `True`.||
-|`ee_aap_version`|`2.4`|no|float|Changes what API endpoint to point to depending on AAP version||
+|`ee_hub_host`|`aap_hostname`|no|str|Host to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. (if AAP 2.5 use gateway host and infra.aap_configuration) Required if `ee_pull_collections_from_hub` is `True`. Also accepts the deprecated `ee_ah_host`.||
+|`ee_hub_token`|`aap_token`|no|str|Token to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_pull_collections_from_hub` is `True`. Also accepts the deprecated `ee_ah_token`.||
+|`ee_galaxy_ignore_certs`|true|no|bool|Whether to ignore TLS certificate validation in the generated ansible.cfg for Galaxy server connections.||
+|`ee_aap_version`|`2.6`|no|str|Changes what API endpoint to point to depending on AAP version||
 |`ee_create_controller_def`|false|no|bool|Option to create the 'controller_execution_environments' definition for use by the infra.controller_configuration role||
 
 ### Execution environment list
@@ -203,8 +205,8 @@ This is an example for building using automated pipelines like Gitlab or Azure D
     ee_registry_username: admin
     ee_registry_password: secret123
     # in this example we are assuming that we are pulling content and pushing the final artifact to the same location
-    ee_ah_host: ahnosso.node
-    ee_ah_token: iamatoken
+    ee_hub_host: ahnosso.node
+    ee_hub_token: iamatoken
     # ee_builder_dir_clean is used because depending on the environment permissions errors can be thrown when attempting to clean up. It is also unnecessary if the entire environment is going to be destroyed at the end anyway.
     #
     ee_builder_dir_clean: false

@@ -26,6 +26,7 @@ ee_update_base_images: true
 ee_pull_collections_from_hub: true
 ee_builder_dir_clean: true
 ee_validate_certs: false
+ee_galaxy_ignore_certs: true
 ee_prune_images: true
 ee_create_controller_def: false
 
@@ -36,7 +37,7 @@ ee_create_controller_def: false
 # ee_registry_dest
 
 # Hub host variables for ansible.cfg
-ee_ah_host: "{{ ah_host | default(aap_hostname) }}"
-ee_ah_token: "{{ ah_token | default(aap_token) }}"
-ee_aap_version: 2.4
+ee_hub_host: "{{ ee_ah_host | default(ah_host) | default(aap_hostname) }}"
+ee_hub_token: "{{ ee_ah_token | default(ah_token) | default(aap_token) }}"
+ee_aap_version: 2.6
 ...

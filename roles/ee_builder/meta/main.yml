@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Sean Sullivan
-  description: Excecution enviroment builder
+  description: Execution environment builder
   company: Red Hat
 
   license: GPL-3.0-or-later
@@ -15,6 +15,11 @@ galaxy_info:
       versions:
         - all
 
-  galaxy_tags: []
+  galaxy_tags:
+    - executionenvironment
+    - ansiblebuilder
+    - container
+    - ee
+    - podman
 dependencies: []
 ...
