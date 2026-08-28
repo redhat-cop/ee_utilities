@@ -1,0 +1,4 @@
+---
+minor_changes:
+  - allow for creating build files only without building images
+...

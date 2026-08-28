@@ -14,16 +14,16 @@
   register: build_dir
   when: ee_builder_dir is not defined
 
-- name: Pull base image
-  containers.podman.podman_image:
-    name: "{{ __execution_environment_definition.images.base_image.name |
-      default(__execution_environment_definition.images.base_image) |
-      default(__execution_environment_definition.base_image) | default(ee_base_image) }}"
-    username: "{{ ee_base_registry_username | default(omit, true) }}"
-    password: "{{ ee_base_registry_password | default(omit, true) }}"
-    validate_certs: "{{ ee_validate_certs | default(omit) }}"
-    force: true
-  when: ee_update_base_images
+- name: Create EE definition file
+  vars:
+    yaml_prefix: >-
+      {{ '' if not ee_build_files_only else
+         __execution_environment_definition.name.replace('/', '-') + '-' }}
+  ansible.builtin.template:
+    src: execution-environment.yaml.j2
+    dest: "{{ ee_builder_dir | default(build_dir.path) }}/{{ yaml_prefix }}execution-environment.yaml"
+    mode: "0644"
+  when: not __execution_environment_definition.skip_generation | default(false) | bool
 
 - name: Copy needed files/directories for additional_build_files
   ansible.builtin.copy:
@@ -42,12 +42,18 @@
     mode: "0644"
   when: ee_pull_collections_from_hub
 
-- name: Create EE definition file
-  ansible.builtin.template:
-    src: execution-environment.yaml.j2
-    dest: "{{ ee_builder_dir | default(build_dir.path) }}/execution-environment.yaml"
-    mode: "0644"
-  when: not __execution_environment_definition.skip_generation | default(false) | bool
+- name: Pull base image
+  containers.podman.podman_image:
+    name: "{{ __execution_environment_definition.images.base_image.name |
+      default(__execution_environment_definition.images.base_image) |
+      default(__execution_environment_definition.base_image) | default(ee_base_image) }}"
+    username: "{{ ee_base_registry_username | default(omit, true) }}"
+    password: "{{ ee_base_registry_password | default(omit, true) }}"
+    validate_certs: "{{ ee_validate_certs | default(omit) }}"
+    force: true
+  when:
+    - ee_update_base_images
+    - not ee_build_files_only
 
 - name: Run the Ansible Builder program
   ansible.builtin.command: >
@@ -89,6 +95,7 @@
   args:
     chdir: "{{ ee_builder_dir | default(build_dir.path) }}/"
   changed_when: true  # these will always run and will always report "changed" otherwise
+  when: not ee_build_files_only
 
 - name: Push image to registry
   containers.podman.podman_image:
@@ -113,7 +120,9 @@
     }}
   loop_control:
     loop_var: __execution_environment_tag
-  when: ee_image_push
+  when:
+    - ee_image_push
+    - not ee_build_files_only
 
 - name: Remove build directory
   ansible.builtin.file:
