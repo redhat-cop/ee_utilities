@@ -28,6 +28,7 @@ ee_builder_dir_clean: true
 ee_validate_certs: false
 ee_prune_images: true
 ee_create_controller_def: false
+ee_build_files_only: false
 
 # Registry
 # name

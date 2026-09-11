@@ -7,7 +7,9 @@
     label: "{{ __execution_environment_definition.name }}"
 
 - name: Push to controller
-  when: ee_create_controller_def
+  when:
+    - ee_create_controller_def
+    - not ee_build_files_only
   delegate_to: localhost
   block:
     - name: Create temporary directory

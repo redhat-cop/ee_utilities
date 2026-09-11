@@ -63,6 +63,7 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_ah_token`|`aap_token`|no|str|Token to use for ansible config file. Alternative default is to use variable from infra.ah_configuration. Required if `ee_pull_collections_from_hub` is `True`.||
 |`ee_aap_version`|`2.4`|no|float|Changes what API endpoint to point to depending on AAP version||
 |`ee_create_controller_def`|false|no|bool|Option to create the 'controller_execution_environments' definition for use by the infra.controller_configuration role||
+|`ee_build_files_only`|false|no|bool|Whether to create build files only and skip building images.||
 
 ### Execution environment list
 
