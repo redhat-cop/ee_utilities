@@ -192,3 +192,15 @@ releases:
     - certification-review-updates.yaml
     - release_auto-automation-hub-console-url.yml
     release_date: '2026-06-01'
+  4.6.0:
+    changes:
+      bugfixes:
+      - ee_builder role - use the version test (is version('2.5', '>=')) instead of
+        a numeric comparison when selecting galaxy API endpoints in ansible.cfg, so
+        ee_aap_version works whether it is supplied as a string or a float
+      minor_changes:
+      - allow for creating build files only without building images
+    fragments:
+    - fix_ee_aap_version_type_compare.yml
+    - use-hub-token.yml
+    release_date: '2026-09-17'
