@@ -1,19 +1,19 @@
 [galaxy]
 server_list = automation_hub_pub,automation_hub_cert,automation_hub_validated,automation_hub_comm
-ignore_certs = true
+ignore_certs = {{ ee_galaxy_ignore_certs | lower }}
 
 [galaxy_server.automation_hub_cert]
-url=https://{{ ee_ah_host }}{% if ee_aap_version is version('2.5', '>=') %}/pulp_ansible/galaxy/rh-certified/{% else %}/api/galaxy/content/rh-certified/{% endif +%}
-{% if ee_ah_token %}token={{ ee_ah_token }}{% endif %}
+url=https://{{ ee_hub_host }}{% if ee_aap_version is version('2.5', '>=') %}/pulp_ansible/galaxy/rh-certified/{% else %}/api/galaxy/content/rh-certified/{% endif +%}
+{% if ee_hub_token %}token={{ ee_hub_token }}{% endif %}
 
 [galaxy_server.automation_hub_pub]
-url=https://{{ ee_ah_host }}{% if ee_aap_version is version('2.5', '>=') %}/pulp_ansible/galaxy/published/{% else %}/api/galaxy/content/published/{% endif +%}
-{% if ee_ah_token %}token={{ ee_ah_token }}{% endif %}
+url=https://{{ ee_hub_host }}{% if ee_aap_version is version('2.5', '>=') %}/pulp_ansible/galaxy/published/{% else %}/api/galaxy/content/published/{% endif +%}
+{% if ee_hub_token %}token={{ ee_hub_token }}{% endif %}
 
 [galaxy_server.automation_hub_comm]
-url=https://{{ ee_ah_host }}{% if ee_aap_version is version('2.5', '>=') %}/pulp_ansible/galaxy/community/{% else %}/api/galaxy/content/community/{% endif +%}
-{% if ee_ah_token %}token={{ ee_ah_token }}{% endif %}
+url=https://{{ ee_hub_host }}{% if ee_aap_version is version('2.5', '>=') %}/pulp_ansible/galaxy/community/{% else %}/api/galaxy/content/community/{% endif +%}
+{% if ee_hub_token %}token={{ ee_hub_token }}{% endif %}
 
 [galaxy_server.automation_hub_validated]
-url=https://{{ ee_ah_host }}{% if ee_aap_version is version('2.5', '>=') %}/pulp_ansible/galaxy/validated/{% else %}/api/galaxy/content/validated/{% endif +%}
-{% if ee_ah_token %}token={{ ee_ah_token }}{% endif %}
+url=https://{{ ee_hub_host }}{% if ee_aap_version is version('2.5', '>=') %}/pulp_ansible/galaxy/validated/{% else %}/api/galaxy/content/validated/{% endif +%}
+{% if ee_hub_token %}token={{ ee_hub_token }}{% endif %}

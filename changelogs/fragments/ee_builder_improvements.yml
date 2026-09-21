@@ -1,0 +1,22 @@
+---
+bugfixes:
+  - Fix test playbook referencing wrong collection name (infra.aap_utilities -> infra.ee_utilities).
+  - Fix string comparison for ee_aap_version in ansible.cfg.j2 by using the version test to handle versions like 2.10 correctly.
+  - Fix ee_controller.yaml.j2 to prefer tags list over deprecated tag field when generating controller EE definitions.
+  - Fix signature_original_name indentation in execution-environment.yaml.j2 so it renders correctly under base_image.
+  - Fix typo in meta/main.yml description (Excecution enviroment -> Execution environment).
+  - Fix typo in defaults/main.yml comment (ansible.cfgw -> ansible.cfg).
+  - Fix README documentation for ee_update_base_images default (was false, actual default is true).
+  - Fix README upstream base image to match actual code (ghcr.io/ansible-community/community-ee-base).
+  - Clean up controller_ee temp directory after use in tasks/main.yml.
+  - Consolidate fragile build path logic into a single __ee_build_path fact.
+
+minor_changes:
+  - Rename ee_ah_host and ee_ah_token to ee_hub_host and ee_hub_token for clarity. The old variable names are still supported as fallbacks for backward compatibility.
+  - Change ee_aap_version default from 2.4 to 2.6.
+  - Add ee_galaxy_ignore_certs variable (default true) to make ignore_certs configurable in the generated ansible.cfg.
+  - Add input validation for ee_list entries to ensure name or ee_name is defined.
+  - Add meta/argument_specs.yml for role parameter documentation and validation.
+  - Add galaxy_tags to meta/main.yml for improved discoverability.
+  - Document that podman is required for image pull and push operations in the README.
+...

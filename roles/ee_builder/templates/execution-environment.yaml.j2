@@ -60,8 +60,8 @@ images:
   base_image:
     name: {{ __execution_environment_definition.base_image | default(ee_base_image) }}
     {% if (__execution_environment_definition.base_sig_name is defined) or (ee_base_sig_name is defined) %}
-signature_original_name: {{ __execution_environment_definition.base_sig_name | default(ee_base_sig_name) }}
-{% endif %}
+    signature_original_name: {{ __execution_environment_definition.base_sig_name | default(ee_base_sig_name) }}
+    {% endif %}
 {% endif %}
 {% if (__execution_environment_definition.images is defined and __execution_environment_definition.images|length ) %}
 {{ __execution_environment_definition.images | to_nice_yaml | indent(2, true) }}
