@@ -65,6 +65,7 @@ Best practice is to use the default images, unless needing to pull from another 
 |`ee_galaxy_ignore_certs`|true|no|bool|Whether to ignore TLS certificate validation in the generated ansible.cfg for Galaxy server connections.||
 |`ee_aap_version`|`2.6`|no|str|Changes what API endpoint to point to depending on AAP version||
 |`ee_create_controller_def`|false|no|bool|Option to create the 'controller_execution_environments' definition for use by the infra.controller_configuration role||
+|`ee_build_files_only`|false|no|bool|Whether to create build files only and skip building images.||
 
 ### Execution environment list
 

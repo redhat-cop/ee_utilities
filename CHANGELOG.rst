@@ -4,6 +4,19 @@ infra.ee\_utilities Release Notes
 
 .. contents:: Topics
 
+v4.6.0
+======
+
+Minor Changes
+-------------
+
+- allow for creating build files only without building images
+
+Bugfixes
+--------
+
+- ee_builder role - use the version test (is version('2.5', '>=')) instead of a numeric comparison when selecting galaxy API endpoints in ansible.cfg, so ee_aap_version works whether it is supplied as a string or a float
+
 v4.4.0
 ======
 
