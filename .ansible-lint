@@ -42,6 +42,10 @@ use_default_rules: true
 # the use of skip_list below because that will hide violations from the output.
 # When putting ignores inside the ignore file, they are marked as ignored, but
 # still visible, making it easier to address later.
+#
+# Role variables use collection-wide prefixes (ee_*, venv_migrate_*) rather than
+# role names (ee_builder_*, virtualenv_migrate_*) for backward compatibility.
+# See https://docs.ansible.com/projects/partner-certification-requirements/static-analysis/#skipping-var-naming
 skip_list:
   - jinja[spacing]
   - role-name[path]
